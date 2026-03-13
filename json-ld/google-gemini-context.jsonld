@@ -1,0 +1,454 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "gemini": "https://ai.google.dev/api/",
+    "gapi": "https://generativelanguage.googleapis.com/v1beta/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "GenerateContentRequest": {
+      "@id": "gemini:GenerateContentRequest",
+      "@context": {
+        "contents": {
+          "@id": "gemini:contents",
+          "@type": "@id",
+          "@container": "@list"
+        },
+        "tools": {
+          "@id": "gemini:tools",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "toolConfig": {
+          "@id": "gemini:toolConfig",
+          "@type": "@id"
+        },
+        "safetySettings": {
+          "@id": "gemini:safetySettings",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "systemInstruction": {
+          "@id": "gemini:systemInstruction",
+          "@type": "@id"
+        },
+        "generationConfig": {
+          "@id": "gemini:generationConfig",
+          "@type": "@id"
+        },
+        "cachedContent": {
+          "@id": "gemini:cachedContent",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "GenerateContentResponse": {
+      "@id": "gemini:GenerateContentResponse",
+      "@context": {
+        "candidates": {
+          "@id": "gemini:candidates",
+          "@type": "@id",
+          "@container": "@list"
+        },
+        "promptFeedback": {
+          "@id": "gemini:promptFeedback",
+          "@type": "@id"
+        },
+        "usageMetadata": {
+          "@id": "gemini:usageMetadata",
+          "@type": "@id"
+        },
+        "modelVersion": {
+          "@id": "gemini:modelVersion",
+          "@type": "xsd:string"
+        },
+        "responseId": {
+          "@id": "gemini:responseId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Content": {
+      "@id": "gemini:Content",
+      "@context": {
+        "parts": {
+          "@id": "gemini:parts",
+          "@type": "@id",
+          "@container": "@list"
+        },
+        "role": {
+          "@id": "gemini:role",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Part": {
+      "@id": "gemini:Part",
+      "@context": {
+        "text": {
+          "@id": "gemini:text",
+          "@type": "xsd:string"
+        },
+        "inlineData": {
+          "@id": "gemini:inlineData",
+          "@type": "@id"
+        },
+        "fileData": {
+          "@id": "gemini:fileData",
+          "@type": "@id"
+        },
+        "functionCall": {
+          "@id": "gemini:functionCall",
+          "@type": "@id"
+        },
+        "functionResponse": {
+          "@id": "gemini:functionResponse",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Blob": {
+      "@id": "gemini:Blob",
+      "@context": {
+        "mimeType": {
+          "@id": "gemini:mimeType",
+          "@type": "xsd:string"
+        },
+        "data": {
+          "@id": "gemini:data",
+          "@type": "xsd:base64Binary"
+        }
+      }
+    },
+
+    "FileData": {
+      "@id": "gemini:FileData",
+      "@context": {
+        "mimeType": {
+          "@id": "gemini:mimeType",
+          "@type": "xsd:string"
+        },
+        "fileUri": {
+          "@id": "gemini:fileUri",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "FunctionCall": {
+      "@id": "gemini:FunctionCall",
+      "@context": {
+        "name": {
+          "@id": "gemini:functionName",
+          "@type": "xsd:string"
+        },
+        "args": {
+          "@id": "gemini:functionArgs",
+          "@type": "@json"
+        }
+      }
+    },
+
+    "FunctionResponse": {
+      "@id": "gemini:FunctionResponse",
+      "@context": {
+        "name": {
+          "@id": "gemini:functionName",
+          "@type": "xsd:string"
+        },
+        "response": {
+          "@id": "gemini:functionResponseData",
+          "@type": "@json"
+        }
+      }
+    },
+
+    "Tool": {
+      "@id": "gemini:Tool",
+      "@context": {
+        "functionDeclarations": {
+          "@id": "gemini:functionDeclarations",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "codeExecution": {
+          "@id": "gemini:codeExecution",
+          "@type": "@json"
+        }
+      }
+    },
+
+    "FunctionDeclaration": {
+      "@id": "gemini:FunctionDeclaration",
+      "@context": {
+        "name": {
+          "@id": "gemini:functionName",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "dcterms:description",
+          "@type": "xsd:string"
+        },
+        "parameters": {
+          "@id": "gemini:parameters",
+          "@type": "@json"
+        }
+      }
+    },
+
+    "ToolConfig": {
+      "@id": "gemini:ToolConfig",
+      "@context": {
+        "functionCallingConfig": {
+          "@id": "gemini:functionCallingConfig",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "FunctionCallingConfig": {
+      "@id": "gemini:FunctionCallingConfig",
+      "@context": {
+        "mode": {
+          "@id": "gemini:functionCallingMode",
+          "@type": "xsd:string"
+        },
+        "allowedFunctionNames": {
+          "@id": "gemini:allowedFunctionNames",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "SafetySetting": {
+      "@id": "gemini:SafetySetting",
+      "@context": {
+        "category": {
+          "@id": "gemini:harmCategory",
+          "@type": "xsd:string"
+        },
+        "threshold": {
+          "@id": "gemini:blockThreshold",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "GenerationConfig": {
+      "@id": "gemini:GenerationConfig",
+      "@context": {
+        "candidateCount": {
+          "@id": "gemini:candidateCount",
+          "@type": "xsd:integer"
+        },
+        "stopSequences": {
+          "@id": "gemini:stopSequences",
+          "@container": "@list"
+        },
+        "maxOutputTokens": {
+          "@id": "gemini:maxOutputTokens",
+          "@type": "xsd:integer"
+        },
+        "temperature": {
+          "@id": "gemini:temperature",
+          "@type": "xsd:float"
+        },
+        "topP": {
+          "@id": "gemini:topP",
+          "@type": "xsd:float"
+        },
+        "topK": {
+          "@id": "gemini:topK",
+          "@type": "xsd:integer"
+        },
+        "responseMimeType": {
+          "@id": "gemini:responseMimeType",
+          "@type": "xsd:string"
+        },
+        "responseSchema": {
+          "@id": "gemini:responseSchema",
+          "@type": "@json"
+        },
+        "presencePenalty": {
+          "@id": "gemini:presencePenalty",
+          "@type": "xsd:float"
+        },
+        "frequencyPenalty": {
+          "@id": "gemini:frequencyPenalty",
+          "@type": "xsd:float"
+        },
+        "seed": {
+          "@id": "gemini:seed",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Candidate": {
+      "@id": "gemini:Candidate",
+      "@context": {
+        "content": {
+          "@id": "gemini:candidateContent",
+          "@type": "@id"
+        },
+        "finishReason": {
+          "@id": "gemini:finishReason",
+          "@type": "xsd:string"
+        },
+        "safetyRatings": {
+          "@id": "gemini:safetyRatings",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "citationMetadata": {
+          "@id": "gemini:citationMetadata",
+          "@type": "@id"
+        },
+        "tokenCount": {
+          "@id": "gemini:tokenCount",
+          "@type": "xsd:integer"
+        },
+        "index": {
+          "@id": "gemini:candidateIndex",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "SafetyRating": {
+      "@id": "gemini:SafetyRating",
+      "@context": {
+        "category": {
+          "@id": "gemini:harmCategory",
+          "@type": "xsd:string"
+        },
+        "probability": {
+          "@id": "gemini:harmProbability",
+          "@type": "xsd:string"
+        },
+        "blocked": {
+          "@id": "gemini:blocked",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "CitationMetadata": {
+      "@id": "gemini:CitationMetadata",
+      "@context": {
+        "citationSources": {
+          "@id": "gemini:citationSources",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "CitationSource": {
+      "@id": "gemini:CitationSource",
+      "@context": {
+        "startIndex": {
+          "@id": "gemini:startIndex",
+          "@type": "xsd:integer"
+        },
+        "endIndex": {
+          "@id": "gemini:endIndex",
+          "@type": "xsd:integer"
+        },
+        "uri": {
+          "@id": "gemini:sourceUri",
+          "@type": "@id"
+        },
+        "license": {
+          "@id": "gemini:license",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "PromptFeedback": {
+      "@id": "gemini:PromptFeedback",
+      "@context": {
+        "blockReason": {
+          "@id": "gemini:blockReason",
+          "@type": "xsd:string"
+        },
+        "safetyRatings": {
+          "@id": "gemini:safetyRatings",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "UsageMetadata": {
+      "@id": "gemini:UsageMetadata",
+      "@context": {
+        "promptTokenCount": {
+          "@id": "gemini:promptTokenCount",
+          "@type": "xsd:integer"
+        },
+        "candidatesTokenCount": {
+          "@id": "gemini:candidatesTokenCount",
+          "@type": "xsd:integer"
+        },
+        "totalTokenCount": {
+          "@id": "gemini:totalTokenCount",
+          "@type": "xsd:integer"
+        },
+        "cachedContentTokenCount": {
+          "@id": "gemini:cachedContentTokenCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "EmbedContentRequest": {
+      "@id": "gemini:EmbedContentRequest",
+      "@context": {
+        "content": {
+          "@id": "gemini:embeddingContent",
+          "@type": "@id"
+        },
+        "taskType": {
+          "@id": "gemini:taskType",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "dcterms:title",
+          "@type": "xsd:string"
+        },
+        "outputDimensionality": {
+          "@id": "gemini:outputDimensionality",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "EmbedContentResponse": {
+      "@id": "gemini:EmbedContentResponse",
+      "@context": {
+        "embedding": {
+          "@id": "gemini:embedding",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "ContentEmbedding": {
+      "@id": "gemini:ContentEmbedding",
+      "@context": {
+        "values": {
+          "@id": "gemini:embeddingValues",
+          "@container": "@list"
+        }
+      }
+    }
+  }
+}

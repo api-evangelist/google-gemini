@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-search/google-gemini/json-schema/google-gemini-generate-content-schema.json",
+  "title": "Google Gemini Generate Content Schema",
+  "description": "JSON Schema definitions for the Google Gemini API generateContent request and response objects, covering all core models including Content, Part, GenerationConfig, SafetySetting, Candidate, and UsageMetadata.",
+  "type": "object",
+  "$defs": {
+    "Blob": {
+      "type": "object",
+      "description": "Raw media bytes with MIME type information for inline media content.",
+      "properties": {
+        "mimeType": {
+          "type": "string",
+          "description": "The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4."
+        },
+        "data": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "description": "Raw bytes for media formats encoded as a base64 string."
+        }
+      },
+      "required": ["mimeType", "data"]
+    },
+    "FileData": {
+      "type": "object",
+      "description": "URI-based reference for media uploaded via the Files API.",
+      "properties": {
+        "mimeType": {
+          "type": "string",
+          "description": "The IANA standard MIME type of the source data."
+        },
+        "fileUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI of the file uploaded via the Files API."
+        }
+      },
+      "required": ["mimeType", "fileUri"]
+    },
+    "FunctionCall": {
+      "type": "object",
+      "description": "A predicted function call returned from the model containing the function name and arguments.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the function to call.",
+          "pattern": "^[a-zA-Z0-9_-]{1,63}$"
+        },
+        "args": {
+          "type": "object",
+          "description": "The function parameters and values in JSON object format.",
+          "additionalProperties": true
+        }
+      },
+      "required": ["name"]
+    },
+    "FunctionResponse": {
+      "type": "object",
+      "description": "The result output from a FunctionCall containing the function name and structured JSON response.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the function that was called.",
+          "pattern": "^[a-zA-Z0-9_-]{1,63}$"
+        },
+        "response": {
+          "type": "object",
+          "description": "The function response in JSON object format.",
+          "additionalProperties": true
+        }
+      },
+      "required": ["name", "response"]
+    },
+    "Part": {
+      "type": "object",
+      "description": "A datatype containing media that is part of a multi-part Content message. A Part can contain text, inline media data, file references, function calls, or function responses.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Inline text content."
+        },
+        "inlineData": {
+          "$ref": "#/$defs/Blob"
+        },
+        "fileData": {
+          "$ref": "#/$defs/FileData"
+        },
+        "functionCall": {
+          "$ref": "#/$defs/FunctionCall"
+        },
+        "functionResponse": {
+          "$ref": "#/$defs/FunctionResponse"
+        }
+      },
+      "oneOf": [
+        { "required": ["text"] },
+        { "required": ["inlineData"] },
+        { "required": ["fileData"] },
+        { "required": ["functionCall"] },
+        { "required": ["functionResponse"] }
+      ]
+    },
+    "Content": {
+      "type": "object",
+      "description": "The base structured datatype containing multi-part content of a message. Includes a role field designating the producer and a parts field with the message data.",
+      "properties": {
+        "parts": {
+          "type": "array",
+          "description": "Ordered parts that constitute a single message. Parts may have different MIME types.",
+          "items": {
+            "$ref": "#/$defs/Part"
+          },
+          "minItems": 1
+        },
+        "role": {
+          "type": "string",
+          "description": "The producer of the content. Must be either 'user' or 'model'.",
+          "enum": ["user", "model"]
+        }
+      },
+      "required": ["parts"]
+    },
+    "FunctionDeclaration": {
+      "type": "object",
+      "description": "Structured representation of a function declaration including the function name, description, and parameters.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the function.",
+          "pattern": "^[a-zA-Z0-9_-]{1,63}$"
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the function."
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Describes the parameters to this function using OpenAPI 3.0 Parameter Object format.",
+          "additionalProperties": true
+        }
+      },
+      "required": ["name", "description"]
+    },
+    "Tool": {
+      "type": "object",
+      "description": "Tool details that the model may use to generate responses, including function declarations and code execution.",
+      "properties": {
+        "functionDeclarations": {
+          "type": "array",
+          "description": "A list of function declarations available to the model for function calling.",
+          "items": {
+            "$ref": "#/$defs/FunctionDeclaration"
+          }
+        },
+        "codeExecution": {
+          "type": "object",
+          "description": "Enables the model to execute code as part of generation. Pass an empty object to enable."
+        }
+      }
+    },
+    "FunctionCallingConfig": {
+      "type": "object",
+      "description": "Configuration for specifying function calling behavior.",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "Specifies the mode in which function calling should execute.",
+          "enum": ["MODE_UNSPECIFIED", "AUTO", "ANY", "NONE"]
+        },
+        "allowedFunctionNames": {
+          "type": "array",
+          "description": "Function names that limit which functions the model will call. Only applicable when mode is ANY.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ToolConfig": {
+      "type": "object",
+      "description": "Configuration containing parameters for specifying Tool use in the request.",
+      "properties": {
+        "functionCallingConfig": {
+          "$ref": "#/$defs/FunctionCallingConfig"
+        }
+      }
+    },
+    "HarmCategory": {
+      "type": "string",
+      "description": "The category of harm that a safety setting or rating applies to.",
+      "enum": [
+        "HARM_CATEGORY_UNSPECIFIED",
+        "HARM_CATEGORY_HATE_SPEECH",
+        "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "HARM_CATEGORY_HARASSMENT",
+        "HARM_CATEGORY_CIVIC_INTEGRITY"
+      ]
+    },
+    "SafetySetting": {
+      "type": "object",
+      "description": "Safety setting that affects the safety-blocking behavior. Controls the probability threshold at which content is blocked for a given harm category.",
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/HarmCategory"
+        },
+        "threshold": {
+          "type": "string",
+          "description": "Controls the probability threshold at which harm is blocked.",
+          "enum": [
+            "HARM_BLOCK_THRESHOLD_UNSPECIFIED",
+            "BLOCK_LOW_AND_ABOVE",
+            "BLOCK_MEDIUM_AND_ABOVE",
+            "BLOCK_ONLY_HIGH",
+            "BLOCK_NONE",
+            "OFF"
+          ]
+        }
+      },
+      "required": ["category", "threshold"]
+    },
+    "GenerationConfig": {
+      "type": "object",
+      "description": "Configuration options for model generation and outputs including temperature, token limits, sampling parameters, and structured output settings.",
+      "properties": {
+        "candidateCount": {
+          "type": "integer",
+          "description": "Number of generated responses to return. Currently can only be set to 1.",
+          "minimum": 1,
+          "maximum": 1,
+          "default": 1
+        },
+        "stopSequences": {
+          "type": "array",
+          "description": "Character sequences (up to 5) that will stop output generation.",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5
+        },
+        "maxOutputTokens": {
+          "type": "integer",
+          "description": "The maximum number of tokens to include in a response candidate.",
+          "minimum": 1
+        },
+        "temperature": {
+          "type": "number",
+          "description": "Controls the randomness of the output. Values range from 0.0 to 2.0.",
+          "minimum": 0.0,
+          "maximum": 2.0
+        },
+        "topP": {
+          "type": "number",
+          "description": "The maximum cumulative probability of tokens to consider when sampling (nucleus sampling).",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "topK": {
+          "type": "integer",
+          "description": "The maximum number of tokens to consider when sampling.",
+          "minimum": 1
+        },
+        "responseMimeType": {
+          "type": "string",
+          "description": "MIME type of the generated candidate text. Supported: text/plain, application/json, text/x.enum.",
+          "enum": ["text/plain", "application/json", "text/x.enum"]
+        },
+        "responseSchema": {
+          "type": "object",
+          "description": "Output schema of the generated candidate text when using structured output (application/json).",
+          "additionalProperties": true
+        },
+        "presencePenalty": {
+          "type": "number",
+          "description": "Positive values penalize tokens that have already appeared, increasing diversity."
+        },
+        "frequencyPenalty": {
+          "type": "number",
+          "description": "Positive values penalize tokens based on frequency, decreasing verbatim repetition."
+        },
+        "seed": {
+          "type": "integer",
+          "description": "Seed for deterministic decoding. Same seed and parameters will attempt to return the same response."
+        }
+      }
+    },
+    "SafetyRating": {
+      "type": "object",
+      "description": "Safety rating for content containing the harm category, probability level, and whether it was blocked.",
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/HarmCategory"
+        },
+        "probability": {
+          "type": "string",
+          "description": "The probability of harm for this content.",
+          "enum": [
+            "HARM_PROBABILITY_UNSPECIFIED",
+            "NEGLIGIBLE",
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "blocked": {
+          "type": "boolean",
+          "description": "Whether this content was blocked because of this rating."
+        }
+      },
+      "required": ["category", "probability"]
+    },
+    "CitationSource": {
+      "type": "object",
+      "description": "A citation to a source for a portion of a specific response.",
+      "properties": {
+        "startIndex": {
+          "type": "integer",
+          "description": "Start index of the response segment attributed to this source."
+        },
+        "endIndex": {
+          "type": "integer",
+          "description": "End index of the attributed segment, exclusive."
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI attributed as a source."
+        },
+        "license": {
+          "type": "string",
+          "description": "License for the source project."
+        }
+      }
+    },
+    "CitationMetadata": {
+      "type": "object",
+      "description": "A collection of source attributions for a piece of content.",
+      "properties": {
+        "citationSources": {
+          "type": "array",
+          "description": "Citations to sources for a specific response.",
+          "items": {
+            "$ref": "#/$defs/CitationSource"
+          }
+        }
+      }
+    },
+    "Candidate": {
+      "type": "object",
+      "description": "A response candidate generated from the model containing the generated content, finish reason, safety ratings, and citation metadata.",
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/Content"
+        },
+        "finishReason": {
+          "type": "string",
+          "description": "The reason why the model stopped generating tokens.",
+          "enum": [
+            "FINISH_REASON_UNSPECIFIED",
+            "STOP",
+            "MAX_TOKENS",
+            "SAFETY",
+            "RECITATION",
+            "LANGUAGE",
+            "OTHER",
+            "BLOCKLIST",
+            "PROHIBITED_CONTENT",
+            "SPII",
+            "MALFORMED_FUNCTION_CALL"
+          ]
+        },
+        "safetyRatings": {
+          "type": "array",
+          "description": "Safety ratings for the response candidate.",
+          "items": {
+            "$ref": "#/$defs/SafetyRating"
+          }
+        },
+        "citationMetadata": {
+          "$ref": "#/$defs/CitationMetadata"
+        },
+        "tokenCount": {
+          "type": "integer",
+          "description": "Token count for this candidate."
+        },
+        "index": {
+          "type": "integer",
+          "description": "Index of the candidate in the list of response candidates."
+        }
+      }
+    },
+    "PromptFeedback": {
+      "type": "object",
+      "description": "Feedback metadata for the prompt, including block reason and safety ratings.",
+      "properties": {
+        "blockReason": {
+          "type": "string",
+          "description": "If set, the prompt was blocked and no candidates are returned.",
+          "enum": [
+            "BLOCK_REASON_UNSPECIFIED",
+            "SAFETY",
+            "OTHER",
+            "BLOCKLIST",
+            "PROHIBITED_CONTENT"
+          ]
+        },
+        "safetyRatings": {
+          "type": "array",
+          "description": "Ratings for safety of the prompt.",
+          "items": {
+            "$ref": "#/$defs/SafetyRating"
+          }
+        }
+      }
+    },
+    "UsageMetadata": {
+      "type": "object",
+      "description": "Token usage metadata for the generation request.",
+      "properties": {
+        "promptTokenCount": {
+          "type": "integer",
+          "description": "Number of tokens in the prompt."
+        },
+        "candidatesTokenCount": {
+          "type": "integer",
+          "description": "Total number of tokens across all generated response candidates."
+        },
+        "totalTokenCount": {
+          "type": "integer",
+          "description": "Total token count for the generation request (prompt plus response candidates)."
+        },
+        "cachedContentTokenCount": {
+          "type": "integer",
+          "description": "Number of tokens in the cached part of the prompt."
+        }
+      }
+    },
+    "GenerateContentRequest": {
+      "type": "object",
+      "description": "Request body for the generateContent endpoint. Contains the conversation content, optional tools, safety settings, system instructions, and generation configuration.",
+      "properties": {
+        "contents": {
+          "type": "array",
+          "description": "Required. The content of the current conversation with the model.",
+          "items": {
+            "$ref": "#/$defs/Content"
+          },
+          "minItems": 1
+        },
+        "tools": {
+          "type": "array",
+          "description": "Tools the model may use to generate the next response.",
+          "items": {
+            "$ref": "#/$defs/Tool"
+          }
+        },
+        "toolConfig": {
+          "$ref": "#/$defs/ToolConfig"
+        },
+        "safetySettings": {
+          "type": "array",
+          "description": "Safety settings for blocking unsafe content.",
+          "items": {
+            "$ref": "#/$defs/SafetySetting"
+          }
+        },
+        "systemInstruction": {
+          "$ref": "#/$defs/Content"
+        },
+        "generationConfig": {
+          "$ref": "#/$defs/GenerationConfig"
+        },
+        "cachedContent": {
+          "type": "string",
+          "description": "Name of the cached content used as context. Format: cachedContents/{cachedContent}."
+        }
+      },
+      "required": ["contents"]
+    },
+    "GenerateContentResponse": {
+      "type": "object",
+      "description": "Response from the generateContent endpoint containing candidate responses, prompt feedback, and usage metadata.",
+      "properties": {
+        "candidates": {
+          "type": "array",
+          "description": "Candidate responses from the model.",
+          "items": {
+            "$ref": "#/$defs/Candidate"
+          }
+        },
+        "promptFeedback": {
+          "$ref": "#/$defs/PromptFeedback"
+        },
+        "usageMetadata": {
+          "$ref": "#/$defs/UsageMetadata"
+        },
+        "modelVersion": {
+          "type": "string",
+          "description": "The model version used to generate the response."
+        },
+        "responseId": {
+          "type": "string",
+          "description": "Unique identifier for the response."
+        }
+      }
+    }
+  }
+}
