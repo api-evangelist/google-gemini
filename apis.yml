@@ -1,5 +1,5 @@
 aid: google-gemini
-name: Google Gemini API
+name: Google Gemini
 description: Google's multimodal AI model APIs for text, image, audio, and video understanding
 image: https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg
 url: https://ai.google.dev/
