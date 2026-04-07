@@ -34,9 +34,7 @@ paths:
       tags:
         - Content Generation
       summary: >-
-        Generates a model response given an input GenerateContentRequest.
-        Refer to the text generation guide for detailed usage information.
-        Input capabilities differ between models, including tuned models.
+        Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation guide for detailed usage information. Input capabilities differ between models, including tuned models.
       description: >-
         Generates a response from the model given an input. The input can
         include text, images, audio, video, and other multimodal content.
@@ -118,9 +116,7 @@ paths:
       tags:
         - Content Generation
       summary: >-
-        Generates a streamed response from the model given an input
-        GenerateContentRequest. Returns a stream of GenerateContentResponse
-        chunks using server-sent events.
+        Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns a stream of GenerateContentResponse chunks using server-sent events.
       description: >-
         Generates a streamed response from the model. This endpoint behaves
         identically to generateContent but returns partial responses
@@ -185,8 +181,7 @@ paths:
       tags:
         - Embeddings
       summary: >-
-        Generates a text embedding vector from the input Content using the
-        specified Gemini Embedding model.
+        Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.
       description: >-
         Generates an embedding from the model given input content. The
         embedding is a vector representation of the input text that captures
