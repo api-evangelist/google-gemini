@@ -9,8 +9,8 @@ Google's multimodal AI model APIs for text, image, audio, and video understandin
 
 ## Timestamps
 
-- **Created:** 2024 
-- **Modified:** 2024 
+- **Created:** 2024-01-01
+- **Modified:** 2026-04-28
 
 ## APIs
 
