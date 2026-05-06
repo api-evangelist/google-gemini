@@ -4,120 +4,276 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Google Gemini
 providerId: google-gemini
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Agentic AI
-  - Artificial Intelligence
-  - Code Generation
-  - Embeddings
   - Generative AI
-  - Image Generation
   - LLM
-  - Machine Learning
-  - Multimodal
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Google
+  - AI Infrastructure
+description: Gemini API is offered in three service tiers - Free (limited models, no charge), Paid (higher
+  rate limits, context caching, Batch API at 50% off), and Enterprise (custom security, provisioned throughput,
+  volume discounts). Per-model pricing is per-million tokens with separate input and output rates and
+  multi-band pricing for very long prompts. Multimodal inputs (audio) are priced higher than text/image/video.
+sources:
+  - https://ai.google.dev/pricing
+  - https://ai.google.dev/gemini-api/docs/pricing
+  - https://ai.google.dev/gemini-api/docs/rate-limits
 plans:
   - id: google-gemini-free
-    name: Free
+    name: Free Tier
     type: freemium
-    description: Free entry tier for the Google Gemini API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free access to a subset of Gemini models (e.g., Gemini 3.1 Flash-Lite Preview, 2.5 Flash)
+      with input and output tokens at no charge. Subject to lower per-minute rate limits than paid tier.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Free input/output tokens
+        description: Tokens at no charge on free-tier-eligible models
+        name: free_tokens
         type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
+        metric: tokens
+        limit: -1
+        timeFrame: usage
         geo: global
         domains:
           - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
-          - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
-          - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Gemini API
-      - name: Gemini Pro API
-      - name: Gemini Pro Vision API
-      - name: Gemini Ultra API
-      - name: Gemini Embedding API
-      - name: Gemini Live API
-      - name: Gemini Context Caching API
-      - name: Gemini Fine-Tuning API
-  - id: google-gemini-pro
-    name: Professional
-    type: paid
-    description: Production tier for Google Gemini. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Gemini 3.1 Flash-Lite Preview (free models)
+      - name: Gemini 2.5 Flash (limited)
+      - name: Lower rate limits
+      - name: Best-effort availability
+  - id: google-gemini-3-1-pro-preview
+    name: Paid - Gemini 3.1 Pro Preview
+    type: usage-based
+    description: Per-token pricing for Gemini 3.1 Pro Preview with banded pricing for prompts above 200K
+      tokens.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Input tokens (<=200K)
+        description: Per-million input tokens for prompts up to 200K tokens
+        name: g31_pro_input_short
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '2.00'
+        userMultiplied: false
+      - label: Input tokens (>200K)
+        description: Per-million input tokens for prompts above 200K tokens
+        name: g31_pro_input_long
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '4.00'
+        userMultiplied: false
+      - label: Output tokens (<=200K prompt)
+        description: Per-million output tokens for prompts up to 200K tokens
+        name: g31_pro_output_short
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '12.00'
+        userMultiplied: false
+      - label: Output tokens (>200K prompt)
+        description: Per-million output tokens for prompts above 200K tokens
+        name: g31_pro_output_long
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '18.00'
+        userMultiplied: false
+    elements:
+      - name: Gemini 3.1 Pro (Preview)
+      - name: Long-context banded pricing
+      - name: Context caching
+      - name: Batch API (50% off)
+  - id: google-gemini-3-1-flash-lite-preview
+    name: Paid - Gemini 3.1 Flash-Lite Preview
+    type: usage-based
+    description: Per-token pricing for Gemini 3.1 Flash-Lite Preview. Audio inputs priced higher than
+      text/image/video.
+    entries:
+      - label: Input tokens (text / image / video)
+        description: Per-million input tokens for text, image, or video
+        name: g31_fl_input_text
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '0.25'
+        userMultiplied: false
+      - label: Input tokens (audio)
+        description: Per-million input tokens for audio
+        name: g31_fl_input_audio
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '0.50'
+        userMultiplied: false
+      - label: Output tokens
+        description: Per-million output tokens
+        name: g31_fl_output
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '1.50'
+        userMultiplied: false
+    elements:
+      - name: Gemini 3.1 Flash-Lite (Preview)
+      - name: Multimodal input (text/image/video/audio)
+      - name: Batch API (50% off)
+  - id: google-gemini-2-5-flash
+    name: Paid - Gemini 2.5 Flash
+    type: usage-based
+    description: Per-token pricing for Gemini 2.5 Flash. Audio inputs priced higher than text/image/video.
+    entries:
+      - label: Input tokens (text / image / video)
+        description: Per-million input tokens for text, image, or video
+        name: g25_flash_input_text
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '0.30'
+        userMultiplied: false
+      - label: Input tokens (audio)
+        description: Per-million input tokens for audio
+        name: g25_flash_input_audio
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '1.00'
+        userMultiplied: false
+      - label: Output tokens
+        description: Per-million output tokens
+        name: g25_flash_output
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '2.50'
+        userMultiplied: false
+    elements:
+      - name: Gemini 2.5 Flash
+      - name: Multimodal input
+      - name: Batch API (50% off)
+  - id: google-gemini-2-5-flash-lite
+    name: Paid - Gemini 2.5 Flash-Lite
+    type: usage-based
+    description: Per-token pricing for Gemini 2.5 Flash-Lite. Lowest list price for cost-sensitive workloads.
+    entries:
+      - label: Input tokens (text / image / video)
+        description: Per-million input tokens for text, image, or video
+        name: g25_fl_input_text
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '0.10'
+        userMultiplied: false
+      - label: Input tokens (audio)
+        description: Per-million input tokens for audio
+        name: g25_fl_input_audio
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '0.30'
+        userMultiplied: false
+      - label: Output tokens
+        description: Per-million output tokens
+        name: g25_fl_output
+        type: metered
+        metric: tokens
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://generativelanguage.googleapis.com
+        unit: 1000000
+        price: '0.40'
+        userMultiplied: false
+    elements:
+      - name: Gemini 2.5 Flash-Lite
+      - name: Lowest cost tier
+      - name: Batch API (50% off)
+  - id: google-gemini-grounding-search
+    name: Add-on - Google Search Grounding
+    type: usage-based
+    description: Per-search pricing for Google Search grounding requests. First 5,000 prompts/month are
+      free (shared across Gemini 3 models).
+    entries:
+      - label: Free monthly prompts
+        description: Free Google Search grounding prompts per month
+        name: search_free
         type: quota
         metric: requests
-        limit: 100000
+        limit: 5000
         timeFrame: month
         geo: global
         domains:
           - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
-          - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
-          - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Search grounding overage
+        description: Per-1,000 search queries above the free monthly allowance
+        name: search_overage
         type: metered
         metric: requests
         limit: -1
@@ -125,96 +281,36 @@ plans:
         geo: global
         domains:
           - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
-          - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
         unit: 1000
-        price: TBD
+        price: '14.00'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Gemini API
-      - name: Gemini Pro API
-      - name: Gemini Pro Vision API
-      - name: Gemini Ultra API
-      - name: Gemini Embedding API
-      - name: Gemini Live API
-      - name: Gemini Context Caching API
-      - name: Gemini Fine-Tuning API
-      - name: Gemini Interactions API
-      - name: Vertex AI Gemini API
-      - name: Vertex AI Imagen API
-      - name: Vertex AI Gemini Live API
-      - name: Vertex AI Text Embeddings API
-      - name: Firebase AI Logic API
+      - name: Google Search grounding for Gemini 3
+      - name: Free 5K prompts/month shared across Gemini 3
   - id: google-gemini-enterprise
-    name: Enterprise
+    name: Enterprise (Vertex AI)
     type: enterprise
-    description: Custom-negotiated tier for Google Gemini. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    description: Enterprise SKU sold via Google Cloud / Vertex AI with provisioned throughput, custom
+      security, VPC-SC, customer-managed encryption keys, and volume discount commitments. Pricing custom.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Provisioned throughput
+        description: Reserved Gemini capacity at negotiated rate
+        name: provisioned_throughput
+        type: subscription
+        metric: contract
         limit: -1
         timeFrame: month
-        geo: configurable
+        geo: global
         domains:
-          - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
           - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://generativelanguage.googleapis.com
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
-          - https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra
-          - https://aiplatform.googleapis.com
-          - https://firebaseml.googleapis.com
-        unit: 1
-        price: custom
+        price: contact sales
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Gemini API
-      - name: Gemini Pro API
-      - name: Gemini Pro Vision API
-      - name: Gemini Ultra API
-      - name: Gemini Embedding API
-      - name: Gemini Live API
-      - name: Gemini Context Caching API
-      - name: Gemini Fine-Tuning API
-      - name: Gemini Interactions API
-      - name: Vertex AI Gemini API
-      - name: Vertex AI Imagen API
-      - name: Vertex AI Gemini Live API
-      - name: Vertex AI Text Embeddings API
-      - name: Firebase AI Logic API
+      - name: Provisioned throughput
+      - name: VPC-SC + CMEK + data residency controls
+      - name: Volume / commit discounts
+      - name: Vertex AI integration
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

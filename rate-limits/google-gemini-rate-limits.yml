@@ -4,155 +4,76 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Google Gemini
 providerId: google-gemini
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Agentic AI
-  - Artificial Intelligence
-  - Code Generation
-  - Embeddings
   - Generative AI
-  - Image Generation
   - LLM
-  - Machine Learning
-  - Multimodal
+  - Google
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Google Gemini API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Gemini API rate limits are scoped per usage tier (Free, Tier 1, Tier 2, Tier 3) and per model.
+  Each tier defines RPM (requests per minute), TPM (tokens per minute), and RPD (requests per day) ceilings.
+  Tier promotion is automatic based on cumulative spend and account age. Specific numerical limits are
+  not statically published per model; they are visible in Google AI Studio per project. The Batch API
+  has separate limits.
+sources:
+  - https://ai.google.dev/gemini-api/docs/rate-limits
+  - https://aistudio.google.com/rate-limit
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  resourceExhausted: 429
+  quotaExceeded: 403
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Gemini API
-      - Gemini Pro API
-      - Gemini Pro Vision API
-      - Gemini Ultra API
-      - Gemini Embedding API
-      - Gemini Live API
-      - Gemini Context Caching API
-      - Gemini Fine-Tuning API
-      - Gemini Interactions API
-      - Vertex AI Gemini API
-      - Vertex AI Imagen API
-      - Vertex AI Gemini Live API
-      - Vertex AI Text Embeddings API
-      - Firebase AI Logic API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Gemini API
-      - Gemini Pro API
-      - Gemini Pro Vision API
-      - Gemini Ultra API
-      - Gemini Embedding API
-      - Gemini Live API
-      - Gemini Context Caching API
-      - Gemini Fine-Tuning API
-      - Gemini Interactions API
-      - Vertex AI Gemini API
-      - Vertex AI Imagen API
-      - Vertex AI Gemini Live API
-      - Vertex AI Text Embeddings API
-      - Firebase AI Logic API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Gemini API
-      - Gemini Pro API
-      - Gemini Pro Vision API
-      - Gemini Ultra API
-      - Gemini Embedding API
-      - Gemini Live API
-      - Gemini Context Caching API
-      - Gemini Fine-Tuning API
-      - Gemini Interactions API
-      - Vertex AI Gemini API
-      - Vertex AI Imagen API
-      - Vertex AI Gemini Live API
-      - Vertex AI Text Embeddings API
-      - Firebase AI Logic API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - name: Free tier
+    scope: project
+    metric: varies
+    limit: see AI Studio rate-limit page
+    notes: Active project or free trial. Lowest RPM/TPM/RPD ceilings; varies by model.
+  - name: Tier 1
+    scope: project
+    metric: monthly_spend_cap_USD
+    limit: 250
+    notes: Linked billing account. $250 monthly spend cap; higher RPM/TPM/RPD than Free.
+  - name: Tier 2
+    scope: project
+    metric: monthly_spend_cap_USD
+    limit: 2000
+    notes: Reached after $100+ spent and 3 days on the account. $2,000 monthly spend cap.
+  - name: Tier 3
+    scope: project
+    metric: monthly_spend_cap_USD
     limit: 100000
-    timeFrame: month
-    applies:
-      - Gemini API
-      - Gemini Pro API
-      - Gemini Pro Vision API
-      - Gemini Ultra API
-      - Gemini Embedding API
-      - Gemini Live API
-      - Gemini Context Caching API
-      - Gemini Fine-Tuning API
-      - Gemini Interactions API
-      - Vertex AI Gemini API
-      - Vertex AI Imagen API
-      - Vertex AI Gemini Live API
-      - Vertex AI Text Embeddings API
-      - Firebase AI Logic API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Gemini API
-      - Gemini Pro API
-      - Gemini Pro Vision API
-      - Gemini Ultra API
-      - Gemini Embedding API
-      - Gemini Live API
-      - Gemini Context Caching API
-      - Gemini Fine-Tuning API
-      - Gemini Interactions API
-      - Vertex AI Gemini API
-      - Vertex AI Imagen API
-      - Vertex AI Gemini Live API
-      - Vertex AI Text Embeddings API
-      - Firebase AI Logic API
+    notes: Reached after $1,000+ spent and 30 days. Spend cap ranges $20,000-$100,000+ subject to review.
+  - name: Batch API concurrent batch requests
+    scope: project
+    metric: concurrent_requests
+    limit: 100
+  - name: Batch API input file size
+    scope: batch_request
+    metric: bytes
+    limit: 2147483648
+    notes: 2 GB.
+  - name: Batch API enqueued tokens
+    scope: project/model
+    metric: tokens
+    limit: see model-specific batch quota
+    notes: Ranges from millions to billions depending on model and tier.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Tier promotion
+    description: Tier upgrade is automatic when spend / account-age thresholds are met. Higher tiers grant
+      higher RPM/TPM/RPD across all models in your project.
+  - name: Live rate-limit visibility
+    description: View your current per-model RPM/TPM/RPD in the Google AI Studio Rate Limits page; programmatic
+      values are not statically documented because they change per tier and per model.
+  - name: 429 backoff
+    description: On 429 ResourceExhausted, retry with exponential backoff with jitter; respect any retry
+      hint metadata returned by the API.
+  - name: Batch API discount
+    description: Batch API offers 50% lower per-token cost vs synchronous calls and uses separate quota
+      buckets - a primary FinOps lever for non-latency-sensitive workloads.
+  - name: Vertex AI alternative
+    description: For higher throughput needs, use Gemini via Vertex AI with provisioned throughput; quotas
+      are governed by Vertex AI quotas and are raisable through the Cloud Console.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
