@@ -1,0 +1,225 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Gemini API
+  description: Google's Gemini API provides access to generative AI models for text generation, multimodal understanding,
+    and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation
+    parameters, and tool use capabilities.
+  tags:
+  - Google
+  - Gemini
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: google-gemini
+    baseUri: https://generativelanguage.googleapis.com/v1beta
+    description: Google Gemini API HTTP API.
+    authentication:
+      type: apikey
+      in: query
+      name: key
+      value: '{{GOOGLE_GEMINI_TOKEN}}'
+    resources:
+    - name: models-model-generatecontent
+      path: /models/{model}:generateContent
+      operations:
+      - name: generatecontent
+        method: POST
+        description: Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation
+          guide for detailed usage information. Input capabilities differ between models, including tuned models.
+        inputParameters:
+        - name: model
+          in: path
+          type: string
+          required: true
+          description: 'The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash.'
+        - name: key
+          in: query
+          type: string
+          required: true
+          description: API key for authentication.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: models-model-streamgeneratecontent
+      path: /models/{model}:streamGenerateContent
+      operations:
+      - name: streamgeneratecontent
+        method: POST
+        description: Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns
+          a stream of GenerateContentResponse chunks using server-sent events.
+        inputParameters:
+        - name: model
+          in: path
+          type: string
+          required: true
+          description: 'The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash.'
+        - name: key
+          in: query
+          type: string
+          required: true
+          description: API key for authentication.
+        - name: alt
+          in: query
+          type: string
+          description: Set to 'sse' for server-sent events streaming.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: models-model-embedcontent
+      path: /models/{model}:embedContent
+      operations:
+      - name: embedcontent
+        method: POST
+        description: Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding
+          model.
+        inputParameters:
+        - name: model
+          in: path
+          type: string
+          required: true
+          description: 'The model name to use for embedding. Format: models/{model}. Example: models/gemini-embedding-001.'
+        - name: key
+          in: query
+          type: string
+          required: true
+          description: API key for authentication.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: google-gemini-rest
+    description: REST adapter for Google Gemini API.
+    resources:
+    - path: /models/{model}:generateContent
+      name: generatecontent
+      operations:
+      - method: POST
+        name: generatecontent
+        description: Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation
+          guide for detailed usage information. Input capabilities differ between models, including tuned models.
+        call: google-gemini.generatecontent
+        with:
+          model: rest.model
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /models/{model}:streamGenerateContent
+      name: streamgeneratecontent
+      operations:
+      - method: POST
+        name: streamgeneratecontent
+        description: Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns
+          a stream of GenerateContentResponse chunks using server-sent events.
+        call: google-gemini.streamgeneratecontent
+        with:
+          model: rest.model
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /models/{model}:embedContent
+      name: embedcontent
+      operations:
+      - method: POST
+        name: embedcontent
+        description: Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding
+          model.
+        call: google-gemini.embedcontent
+        with:
+          model: rest.model
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: google-gemini-mcp
+    transport: http
+    description: MCP adapter for Google Gemini API for AI agent use.
+    tools:
+    - name: generatecontent
+      description: Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation
+        guide for detailed usage information. Input capabilities differ between models, including tuned models.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-gemini.generatecontent
+      with:
+        model: tools.model
+        key: tools.key
+      inputParameters:
+      - name: model
+        type: string
+        description: 'The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash.'
+        required: true
+      - name: key
+        type: string
+        description: API key for authentication.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: streamgeneratecontent
+      description: Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns
+        a stream of GenerateContentResponse chunks using server-sent events.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-gemini.streamgeneratecontent
+      with:
+        model: tools.model
+        key: tools.key
+        alt: tools.alt
+      inputParameters:
+      - name: model
+        type: string
+        description: 'The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash.'
+        required: true
+      - name: key
+        type: string
+        description: API key for authentication.
+        required: true
+      - name: alt
+        type: string
+        description: Set to 'sse' for server-sent events streaming.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: embedcontent
+      description: Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding
+        model.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-gemini.embedcontent
+      with:
+        model: tools.model
+        key: tools.key
+      inputParameters:
+      - name: model
+        type: string
+        description: 'The model name to use for embedding. Format: models/{model}. Example: models/gemini-embedding-001.'
+        required: true
+      - name: key
+        type: string
+        description: API key for authentication.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    GOOGLE_GEMINI_TOKEN: GOOGLE_GEMINI_TOKEN
