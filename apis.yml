@@ -45,21 +45,21 @@ apis:
         url: json-schema/google-gemini-generate-content-schema.json
       - type: JSON-LD Context
         url: json-ld/google-gemini-context.jsonld
-      - type: Getting Started
+      - type: GettingStarted
         url: https://ai.google.dev/tutorials/get_started_web
       - type: API Keys
         url: https://aistudio.google.com/app/apikey
       - type: Pricing
         url: https://ai.google.dev/pricing
-      - type: Rate Limits
+      - type: RateLimits
         url: https://ai.google.dev/docs/rate_limits
       - type: Models
         url: https://ai.google.dev/models
-      - type: API Reference
+      - type: APIReference
         url: https://ai.google.dev/api
       - type: Quickstart
         url: https://ai.google.dev/gemini-api/docs/quickstart
-      - type: Change Log
+      - type: ChangeLog
         url: https://ai.google.dev/gemini-api/docs/changelog
       - type: SDKs
         url: https://ai.google.dev/gemini-api/docs/libraries
@@ -145,7 +145,7 @@ apis:
     properties:
       - type: Documentation
         url: https://ai.google.dev/gemini-api/docs/caching
-      - type: API Reference
+      - type: APIReference
         url: https://ai.google.dev/api/caching
   - name: Gemini Fine-Tuning API
     description: >-
@@ -160,7 +160,7 @@ apis:
     properties:
       - type: Documentation
         url: https://ai.google.dev/gemini-api/docs/model-tuning
-      - type: API Reference
+      - type: APIReference
         url: https://ai.google.dev/api/tuning
   - name: Gemini Interactions API
     description: >-
@@ -190,7 +190,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/inference
-      - type: API Reference
+      - type: APIReference
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/reference/rest
       - type: Quickstart
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart
@@ -198,7 +198,7 @@ apis:
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/openai
       - type: Models
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models
-      - type: Release Notes
+      - type: ReleaseNotes
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/release-notes
       - type: Pricing
         url: https://cloud.google.com/vertex-ai/pricing
@@ -216,7 +216,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview
-      - type: API Reference
+      - type: APIReference
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/imagen-api
   - name: Vertex AI Gemini Live API
     description: >-
@@ -234,7 +234,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api
-      - type: API Reference
+      - type: APIReference
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/multimodal-live
   - name: Vertex AI Text Embeddings API
     description: >-
@@ -250,7 +250,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings
-      - type: API Reference
+      - type: APIReference
         url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api
   - name: Firebase AI Logic API
     description: >-
@@ -266,22 +266,22 @@ apis:
     properties:
       - type: Documentation
         url: https://firebase.google.com/docs/ai-logic
-      - type: Getting Started
+      - type: GettingStarted
         url: https://firebase.google.com/docs/ai-logic/get-started
       - type: Models
         url: https://firebase.google.com/docs/ai-logic/models
 common:
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://ai.google.dev/terms
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://policies.google.com/privacy
-  - type: Status Page
+  - type: StatusPage
     url: https://status.cloud.google.com/
   - type: Support
     url: https://ai.google.dev/docs/support
   - type: Blog
     url: https://developers.googleblog.com/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/google-gemini
   - type: Discord
     url: https://discord.gg/google-dev
