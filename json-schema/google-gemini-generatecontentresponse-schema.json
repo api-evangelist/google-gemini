@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerateContentResponse",
+  "title": "GenerateContentResponse",
+  "type": "object",
+  "description": "Response from the model supporting multiple candidate responses. Safety ratings and content filtering are reported for both prompt in GenerateContentResponse.prompt_feedback and for each candidate in finishReason and safetyRatings.",
+  "properties": {
+    "candidates": {
+      "type": "array",
+      "description": "Candidate responses from the model. There may be multiple candidates if candidateCount was set in the GenerationConfig.",
+      "items": {
+        "$ref": "#/components/schemas/Candidate"
+      }
+    },
+    "promptFeedback": {
+      "$ref": "#/components/schemas/PromptFeedback"
+    },
+    "usageMetadata": {
+      "$ref": "#/components/schemas/UsageMetadata"
+    },
+    "modelVersion": {
+      "type": "string",
+      "description": "The model version used to generate the response."
+    },
+    "responseId": {
+      "type": "string",
+      "description": "Unique identifier for the response."
+    }
+  }
+}

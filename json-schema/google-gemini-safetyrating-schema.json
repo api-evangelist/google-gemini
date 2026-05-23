@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SafetyRating",
+  "title": "SafetyRating",
+  "type": "object",
+  "description": "Safety rating for a piece of content. The safety rating contains the category of harm and the harm probability level in that category for a piece of content.",
+  "properties": {
+    "category": {
+      "type": "string",
+      "description": "The category for this rating.",
+      "enum": [
+        "HARM_CATEGORY_UNSPECIFIED",
+        "HARM_CATEGORY_HATE_SPEECH",
+        "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "HARM_CATEGORY_HARASSMENT",
+        "HARM_CATEGORY_CIVIC_INTEGRITY"
+      ]
+    },
+    "probability": {
+      "type": "string",
+      "description": "The probability of harm for this content.",
+      "enum": [
+        "HARM_PROBABILITY_UNSPECIFIED",
+        "NEGLIGIBLE",
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ]
+    },
+    "blocked": {
+      "type": "boolean",
+      "description": "Was this content blocked because of this rating?"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbedContentRequest",
+  "title": "EmbedContentRequest",
+  "type": "object",
+  "description": "Request containing the Content for the model to embed.",
+  "required": [
+    "content"
+  ],
+  "properties": {
+    "content": {
+      "$ref": "#/components/schemas/Content"
+    },
+    "taskType": {
+      "type": "string",
+      "description": "The type of task for which the embedding will be used. Not supported by older embedding models.",
+      "enum": [
+        "TASK_TYPE_UNSPECIFIED",
+        "RETRIEVAL_QUERY",
+        "RETRIEVAL_DOCUMENT",
+        "SEMANTIC_SIMILARITY",
+        "CLASSIFICATION",
+        "CLUSTERING",
+        "QUESTION_ANSWERING",
+        "FACT_VERIFICATION",
+        "CODE_RETRIEVAL_QUERY"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "description": "An optional title for the text. Only applicable when TaskType is RETRIEVAL_DOCUMENT. Note: Specifying a title for RETRIEVAL_DOCUMENT provides better quality embeddings for retrieval."
+    },
+    "outputDimensionality": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only."
+    }
+  }
+}

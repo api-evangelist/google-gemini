@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UsageMetadata",
+  "title": "UsageMetadata",
+  "type": "object",
+  "description": "Metadata on the generation request's token usage.",
+  "properties": {
+    "promptTokenCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Number of tokens in the prompt."
+    },
+    "candidatesTokenCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Total number of tokens across all the generated response candidates."
+    },
+    "totalTokenCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Total token count for the generation request (prompt + response candidates)."
+    },
+    "cachedContentTokenCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Number of tokens in the cached part of the prompt (the cached content)."
+    }
+  }
+}

@@ -1,0 +1,11 @@
+name: Google Gemini Domain Vocabulary
+provider: Google Gemini
+providerId: google-gemini
+description: Tag-derived vocabulary for the Google Gemini API surface; sourced from openapi/ tags.
+terms:
+- term: Content Generation
+  description: Generate content using Gemini models with text, image, audio, and video inputs. Supports multimodal prompts,
+    function calling, structured output, and configurable safety settings.
+- term: Embeddings
+  description: Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks using
+    Gemini embedding models.

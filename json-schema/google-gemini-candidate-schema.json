@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Candidate",
+  "title": "Candidate",
+  "type": "object",
+  "description": "A response candidate generated from the model.",
+  "properties": {
+    "content": {
+      "$ref": "#/components/schemas/Content"
+    },
+    "finishReason": {
+      "type": "string",
+      "description": "The reason why the model stopped generating tokens. If empty, the model has not stopped generating tokens.",
+      "enum": [
+        "FINISH_REASON_UNSPECIFIED",
+        "STOP",
+        "MAX_TOKENS",
+        "SAFETY",
+        "RECITATION",
+        "LANGUAGE",
+        "OTHER",
+        "BLOCKLIST",
+        "PROHIBITED_CONTENT",
+        "SPII",
+        "MALFORMED_FUNCTION_CALL"
+      ]
+    },
+    "safetyRatings": {
+      "type": "array",
+      "description": "List of ratings for the safety of a response candidate. There is at most one rating per category.",
+      "items": {
+        "$ref": "#/components/schemas/SafetyRating"
+      }
+    },
+    "citationMetadata": {
+      "$ref": "#/components/schemas/CitationMetadata"
+    },
+    "tokenCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Token count for this candidate."
+    },
+    "index": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Index of the candidate in the list of response candidates."
+    }
+  }
+}

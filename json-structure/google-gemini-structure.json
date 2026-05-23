@@ -1,0 +1,189 @@
+{
+  "provider": "Google Gemini",
+  "providerId": "google-gemini",
+  "kind": "json-structure",
+  "description": "Structural overview of the Google Gemini API surface; extracted from openapi/.",
+  "schemaCount": 24,
+  "operationCount": 3,
+  "schemas": [
+    {
+      "name": "GenerateContentRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "contents"
+      ]
+    },
+    {
+      "name": "GenerateContentResponse",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Content",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Part",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Blob",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "FileData",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "FunctionCall",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "FunctionResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Tool",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "FunctionDeclaration",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "ToolConfig",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "FunctionCallingConfig",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "SafetySetting",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GenerationConfig",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "Candidate",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "SafetyRating",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CitationMetadata",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CitationSource",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PromptFeedback",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "UsageMetadata",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "EmbedContentRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "content"
+      ]
+    },
+    {
+      "name": "EmbedContentResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ContentEmbedding",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/models/{model}:generateContent",
+      "operationId": "generateContent",
+      "summary": "Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation guide for detailed usage information. Input capabilities differ between models, including tuned models.",
+      "tags": [
+        "Content Generation"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/models/{model}:streamGenerateContent",
+      "operationId": "streamGenerateContent",
+      "summary": "Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns a stream of GenerateContentResponse chunks using server-sent events.",
+      "tags": [
+        "Content Generation"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/models/{model}:embedContent",
+      "operationId": "embedContent",
+      "summary": "Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.",
+      "tags": [
+        "Embeddings"
+      ]
+    }
+  ]
+}

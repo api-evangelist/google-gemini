@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerationConfig",
+  "title": "GenerationConfig",
+  "type": "object",
+  "description": "Configuration options for model generation and outputs. Not all parameters are configurable for every model.",
+  "properties": {
+    "candidateCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Number of generated responses to return. Currently, this value can only be set to 1. If unset, this will default to 1."
+    },
+    "stopSequences": {
+      "type": "array",
+      "description": "The set of character sequences (up to 5) that will stop output generation. If specified, the API will stop at the first appearance of a stop_sequence. The stop sequence will not be included as part of the response.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxOutputTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The maximum number of tokens to include in a response candidate. Note: The default value varies by model."
+    },
+    "temperature": {
+      "type": "number",
+      "format": "float",
+      "description": "Controls the randomness of the output. Values can range from 0.0 to 2.0 inclusive. A higher value will produce responses that are more varied and creative, while a value closer to 0.0 will typically result in more straightforward responses from the model."
+    },
+    "topP": {
+      "type": "number",
+      "format": "float",
+      "description": "The maximum cumulative probability of tokens to consider when sampling. The model uses combined Top-k and Top-p (nucleus) sampling. Tokens are sorted based on their assigned probabilities so that only the most likely tokens are considered."
+    },
+    "topK": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The maximum number of tokens to consider when sampling. Gemini models use Top-p (nucleus) sampling or a combination of Top-k and nucleus sampling."
+    },
+    "responseMimeType": {
+      "type": "string",
+      "description": "MIME type of the generated candidate text. Supported MIME types are text/plain (default), application/json (JSON response in the response candidates), and text/x.enum (for classification tasks)."
+    },
+    "responseSchema": {
+      "type": "object",
+      "description": "Output schema of the generated candidate text. Schemas must be a subset of the OpenAPI schema and can be objects, primitives, or arrays. If set, a compatible responseMimeType must also be set. Compatible MIME types: application/json.",
+      "additionalProperties": true
+    },
+    "presencePenalty": {
+      "type": "number",
+      "format": "float",
+      "description": "Positive values penalize tokens that have already appeared in the generated text, increasing the likelihood of generating more diverse content."
+    },
+    "frequencyPenalty": {
+      "type": "number",
+      "format": "float",
+      "description": "Positive values penalize tokens based on their frequency in the generated text, decreasing the likelihood of repeating the same content verbatim."
+    },
+    "seed": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Seed used in decoding. If specified with the same seed and parameters, the model will attempt to return the same response."
+    }
+  }
+}

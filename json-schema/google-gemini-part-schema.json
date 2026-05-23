@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Part",
+  "title": "Part",
+  "type": "object",
+  "description": "A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Inline text."
+    },
+    "inlineData": {
+      "$ref": "#/components/schemas/Blob"
+    },
+    "fileData": {
+      "$ref": "#/components/schemas/FileData"
+    },
+    "functionCall": {
+      "$ref": "#/components/schemas/FunctionCall"
+    },
+    "functionResponse": {
+      "$ref": "#/components/schemas/FunctionResponse"
+    }
+  }
+}

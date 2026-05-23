@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolConfig",
+  "title": "ToolConfig",
+  "type": "object",
+  "description": "The Tool configuration containing parameters for specifying Tool use in the request.",
+  "properties": {
+    "functionCallingConfig": {
+      "$ref": "#/components/schemas/FunctionCallingConfig"
+    }
+  }
+}

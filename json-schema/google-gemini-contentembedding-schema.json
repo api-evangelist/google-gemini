@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContentEmbedding",
+  "title": "ContentEmbedding",
+  "type": "object",
+  "description": "A list of floats representing an embedding.",
+  "properties": {
+    "values": {
+      "type": "array",
+      "description": "The embedding values.",
+      "items": {
+        "type": "number",
+        "format": "float"
+      }
+    }
+  }
+}

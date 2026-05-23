@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FunctionResponse",
+  "title": "FunctionResponse",
+  "type": "object",
+  "description": "The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63."
+    },
+    "response": {
+      "type": "object",
+      "description": "Required. The function response in JSON object format.",
+      "additionalProperties": true
+    }
+  }
+}

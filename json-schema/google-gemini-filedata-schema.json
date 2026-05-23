@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FileData",
+  "title": "FileData",
+  "type": "object",
+  "description": "URI based data for media uploaded via the Files API.",
+  "properties": {
+    "mimeType": {
+      "type": "string",
+      "description": "The IANA standard MIME type of the source data."
+    },
+    "fileUri": {
+      "type": "string",
+      "description": "URI of the file."
+    }
+  }
+}

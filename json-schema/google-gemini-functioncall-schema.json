@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FunctionCall",
+  "title": "FunctionCall",
+  "type": "object",
+  "description": "A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63."
+    },
+    "args": {
+      "type": "object",
+      "description": "The function parameters and values in JSON object format.",
+      "additionalProperties": true
+    }
+  }
+}

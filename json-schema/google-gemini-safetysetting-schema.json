@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SafetySetting",
+  "title": "SafetySetting",
+  "type": "object",
+  "description": "Safety setting, affecting the safety-blocking behavior. Passing a safety setting for a category changes the allowed probability that content is blocked.",
+  "properties": {
+    "category": {
+      "type": "string",
+      "description": "Required. The category for this setting.",
+      "enum": [
+        "HARM_CATEGORY_UNSPECIFIED",
+        "HARM_CATEGORY_HATE_SPEECH",
+        "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "HARM_CATEGORY_HARASSMENT",
+        "HARM_CATEGORY_CIVIC_INTEGRITY"
+      ]
+    },
+    "threshold": {
+      "type": "string",
+      "description": "Required. Controls the probability threshold at which harm is blocked.",
+      "enum": [
+        "HARM_BLOCK_THRESHOLD_UNSPECIFIED",
+        "BLOCK_LOW_AND_ABOVE",
+        "BLOCK_MEDIUM_AND_ABOVE",
+        "BLOCK_ONLY_HIGH",
+        "BLOCK_NONE",
+        false
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Blob",
+  "title": "Blob",
+  "type": "object",
+  "description": "Raw media bytes with MIME type information.",
+  "properties": {
+    "mimeType": {
+      "type": "string",
+      "description": "The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4."
+    },
+    "data": {
+      "type": "string",
+      "format": "byte",
+      "description": "Raw bytes for media formats encoded as base64."
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbedContentResponse",
+  "title": "EmbedContentResponse",
+  "type": "object",
+  "description": "The response to an EmbedContentRequest.",
+  "properties": {
+    "embedding": {
+      "$ref": "#/components/schemas/ContentEmbedding"
+    }
+  }
+}

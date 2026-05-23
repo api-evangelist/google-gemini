@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CitationSource",
+  "title": "CitationSource",
+  "type": "object",
+  "description": "A citation to a source for a portion of a specific response.",
+  "properties": {
+    "startIndex": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Start of segment of the response that is attributed to this source."
+    },
+    "endIndex": {
+      "type": "integer",
+      "format": "int32",
+      "description": "End of the attributed segment, exclusive."
+    },
+    "uri": {
+      "type": "string",
+      "description": "URI that is attributed as a source for a portion of the text."
+    },
+    "license": {
+      "type": "string",
+      "description": "License for the GitHub project that is attributed as a source."
+    }
+  }
+}

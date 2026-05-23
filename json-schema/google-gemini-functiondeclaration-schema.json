@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FunctionDeclaration",
+  "title": "FunctionDeclaration",
+  "type": "object",
+  "description": "Structured representation of a function declaration as defined by the OpenAPI 3.0 specification. Included in this declaration are the function name and parameters.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Required. The name of the function. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63."
+    },
+    "description": {
+      "type": "string",
+      "description": "Required. A brief description of the function."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Describes the parameters to this function. Reflects the Open API 3.03 Parameter Object. String key: the name of the parameter. Parameter names are case sensitive. Schema Value: the Schema defining the type used for the parameter.",
+      "additionalProperties": true
+    }
+  }
+}

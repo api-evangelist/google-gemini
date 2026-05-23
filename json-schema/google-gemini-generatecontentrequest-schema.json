@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerateContentRequest",
+  "title": "GenerateContentRequest",
+  "type": "object",
+  "description": "Request to generate a completion from the model. Contains the conversation content, optional tools, safety settings, system instructions, and generation configuration.",
+  "required": [
+    "contents"
+  ],
+  "properties": {
+    "contents": {
+      "type": "array",
+      "description": "Required. The content of the current conversation with the model. For single-turn queries, this is a single instance. For multi-turn queries such as chat, this is a repeated field that contains the conversation history and the latest request.",
+      "items": {
+        "$ref": "#/components/schemas/Content"
+      }
+    },
+    "tools": {
+      "type": "array",
+      "description": "A list of Tools the Model may use to generate the next response. A Tool is a piece of code that enables the system to interact with external systems to perform an action, or set of actions, outside of knowledge and scope of the Model.",
+      "items": {
+        "$ref": "#/components/schemas/Tool"
+      }
+    },
+    "toolConfig": {
+      "$ref": "#/components/schemas/ToolConfig"
+    },
+    "safetySettings": {
+      "type": "array",
+      "description": "A list of unique SafetySetting instances for blocking unsafe content. This will be enforced on the GenerateContentRequest.contents and GenerateContentResponse.candidates. There should be at most one setting for each SafetyCategory type.",
+      "items": {
+        "$ref": "#/components/schemas/SafetySetting"
+      }
+    },
+    "systemInstruction": {
+      "$ref": "#/components/schemas/Content"
+    },
+    "generationConfig": {
+      "$ref": "#/components/schemas/GenerationConfig"
+    },
+    "cachedContent": {
+      "type": "string",
+      "description": "The name of the cached content used as context to serve the prediction. Format: cachedContents/{cachedContent}."
+    }
+  }
+}
