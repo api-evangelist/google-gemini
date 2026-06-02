@@ -1,0 +1,1169 @@
+asyncapi: 2.6.0
+info:
+  title: Google Gemini Streaming and Live API
+  version: 1.0.0
+  description: |
+    AsyncAPI specification describing Google Gemini's real-time and streaming
+    surface area:
+
+      * The Live API bidirectional WebSocket service
+        (BidiGenerateContent) used for low-latency multimodal voice, video
+        and text interactions.
+      * The streamGenerateContent HTTP server-sent events (SSE) endpoint
+        used for token-by-token streaming of generated content.
+
+    All message names and field names are taken from the official Google
+    Gemini API reference at https://ai.google.dev/api/live and
+    https://ai.google.dev/api/generate-content.
+  contact:
+    name: Google AI for Developers
+    url: https://ai.google.dev/
+  license:
+    name: Google APIs Terms of Service
+    url: https://ai.google.dev/terms
+  termsOfService: https://ai.google.dev/terms
+  x-apievangelist-modified: '2026-05-29'
+
+defaultContentType: application/json
+
+servers:
+  live:
+    url: generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent
+    protocol: wss
+    description: |
+      Gemini Live API bidirectional WebSocket endpoint
+      (BidiGenerateContent). Stateful WSS connection that accepts audio
+      (raw 16-bit PCM, 16kHz, little-endian), images (JPEG <= 1FPS) and
+      text input, and streams audio (raw 16-bit PCM, 24kHz, little-endian)
+      and text output back to the client.
+    security:
+      - apiKey: []
+    bindings:
+      ws:
+        method: GET
+        query:
+          type: object
+          properties:
+            key:
+              type: string
+              description: Gemini API key (alternative to header auth).
+        bindingVersion: 0.1.0
+  rest:
+    url: generativelanguage.googleapis.com
+    protocol: https
+    description: |
+      Gemini REST endpoint used for streamGenerateContent. The streaming
+      response is delivered as text/event-stream (SSE) where each event is
+      a serialized GenerateContentResponse JSON object.
+    security:
+      - apiKey: []
+
+channels:
+  /ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent:
+    description: |
+      Single bidirectional WebSocket channel for the Live API. The first
+      message sent by the client MUST be BidiGenerateContentSetup, after
+      which any of the client-to-server messages can be sent and any of
+      the server-to-client messages can be received.
+    servers:
+      - live
+    bindings:
+      ws:
+        bindingVersion: 0.1.0
+    publish:
+      summary: Client-to-server messages sent over the Live API WebSocket.
+      operationId: sendLiveClientMessage
+      message:
+        oneOf:
+          - $ref: '#/components/messages/BidiGenerateContentSetup'
+          - $ref: '#/components/messages/BidiGenerateContentClientContent'
+          - $ref: '#/components/messages/BidiGenerateContentRealtimeInput'
+          - $ref: '#/components/messages/BidiGenerateContentToolResponse'
+    subscribe:
+      summary: Server-to-client messages received over the Live API WebSocket.
+      operationId: receiveLiveServerMessage
+      message:
+        oneOf:
+          - $ref: '#/components/messages/BidiGenerateContentSetupComplete'
+          - $ref: '#/components/messages/BidiGenerateContentServerContent'
+          - $ref: '#/components/messages/BidiGenerateContentToolCall'
+          - $ref: '#/components/messages/BidiGenerateContentToolCallCancellation'
+          - $ref: '#/components/messages/UsageMetadataMessage'
+          - $ref: '#/components/messages/GoAwayMessage'
+          - $ref: '#/components/messages/SessionResumptionUpdateMessage'
+
+  /v1beta/{model}:streamGenerateContent:
+    description: |
+      HTTP POST endpoint that streams a sequence of GenerateContentResponse
+      objects as server-sent events. The request body is a
+      GenerateContentRequest; the response is text/event-stream.
+    servers:
+      - rest
+    parameters:
+      model:
+        description: |
+          Fully qualified model resource name, for example
+          models/gemini-2.5-flash or models/gemini-2.5-pro.
+        schema:
+          type: string
+          example: models/gemini-2.5-flash
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: 0.3.0
+    publish:
+      summary: Send a streamGenerateContent request.
+      operationId: streamGenerateContentRequest
+      message:
+        $ref: '#/components/messages/GenerateContentRequest'
+    subscribe:
+      summary: Receive streamed GenerateContentResponse SSE events.
+      operationId: streamGenerateContentResponse
+      message:
+        $ref: '#/components/messages/GenerateContentResponseEvent'
+
+components:
+  securitySchemes:
+    apiKey:
+      type: httpApiKey
+      name: x-goog-api-key
+      in: header
+      description: |
+        Gemini API key. Can be supplied via the x-goog-api-key header or
+        the key query parameter. Obtain from Google AI Studio.
+
+  messages:
+    # ---------------- Live API: client -> server ----------------
+    BidiGenerateContentSetup:
+      name: BidiGenerateContentSetup
+      title: Setup
+      summary: |
+        First message the client sends after opening the WebSocket. Tells
+        the server which model to use and how to configure the session.
+        Must be sent exactly once before any other client message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentSetup'
+
+    BidiGenerateContentClientContent:
+      name: BidiGenerateContentClientContent
+      title: Client Content
+      summary: |
+        Incremental update of the conversation delivered from the client.
+        All content here is unconditionally appended to the conversation
+        history and used as part of the prompt to the model to generate
+        content.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentClientContent'
+
+    BidiGenerateContentRealtimeInput:
+      name: BidiGenerateContentRealtimeInput
+      title: Realtime Input
+      summary: |
+        Real-time user input sent as a stream. Distinct from
+        ClientContent in that it is sent continuously, can be interrupted
+        by ActivityStart/ActivityEnd signaling and supports raw audio,
+        video and text chunks.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentRealtimeInput'
+
+    BidiGenerateContentToolResponse:
+      name: BidiGenerateContentToolResponse
+      title: Tool Response
+      summary: |
+        Response from the client to a BidiGenerateContentToolCall received
+        from the server. Individual FunctionResponse objects are matched
+        to their FunctionCall objects by the id field.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentToolResponse'
+
+    # ---------------- Live API: server -> client ----------------
+    BidiGenerateContentSetupComplete:
+      name: BidiGenerateContentSetupComplete
+      title: Setup Complete
+      summary: |
+        Sent in response to a BidiGenerateContentSetup message from the
+        client when setup processing has finished. Has no fields.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentSetupComplete'
+
+    BidiGenerateContentServerContent:
+      name: BidiGenerateContentServerContent
+      title: Server Content
+      summary: |
+        Incremental server update generated by the model in response to
+        client messages. Content is generated as quickly as possible and
+        not in real time. Clients may choose to buffer and play it out in
+        real time.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentServerContent'
+
+    BidiGenerateContentToolCall:
+      name: BidiGenerateContentToolCall
+      title: Tool Call
+      summary: |
+        Request from the server for the client to execute the provided
+        functionCalls and return the responses with the matching ids.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentToolCall'
+
+    BidiGenerateContentToolCallCancellation:
+      name: BidiGenerateContentToolCallCancellation
+      title: Tool Call Cancellation
+      summary: |
+        Notification for the client that a previously issued
+        BidiGenerateContentToolCall with the specified ids should not have
+        been executed and should be cancelled.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BidiGenerateContentToolCallCancellation'
+
+    UsageMetadataMessage:
+      name: UsageMetadata
+      title: Usage Metadata
+      summary: Token usage metadata for the current session.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UsageMetadata'
+
+    GoAwayMessage:
+      name: GoAway
+      title: Go Away
+      summary: |
+        Server notice that the current connection will soon be terminated.
+        Clients should use this signal to prepare to reconnect or save
+        state.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GoAway'
+
+    SessionResumptionUpdateMessage:
+      name: SessionResumptionUpdate
+      title: Session Resumption Update
+      summary: |
+        Update of the session resumption state. Only sent when
+        sessionResumption was configured in the setup message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SessionResumptionUpdate'
+
+    # ---------------- streamGenerateContent ----------------
+    GenerateContentRequest:
+      name: GenerateContentRequest
+      title: Generate Content Request
+      summary: |
+        Request body for streamGenerateContent. Has the same fields as the
+        non-streaming generateContent call.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GenerateContentRequest'
+
+    GenerateContentResponseEvent:
+      name: GenerateContentResponse
+      title: Generate Content Response (SSE event)
+      summary: |
+        A single server-sent event in the streamGenerateContent response
+        stream. Each event is a complete GenerateContentResponse JSON
+        object containing one or more candidates with partial content.
+      contentType: text/event-stream
+      payload:
+        $ref: '#/components/schemas/GenerateContentResponse'
+
+  schemas:
+    # ============== Live API client schemas ==============
+    BidiGenerateContentSetup:
+      type: object
+      description: Setup message envelope. Wrap the payload in the `setup` field.
+      properties:
+        setup:
+          type: object
+          required:
+            - model
+          properties:
+            model:
+              type: string
+              description: |
+                Fully qualified model resource name, for example
+                models/gemini-2.5-flash-preview-native-audio-dialog.
+              example: models/gemini-2.5-flash-preview-native-audio-dialog
+            generationConfig:
+              $ref: '#/components/schemas/GenerationConfig'
+            systemInstruction:
+              $ref: '#/components/schemas/Content'
+            tools:
+              type: array
+              items:
+                $ref: '#/components/schemas/Tool'
+            realtimeInputConfig:
+              $ref: '#/components/schemas/RealtimeInputConfig'
+            sessionResumption:
+              $ref: '#/components/schemas/SessionResumptionConfig'
+            contextWindowCompression:
+              $ref: '#/components/schemas/ContextWindowCompressionConfig'
+            inputAudioTranscription:
+              $ref: '#/components/schemas/AudioTranscriptionConfig'
+            outputAudioTranscription:
+              $ref: '#/components/schemas/AudioTranscriptionConfig'
+            proactivity:
+              $ref: '#/components/schemas/ProactivityConfig'
+            historyConfig:
+              $ref: '#/components/schemas/HistoryConfig'
+
+    BidiGenerateContentClientContent:
+      type: object
+      description: ClientContent envelope. Wrap the payload in `clientContent`.
+      properties:
+        clientContent:
+          type: object
+          properties:
+            turns:
+              type: array
+              description: |
+                Content appended to the current conversation with the model.
+              items:
+                $ref: '#/components/schemas/Content'
+            turnComplete:
+              type: boolean
+              description: |
+                If true, signals that the server content generation should
+                start with the currently accumulated prompt. Otherwise the
+                server awaits more messages before generating.
+
+    BidiGenerateContentRealtimeInput:
+      type: object
+      description: RealtimeInput envelope. Wrap the payload in `realtimeInput`.
+      properties:
+        realtimeInput:
+          type: object
+          properties:
+            mediaChunks:
+              type: array
+              deprecated: true
+              description: |
+                Inlined bytes of media input. Deprecated - use audio or
+                video instead.
+              items:
+                $ref: '#/components/schemas/Blob'
+            audio:
+              $ref: '#/components/schemas/Blob'
+            video:
+              $ref: '#/components/schemas/Blob'
+            activityStart:
+              $ref: '#/components/schemas/ActivityStart'
+            activityEnd:
+              $ref: '#/components/schemas/ActivityEnd'
+            audioStreamEnd:
+              type: boolean
+              description: |
+                Indicates that the audio stream has ended (for example
+                because the microphone was turned off).
+            text:
+              type: string
+              description: Real-time text input from the user.
+
+    BidiGenerateContentToolResponse:
+      type: object
+      description: ToolResponse envelope. Wrap the payload in `toolResponse`.
+      properties:
+        toolResponse:
+          type: object
+          properties:
+            functionResponses:
+              type: array
+              description: Responses for the function calls issued by the model.
+              items:
+                $ref: '#/components/schemas/FunctionResponse'
+
+    # ============== Live API server schemas ==============
+    BidiGenerateContentSetupComplete:
+      type: object
+      description: SetupComplete envelope. The `setupComplete` field is empty.
+      properties:
+        setupComplete:
+          type: object
+          description: Empty object - no fields.
+
+    BidiGenerateContentServerContent:
+      type: object
+      description: ServerContent envelope. Wrap the payload in `serverContent`.
+      properties:
+        serverContent:
+          type: object
+          properties:
+            generationComplete:
+              type: boolean
+              description: |
+                If true, indicates that the model has finished generating
+                content for the current turn. May be followed by additional
+                tool calls before turnComplete.
+              readOnly: true
+            turnComplete:
+              type: boolean
+              description: |
+                If true, indicates that the model has finished its turn.
+                Generation will only start in response to additional client
+                messages.
+              readOnly: true
+            interrupted:
+              type: boolean
+              description: |
+                If true, indicates that a client message has interrupted
+                current model generation. If the client is playing out the
+                content in real time it should stop playback and discard
+                any queued audio chunks.
+              readOnly: true
+            groundingMetadata:
+              $ref: '#/components/schemas/GroundingMetadata'
+            inputTranscription:
+              $ref: '#/components/schemas/BidiGenerateContentTranscription'
+            outputTranscription:
+              $ref: '#/components/schemas/BidiGenerateContentTranscription'
+            urlContextMetadata:
+              $ref: '#/components/schemas/UrlContextMetadata'
+            modelTurn:
+              $ref: '#/components/schemas/Content'
+
+    BidiGenerateContentToolCall:
+      type: object
+      description: ToolCall envelope. Wrap the payload in `toolCall`.
+      properties:
+        toolCall:
+          type: object
+          properties:
+            functionCalls:
+              type: array
+              description: Function calls the client should execute.
+              items:
+                $ref: '#/components/schemas/FunctionCall'
+              readOnly: true
+
+    BidiGenerateContentToolCallCancellation:
+      type: object
+      description: |
+        ToolCallCancellation envelope. Wrap the payload in
+        `toolCallCancellation`.
+      properties:
+        toolCallCancellation:
+          type: object
+          properties:
+            ids:
+              type: array
+              description: |
+                Ids of the FunctionCall objects that should be cancelled.
+              items:
+                type: string
+              readOnly: true
+
+    UsageMetadata:
+      type: object
+      description: |
+        Token usage information for the connection. Delivered as the
+        `usageMetadata` field on a server message.
+      properties:
+        usageMetadata:
+          type: object
+          properties:
+            promptTokenCount:
+              type: integer
+              format: int32
+              readOnly: true
+            cachedContentTokenCount:
+              type: integer
+              format: int32
+            responseTokenCount:
+              type: integer
+              format: int32
+              readOnly: true
+            toolUsePromptTokenCount:
+              type: integer
+              format: int32
+              readOnly: true
+            thoughtsTokenCount:
+              type: integer
+              format: int32
+              readOnly: true
+            totalTokenCount:
+              type: integer
+              format: int32
+              readOnly: true
+            promptTokensDetails:
+              type: array
+              items:
+                $ref: '#/components/schemas/ModalityTokenCount'
+              readOnly: true
+            cacheTokensDetails:
+              type: array
+              items:
+                $ref: '#/components/schemas/ModalityTokenCount'
+              readOnly: true
+            responseTokensDetails:
+              type: array
+              items:
+                $ref: '#/components/schemas/ModalityTokenCount'
+              readOnly: true
+            toolUsePromptTokensDetails:
+              type: array
+              items:
+                $ref: '#/components/schemas/ModalityTokenCount'
+              readOnly: true
+
+    GoAway:
+      type: object
+      description: GoAway envelope. Wrap the payload in `goAway`.
+      properties:
+        goAway:
+          type: object
+          properties:
+            timeLeft:
+              type: string
+              description: |
+                Duration string (seconds with up to nine fractional digits
+                and an 's' suffix, e.g. "12.5s") indicating how much time
+                remains before the server terminates the connection.
+
+    SessionResumptionUpdate:
+      type: object
+      description: |
+        SessionResumptionUpdate envelope. Wrap the payload in
+        `sessionResumptionUpdate`.
+      properties:
+        sessionResumptionUpdate:
+          type: object
+          properties:
+            newHandle:
+              type: string
+              description: |
+                Resumption handle that can be used in a future
+                SessionResumptionConfig.handle to resume this session.
+            resumable:
+              type: boolean
+              description: |
+                If true, the current session can be resumed using the
+                newHandle.
+
+    # ============== Live API supporting types ==============
+    GenerationConfig:
+      type: object
+      description: Generation parameters used by Gemini models.
+      properties:
+        temperature:
+          type: number
+          format: float
+        topP:
+          type: number
+          format: float
+        topK:
+          type: integer
+          format: int32
+        candidateCount:
+          type: integer
+          format: int32
+        maxOutputTokens:
+          type: integer
+          format: int32
+        stopSequences:
+          type: array
+          items:
+            type: string
+        responseMimeType:
+          type: string
+        responseSchema:
+          type: object
+        responseModalities:
+          type: array
+          items:
+            type: string
+            enum:
+              - MODALITY_UNSPECIFIED
+              - TEXT
+              - IMAGE
+              - AUDIO
+        speechConfig:
+          $ref: '#/components/schemas/SpeechConfig'
+        mediaResolution:
+          type: string
+        thinkingConfig:
+          type: object
+          properties:
+            includeThoughts:
+              type: boolean
+            thinkingBudget:
+              type: integer
+              format: int32
+
+    SpeechConfig:
+      type: object
+      properties:
+        voiceConfig:
+          $ref: '#/components/schemas/VoiceConfig'
+        languageCode:
+          type: string
+
+    VoiceConfig:
+      type: object
+      properties:
+        prebuiltVoiceConfig:
+          type: object
+          properties:
+            voiceName:
+              type: string
+              description: |
+                Name of a preset voice (e.g. Puck, Charon, Kore, Fenrir,
+                Aoede).
+
+    Tool:
+      type: object
+      description: A tool the model can invoke.
+      properties:
+        functionDeclarations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionDeclaration'
+        googleSearch:
+          type: object
+          description: Google Search tool config.
+        googleSearchRetrieval:
+          type: object
+          description: |
+            Legacy Google Search retrieval tool config.
+        codeExecution:
+          type: object
+          description: Code execution tool config.
+        urlContext:
+          type: object
+          description: URL context tool config.
+
+    FunctionDeclaration:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        parameters:
+          type: object
+          description: JSON schema for the function parameters.
+        response:
+          type: object
+
+    RealtimeInputConfig:
+      type: object
+      properties:
+        automaticActivityDetection:
+          $ref: '#/components/schemas/AutomaticActivityDetection'
+        activityHandling:
+          type: string
+          enum:
+            - ACTIVITY_HANDLING_UNSPECIFIED
+            - START_OF_ACTIVITY_INTERRUPTS
+            - NO_INTERRUPTION
+        turnCoverage:
+          type: string
+          enum:
+            - TURN_COVERAGE_UNSPECIFIED
+            - TURN_INCLUDES_ONLY_ACTIVITY
+            - TURN_INCLUDES_ALL_INPUT
+
+    AutomaticActivityDetection:
+      type: object
+      properties:
+        disabled:
+          type: boolean
+        startOfSpeechSensitivity:
+          type: string
+          enum:
+            - START_SENSITIVITY_UNSPECIFIED
+            - START_SENSITIVITY_HIGH
+            - START_SENSITIVITY_LOW
+        endOfSpeechSensitivity:
+          type: string
+          enum:
+            - END_SENSITIVITY_UNSPECIFIED
+            - END_SENSITIVITY_HIGH
+            - END_SENSITIVITY_LOW
+        prefixPaddingMs:
+          type: integer
+          format: int32
+        silenceDurationMs:
+          type: integer
+          format: int32
+
+    SessionResumptionConfig:
+      type: object
+      properties:
+        handle:
+          type: string
+          description: |
+            Handle for a previous session to resume; leave empty to start
+            a new resumable session.
+        transparent:
+          type: boolean
+
+    ContextWindowCompressionConfig:
+      type: object
+      properties:
+        slidingWindow:
+          type: object
+          properties:
+            targetTokens:
+              type: integer
+              format: int64
+        triggerTokens:
+          type: integer
+          format: int64
+
+    AudioTranscriptionConfig:
+      type: object
+      description: |
+        Audio transcription configuration for inputAudioTranscription
+        and outputAudioTranscription. Empty enables transcription with
+        default settings.
+
+    ProactivityConfig:
+      type: object
+      properties:
+        proactiveAudio:
+          type: boolean
+          description: |
+            When true, the model may proactively respond without an
+            explicit user turn.
+
+    HistoryConfig:
+      type: object
+      properties:
+        initialHistoryInClientContent:
+          type: boolean
+
+    ActivityStart:
+      type: object
+      description: |
+        Marks the beginning of user activity. Only valid when automatic
+        activity detection is disabled.
+
+    ActivityEnd:
+      type: object
+      description: |
+        Marks the end of user activity. Only valid when automatic activity
+        detection is disabled.
+
+    BidiGenerateContentTranscription:
+      type: object
+      description: |
+        Audio transcription chunk produced by the Live API for input or
+        output audio.
+      properties:
+        text:
+          type: string
+
+    ModalityTokenCount:
+      type: object
+      properties:
+        modality:
+          type: string
+          enum:
+            - MODALITY_UNSPECIFIED
+            - TEXT
+            - IMAGE
+            - VIDEO
+            - AUDIO
+            - DOCUMENT
+        tokenCount:
+          type: integer
+          format: int32
+
+    # ============== streamGenerateContent schemas ==============
+    GenerateContentRequest:
+      type: object
+      required:
+        - contents
+      properties:
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Content'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+        toolConfig:
+          $ref: '#/components/schemas/ToolConfig'
+        safetySettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SafetySetting'
+        systemInstruction:
+          $ref: '#/components/schemas/Content'
+        generationConfig:
+          $ref: '#/components/schemas/GenerationConfig'
+        cachedContent:
+          type: string
+          description: |
+            Resource name of cached content used as context, e.g.
+            cachedContents/{id}.
+
+    GenerateContentResponse:
+      type: object
+      description: |
+        Single SSE event in a streamGenerateContent stream. Contains a
+        partial slice of the model's output.
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Candidate'
+        promptFeedback:
+          $ref: '#/components/schemas/PromptFeedback'
+        usageMetadata:
+          $ref: '#/components/schemas/UsageMetadataInline'
+        modelVersion:
+          type: string
+        responseId:
+          type: string
+
+    Candidate:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/Content'
+        finishReason:
+          type: string
+          enum:
+            - FINISH_REASON_UNSPECIFIED
+            - STOP
+            - MAX_TOKENS
+            - SAFETY
+            - RECITATION
+            - LANGUAGE
+            - OTHER
+            - BLOCKLIST
+            - PROHIBITED_CONTENT
+            - SPII
+            - MALFORMED_FUNCTION_CALL
+            - IMAGE_SAFETY
+        safetyRatings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SafetyRating'
+        citationMetadata:
+          $ref: '#/components/schemas/CitationMetadata'
+        tokenCount:
+          type: integer
+          format: int32
+        groundingMetadata:
+          $ref: '#/components/schemas/GroundingMetadata'
+        index:
+          type: integer
+          format: int32
+        avgLogprobs:
+          type: number
+          format: double
+        logprobsResult:
+          type: object
+
+    PromptFeedback:
+      type: object
+      properties:
+        blockReason:
+          type: string
+          enum:
+            - BLOCK_REASON_UNSPECIFIED
+            - SAFETY
+            - OTHER
+            - BLOCKLIST
+            - PROHIBITED_CONTENT
+            - IMAGE_SAFETY
+        safetyRatings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SafetyRating'
+
+    UsageMetadataInline:
+      type: object
+      description: |
+        Token usage metadata included on each streamed
+        GenerateContentResponse event.
+      properties:
+        promptTokenCount:
+          type: integer
+          format: int32
+        cachedContentTokenCount:
+          type: integer
+          format: int32
+        candidatesTokenCount:
+          type: integer
+          format: int32
+        toolUsePromptTokenCount:
+          type: integer
+          format: int32
+        thoughtsTokenCount:
+          type: integer
+          format: int32
+        totalTokenCount:
+          type: integer
+          format: int32
+        promptTokensDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModalityTokenCount'
+        cacheTokensDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModalityTokenCount'
+        candidatesTokensDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModalityTokenCount'
+        toolUsePromptTokensDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModalityTokenCount'
+
+    SafetySetting:
+      type: object
+      properties:
+        category:
+          type: string
+          enum:
+            - HARM_CATEGORY_UNSPECIFIED
+            - HARM_CATEGORY_DEROGATORY
+            - HARM_CATEGORY_TOXICITY
+            - HARM_CATEGORY_VIOLENCE
+            - HARM_CATEGORY_SEXUAL
+            - HARM_CATEGORY_MEDICAL
+            - HARM_CATEGORY_DANGEROUS
+            - HARM_CATEGORY_HARASSMENT
+            - HARM_CATEGORY_HATE_SPEECH
+            - HARM_CATEGORY_SEXUALLY_EXPLICIT
+            - HARM_CATEGORY_DANGEROUS_CONTENT
+            - HARM_CATEGORY_CIVIC_INTEGRITY
+        threshold:
+          type: string
+          enum:
+            - HARM_BLOCK_THRESHOLD_UNSPECIFIED
+            - BLOCK_LOW_AND_ABOVE
+            - BLOCK_MEDIUM_AND_ABOVE
+            - BLOCK_ONLY_HIGH
+            - BLOCK_NONE
+            - 'OFF'
+
+    SafetyRating:
+      type: object
+      properties:
+        category:
+          type: string
+        probability:
+          type: string
+          enum:
+            - HARM_PROBABILITY_UNSPECIFIED
+            - NEGLIGIBLE
+            - LOW
+            - MEDIUM
+            - HIGH
+        blocked:
+          type: boolean
+
+    ToolConfig:
+      type: object
+      properties:
+        functionCallingConfig:
+          type: object
+          properties:
+            mode:
+              type: string
+              enum:
+                - MODE_UNSPECIFIED
+                - AUTO
+                - ANY
+                - NONE
+            allowedFunctionNames:
+              type: array
+              items:
+                type: string
+
+    CitationMetadata:
+      type: object
+      properties:
+        citationSources:
+          type: array
+          items:
+            type: object
+            properties:
+              startIndex:
+                type: integer
+                format: int32
+              endIndex:
+                type: integer
+                format: int32
+              uri:
+                type: string
+              license:
+                type: string
+
+    GroundingMetadata:
+      type: object
+      properties:
+        searchEntryPoint:
+          type: object
+          properties:
+            renderedContent:
+              type: string
+            sdkBlob:
+              type: string
+              format: byte
+        groundingChunks:
+          type: array
+          items:
+            type: object
+        groundingSupports:
+          type: array
+          items:
+            type: object
+        webSearchQueries:
+          type: array
+          items:
+            type: string
+        retrievalMetadata:
+          type: object
+
+    UrlContextMetadata:
+      type: object
+      properties:
+        urlMetadata:
+          type: array
+          items:
+            type: object
+            properties:
+              retrievedUrl:
+                type: string
+              urlRetrievalStatus:
+                type: string
+
+    # ============== Shared content types ==============
+    Content:
+      type: object
+      properties:
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Part'
+        role:
+          type: string
+          description: Either `user` or `model`.
+
+    Part:
+      type: object
+      description: |
+        One element of multimodal content. Exactly one of the data fields
+        should be set.
+      properties:
+        text:
+          type: string
+        inlineData:
+          $ref: '#/components/schemas/Blob'
+        fileData:
+          $ref: '#/components/schemas/FileData'
+        functionCall:
+          $ref: '#/components/schemas/FunctionCall'
+        functionResponse:
+          $ref: '#/components/schemas/FunctionResponse'
+        executableCode:
+          $ref: '#/components/schemas/ExecutableCode'
+        codeExecutionResult:
+          $ref: '#/components/schemas/CodeExecutionResult'
+        thought:
+          type: boolean
+        videoMetadata:
+          $ref: '#/components/schemas/VideoMetadata'
+        thoughtSignature:
+          type: string
+
+    Blob:
+      type: object
+      properties:
+        mimeType:
+          type: string
+        data:
+          type: string
+          format: byte
+          description: Base64-encoded raw bytes.
+
+    FileData:
+      type: object
+      properties:
+        mimeType:
+          type: string
+        fileUri:
+          type: string
+
+    FunctionCall:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        args:
+          type: object
+
+    FunctionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        response:
+          type: object
+        willContinue:
+          type: boolean
+        scheduling:
+          type: string
+          enum:
+            - SCHEDULING_UNSPECIFIED
+            - SILENT
+            - WHEN_IDLE
+            - INTERRUPT
+
+    ExecutableCode:
+      type: object
+      properties:
+        language:
+          type: string
+          enum:
+            - LANGUAGE_UNSPECIFIED
+            - PYTHON
+        code:
+          type: string
+
+    CodeExecutionResult:
+      type: object
+      properties:
+        outcome:
+          type: string
+          enum:
+            - OUTCOME_UNSPECIFIED
+            - OUTCOME_OK
+            - OUTCOME_FAILED
+            - OUTCOME_DEADLINE_EXCEEDED
+        output:
+          type: string
+
+    VideoMetadata:
+      type: object
+      properties:
+        startOffset:
+          type: string
+          description: Duration string with 's' suffix.
+        endOffset:
+          type: string
+          description: Duration string with 's' suffix.
+        fps:
+          type: number
+          format: double
