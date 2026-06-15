@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Gemini API",
+    "version": "v1beta"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation guide for detailed usage information. Input capabilities differ between models, including tuned models.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://generativelanguage.googleapis.com/v1beta/models/:model:generateContent",
+            "params": [
+              {
+                "name": "model",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "API key for authentication."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a response from the model given an input. The input can include text, images, audio, video, and other multimodal content. The model processes the input according to its capabilities and returns generated content along with safety ratings and usage metadata."
+        },
+        {
+          "info": {
+            "name": "Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns a stream of GenerateContentResponse chunks using server-sent events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://generativelanguage.googleapis.com/v1beta/models/:model:streamGenerateContent",
+            "params": [
+              {
+                "name": "model",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "API key for authentication."
+              },
+              {
+                "name": "alt",
+                "value": "",
+                "type": "query",
+                "description": "Set to 'sse' for server-sent events streaming."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a streamed response from the model. This endpoint behaves identically to generateContent but returns partial responses incrementally as server-sent events. Each event contains a GenerateContentResponse with one or more candidate content parts. Use the alt=sse query parameter to enable streaming."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://generativelanguage.googleapis.com/v1beta/models/:model:embedContent",
+            "params": [
+              {
+                "name": "model",
+                "value": "",
+                "type": "path",
+                "description": "The model name to use for embedding. Format: models/{model}. Example: models/gemini-embedding-001."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "API key for authentication."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates an embedding from the model given input content. The embedding is a vector representation of the input text that captures semantic meaning. Embeddings can be used for semantic search, text classification, clustering, and retrieval tasks. Only the text parts of the input content are used for embedding generation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
