@@ -1,0 +1,1259 @@
+"""
+Google Gemini GraphQL Schema
+Derived from the Google Gemini REST/gRPC API (https://ai.google.dev/api)
+Covers text generation, vision, audio, code generation, embeddings,
+function calling, system instructions, context caching, fine-tuning,
+and the Vertex AI Gemini API surface.
+"""
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar Upload
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+"""Finish reason for a generation candidate."""
+enum FinishReason {
+  FINISH_REASON_UNSPECIFIED
+  STOP
+  MAX_TOKENS
+  SAFETY
+  RECITATION
+  OTHER
+}
+
+"""Harm category used in safety ratings and settings."""
+enum HarmCategory {
+  HARM_CATEGORY_UNSPECIFIED
+  HARM_CATEGORY_DEROGATORY
+  HARM_CATEGORY_TOXICITY
+  HARM_CATEGORY_VIOLENCE
+  HARM_CATEGORY_SEXUAL
+  HARM_CATEGORY_MEDICAL
+  HARM_CATEGORY_DANGEROUS
+  HARM_CATEGORY_HARASSMENT
+  HARM_CATEGORY_HATE_SPEECH
+  HARM_CATEGORY_SEXUALLY_EXPLICIT
+  HARM_CATEGORY_DANGEROUS_CONTENT
+  HARM_CATEGORY_CIVIC_INTEGRITY
+}
+
+"""Harm probability level returned in safety ratings."""
+enum HarmProbability {
+  HARM_PROBABILITY_UNSPECIFIED
+  NEGLIGIBLE
+  LOW
+  MEDIUM
+  HIGH
+}
+
+"""Harm severity level returned in safety ratings."""
+enum HarmSeverity {
+  HARM_SEVERITY_UNSPECIFIED
+  HARM_SEVERITY_NEGLIGIBLE
+  HARM_SEVERITY_LOW
+  HARM_SEVERITY_MEDIUM
+  HARM_SEVERITY_HIGH
+}
+
+"""Block threshold for safety settings."""
+enum HarmBlockThreshold {
+  HARM_BLOCK_THRESHOLD_UNSPECIFIED
+  BLOCK_LOW_AND_ABOVE
+  BLOCK_MEDIUM_AND_ABOVE
+  BLOCK_ONLY_HIGH
+  BLOCK_NONE
+}
+
+"""Role of a message participant in a conversation."""
+enum Role {
+  USER
+  MODEL
+  FUNCTION
+  SYSTEM
+}
+
+"""Type of a model (base or tuned)."""
+enum ModelType {
+  MODEL_TYPE_UNSPECIFIED
+  BASE_MODEL
+  TUNED_MODEL
+}
+
+"""State of a tuning job."""
+enum TuningJobState {
+  STATE_UNSPECIFIED
+  CREATING
+  ACTIVE
+  FAILED
+  COMPLETED
+  CANCELING
+  CANCELED
+  PAUSED
+}
+
+"""Task type for embedding generation."""
+enum TaskType {
+  TASK_TYPE_UNSPECIFIED
+  RETRIEVAL_QUERY
+  RETRIEVAL_DOCUMENT
+  SEMANTIC_SIMILARITY
+  CLASSIFICATION
+  CLUSTERING
+  QUESTION_ANSWERING
+  FACT_VERIFICATION
+  CODE_RETRIEVAL_QUERY
+}
+
+"""Mode of function calling."""
+enum FunctionCallingMode {
+  MODE_UNSPECIFIED
+  AUTO
+  ANY
+  NONE
+}
+
+"""Execution outcome of a code execution result."""
+enum Outcome {
+  OUTCOME_UNSPECIFIED
+  OUTCOME_OK
+  OUTCOME_FAILED
+  OUTCOME_DEADLINE_EXCEEDED
+}
+
+"""Language used in executable code parts."""
+enum Language {
+  LANGUAGE_UNSPECIFIED
+  PYTHON
+}
+
+"""Type of operation in a long-running operation."""
+enum OperationStatus {
+  PENDING
+  RUNNING
+  DONE
+  FAILED
+}
+
+"""Source of grounding attribution."""
+enum GroundingSourceType {
+  GROUNDING_SOURCE_UNSPECIFIED
+  WEB
+  RETRIEVED_CONTEXT
+}
+
+"""Dynamic retrieval mode for grounding."""
+enum DynamicRetrievalConfigMode {
+  MODE_UNSPECIFIED
+  MODE_DYNAMIC
+}
+
+"""Type of content modality."""
+enum Modality {
+  MODALITY_UNSPECIFIED
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
+
+# ─────────────────────────────────────────────
+# Core Content Types
+# ─────────────────────────────────────────────
+
+"""A piece of content in a conversation turn."""
+type Content {
+  role: Role
+  parts: [Part!]!
+}
+
+"""A single part of a multi-modal message."""
+type Part {
+  text: String
+  inlineData: Blob
+  fileData: FileData
+  functionCall: FunctionCall
+  functionResponse: FunctionResponse
+  executableCode: ExecutableCode
+  codeExecutionResult: CodeExecutionResult
+}
+
+"""Inline binary data (e.g., image bytes)."""
+type Blob {
+  mimeType: String!
+  data: String!
+}
+
+"""Reference to a file stored via the Files API."""
+type FileData {
+  mimeType: String!
+  fileUri: String!
+}
+
+"""A function call requested by the model."""
+type FunctionCall {
+  name: String!
+  args: JSON
+}
+
+"""The response to a function call."""
+type FunctionResponse {
+  name: String!
+  response: JSON!
+}
+
+"""Code to be executed by the model."""
+type ExecutableCode {
+  language: Language!
+  code: String!
+}
+
+"""Result of code execution."""
+type CodeExecutionResult {
+  outcome: Outcome!
+  output: String
+}
+
+# ─────────────────────────────────────────────
+# Model Types
+# ─────────────────────────────────────────────
+
+"""A Gemini model available through the API."""
+type Model {
+  name: String!
+  baseModelId: String
+  version: String!
+  displayName: String!
+  description: String
+  inputTokenLimit: Int!
+  outputTokenLimit: Int!
+  supportedGenerationMethods: [String!]!
+  temperature: Float
+  maxTemperature: Float
+  topP: Float
+  topK: Int
+}
+
+"""Paginated list of models."""
+type ModelConnection {
+  models: [Model!]!
+  nextPageToken: String
+}
+
+# ─────────────────────────────────────────────
+# Generation Types
+# ─────────────────────────────────────────────
+
+"""Response from a generateContent or streamGenerateContent call."""
+type GenerateContentResponse {
+  candidates: [Candidate!]
+  promptFeedback: PromptFeedback
+  usageMetadata: UsageMetadata
+  modelVersion: String
+}
+
+"""A single candidate response from the model."""
+type Candidate {
+  index: Int!
+  content: Content!
+  finishReason: FinishReason
+  safetyRatings: [SafetyRating!]
+  citationMetadata: CitationMetadata
+  tokenCount: Int
+  groundingAttributions: [GroundingAttribution!]
+  groundingMetadata: GroundingMetadata
+  avgLogprobs: Float
+  logprobsResult: LogprobsResult
+}
+
+"""Feedback about the prompt sent to the model."""
+type PromptFeedback {
+  blockReason: String
+  safetyRatings: [SafetyRating!]
+  blockReasonMessage: String
+}
+
+"""Token usage statistics for a request."""
+type UsageMetadata {
+  promptTokenCount: Int!
+  candidatesTokenCount: Int
+  totalTokenCount: Int!
+  cachedContentTokenCount: Int
+}
+
+"""Safety rating for a piece of content."""
+type SafetyRating {
+  category: HarmCategory!
+  probability: HarmProbability!
+  severity: HarmSeverity
+  blocked: Boolean
+}
+
+"""Citation information for generated text."""
+type CitationMetadata {
+  citationSources: [CitationSource!]!
+}
+
+"""A single citation source."""
+type CitationSource {
+  startIndex: Int
+  endIndex: Int
+  uri: String
+  license: String
+}
+
+"""Grounding attribution linking content to sources."""
+type GroundingAttribution {
+  sourceId: AttributionSourceId
+  content: Content!
+}
+
+"""Identifier for a grounding source."""
+type AttributionSourceId {
+  groundingPassage: GroundingPassageId
+  semanticRetrieverChunk: SemanticRetrieverChunk
+}
+
+"""Reference to a passage used for grounding."""
+type GroundingPassageId {
+  passageId: String!
+  partIndex: Int!
+}
+
+"""Reference to a chunk from a semantic retrieval corpus."""
+type SemanticRetrieverChunk {
+  source: String!
+  chunk: String!
+}
+
+"""Grounding metadata including search queries and web search results."""
+type GroundingMetadata {
+  groundingChunks: [GroundingChunk!]
+  groundingSupports: [GroundingSupport!]
+  webSearchQueries: [String!]
+  searchEntryPoint: SearchEntryPoint
+  retrievalMetadata: RetrievalMetadata
+}
+
+"""A chunk used for grounding."""
+type GroundingChunk {
+  web: WebGroundingChunk
+  retrievedContext: RetrievedContextChunk
+}
+
+"""A web page used as a grounding source."""
+type WebGroundingChunk {
+  uri: String
+  title: String
+}
+
+"""A retrieved context document used for grounding."""
+type RetrievedContextChunk {
+  uri: String
+  title: String
+}
+
+"""Support mapping from grounding chunks to content."""
+type GroundingSupport {
+  groundingChunkIndices: [Int!]
+  confidenceScores: [Float!]
+  segment: Segment
+}
+
+"""A text segment within a response."""
+type Segment {
+  partIndex: Int
+  startIndex: Int
+  endIndex: Int
+  text: String
+}
+
+"""Entry point for a web search query."""
+type SearchEntryPoint {
+  renderedContent: String
+  sdkBlob: String
+}
+
+"""Metadata about retrieval used in grounding."""
+type RetrievalMetadata {
+  googleSearchDynamicRetrievalScore: Float
+}
+
+"""Log probabilities for generated tokens."""
+type LogprobsResult {
+  topCandidates: [TopCandidates!]
+  chosenCandidates: [LogprobsCandidate!]
+}
+
+"""Top token candidates at a generation step."""
+type TopCandidates {
+  candidates: [LogprobsCandidate!]
+}
+
+"""A token candidate with its log probability."""
+type LogprobsCandidate {
+  token: String
+  tokenId: Int
+  logProbability: Float
+}
+
+# ─────────────────────────────────────────────
+# Generation Configuration
+# ─────────────────────────────────────────────
+
+"""Configuration for content generation."""
+type GenerationConfig {
+  stopSequences: [String!]
+  responseMimeType: String
+  responseSchema: JSON
+  candidateCount: Int
+  maxOutputTokens: Int
+  temperature: Float
+  topP: Float
+  topK: Int
+  presencePenalty: Float
+  frequencyPenalty: Float
+  responseLogprobs: Boolean
+  logprobs: Int
+  seed: Int
+}
+
+"""Configuration for a specific tool the model can use."""
+type ToolConfig {
+  functionCallingConfig: FunctionCallingConfig
+}
+
+"""Configuration for how the model calls functions."""
+type FunctionCallingConfig {
+  mode: FunctionCallingMode
+  allowedFunctionNames: [String!]
+}
+
+"""A tool the model may call."""
+type Tool {
+  functionDeclarations: [FunctionDeclaration!]
+  googleSearchRetrieval: GoogleSearchRetrieval
+  codeExecution: CodeExecutionTool
+  googleSearch: GoogleSearchTool
+}
+
+"""Declaration of a callable function."""
+type FunctionDeclaration {
+  name: String!
+  description: String!
+  parameters: JSON
+  response: JSON
+}
+
+"""Tool for grounding with Google Search."""
+type GoogleSearchRetrieval {
+  dynamicRetrievalConfig: DynamicRetrievalConfig
+}
+
+"""Dynamic retrieval configuration."""
+type DynamicRetrievalConfig {
+  mode: DynamicRetrievalConfigMode
+  dynamicThreshold: Float
+}
+
+"""Tool enabling code execution."""
+type CodeExecutionTool {
+  enabled: Boolean
+}
+
+"""Tool enabling Google Search grounding."""
+type GoogleSearchTool {
+  enabled: Boolean
+}
+
+"""Safety setting overriding default behavior for a harm category."""
+type SafetySetting {
+  category: HarmCategory!
+  threshold: HarmBlockThreshold!
+}
+
+"""System instruction prepended to every conversation."""
+type SystemInstruction {
+  role: Role
+  parts: [Part!]!
+}
+
+# ─────────────────────────────────────────────
+# Embeddings
+# ─────────────────────────────────────────────
+
+"""A vector embedding for a piece of text."""
+type ContentEmbedding {
+  values: [Float!]!
+}
+
+"""Response from an embedContent call."""
+type EmbedContentResponse {
+  embedding: ContentEmbedding!
+}
+
+"""Response from a batchEmbedContents call."""
+type BatchEmbedContentsResponse {
+  embeddings: [ContentEmbedding!]!
+}
+
+# ─────────────────────────────────────────────
+# Token Counting
+# ─────────────────────────────────────────────
+
+"""Response from a countTokens call."""
+type CountTokensResponse {
+  totalTokens: Int!
+  cachedContentTokenCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Context Caching
+# ─────────────────────────────────────────────
+
+"""A cached content resource that can be reused across requests."""
+type CachedContent {
+  name: String!
+  displayName: String
+  model: String!
+  systemInstruction: Content
+  contents: [Content!]
+  tools: [Tool!]
+  toolConfig: ToolConfig
+  createTime: DateTime!
+  updateTime: DateTime!
+  expireTime: DateTime
+  ttl: String
+  usageMetadata: CachedContentUsageMetadata
+}
+
+"""Token usage metadata for a cached content object."""
+type CachedContentUsageMetadata {
+  totalTokenCount: Int!
+}
+
+"""Paginated list of cached content objects."""
+type CachedContentConnection {
+  cachedContents: [CachedContent!]!
+  nextPageToken: String
+}
+
+# ─────────────────────────────────────────────
+# Files API
+# ─────────────────────────────────────────────
+
+"""A file uploaded via the Files API."""
+type File {
+  name: String!
+  displayName: String
+  mimeType: String!
+  sizeBytes: String!
+  createTime: DateTime!
+  updateTime: DateTime!
+  expirationTime: DateTime
+  sha256Hash: String!
+  uri: String!
+  state: FileState!
+  videoMetadata: VideoFileMetadata
+  error: Status
+}
+
+"""Processing state of a file."""
+enum FileState {
+  STATE_UNSPECIFIED
+  PROCESSING
+  ACTIVE
+  FAILED
+}
+
+"""Metadata extracted from a video file."""
+type VideoFileMetadata {
+  videoDuration: String!
+}
+
+"""Paginated list of files."""
+type FileConnection {
+  files: [File!]!
+  nextPageToken: String
+}
+
+# ─────────────────────────────────────────────
+# Fine-Tuning / Tuning
+# ─────────────────────────────────────────────
+
+"""A tuned (fine-tuned) model derived from a base Gemini model."""
+type TunedModel {
+  name: String!
+  displayName: String
+  description: String
+  state: TuningJobState!
+  createTime: DateTime!
+  updateTime: DateTime!
+  tuningTask: TuningTask!
+  readerProjectNumbers: [String!]
+  tunedModelSource: TunedModelSource
+  temperature: Float
+  topP: Float
+  topK: Int
+}
+
+"""Details of the tuning task."""
+type TuningTask {
+  startTime: DateTime
+  completeTime: DateTime
+  snapshots: [TuningSnapshot!]
+  trainingData: Dataset!
+  hyperparameters: Hyperparameters
+}
+
+"""A snapshot captured during a tuning job."""
+type TuningSnapshot {
+  step: Int!
+  epoch: Int!
+  meanLoss: Float!
+  computeTime: DateTime!
+}
+
+"""The training dataset for a tuning job."""
+type Dataset {
+  examples: TuningExamples
+}
+
+"""A collection of training examples."""
+type TuningExamples {
+  examples: [TuningExample!]!
+}
+
+"""A single training example."""
+type TuningExample {
+  textInput: String
+  output: String
+  contents: [Content!]
+}
+
+"""Hyperparameters for a tuning job."""
+type Hyperparameters {
+  epochCount: Int
+  batchSize: Int
+  learningRate: Float
+  learningRateMultiplier: Float
+}
+
+"""Reference to the base model used in tuning."""
+type TunedModelSource {
+  tunedModel: String
+  baseModel: String
+}
+
+"""Paginated list of tuned models."""
+type TunedModelConnection {
+  tunedModels: [TunedModel!]!
+  nextPageToken: String
+}
+
+# ─────────────────────────────────────────────
+# Semantic Retrieval / Corpus
+# ─────────────────────────────────────────────
+
+"""A corpus (collection of documents) for semantic retrieval."""
+type Corpus {
+  name: String!
+  displayName: String
+  createTime: DateTime!
+  updateTime: DateTime!
+}
+
+"""A document within a corpus."""
+type Document {
+  name: String!
+  displayName: String
+  customMetadata: [CustomMetadata!]
+  createTime: DateTime!
+  updateTime: DateTime!
+}
+
+"""A chunk (passage) within a document used for retrieval."""
+type Chunk {
+  name: String!
+  data: ChunkData!
+  customMetadata: [CustomMetadata!]
+  createTime: DateTime!
+  updateTime: DateTime!
+  state: ChunkState!
+}
+
+"""Text content of a chunk."""
+type ChunkData {
+  stringValue: String!
+}
+
+"""State of a chunk in the corpus."""
+enum ChunkState {
+  STATE_UNSPECIFIED
+  PENDING_PROCESSING
+  ACTIVE
+  FAILED
+}
+
+"""Custom metadata key-value pair for corpus documents/chunks."""
+type CustomMetadata {
+  key: String!
+  stringValue: String
+  stringListValue: StringList
+  numericValue: Float
+}
+
+"""A list of string values."""
+type StringList {
+  values: [String!]!
+}
+
+"""Paginated list of corpora."""
+type CorpusConnection {
+  corpora: [Corpus!]!
+  nextPageToken: String
+}
+
+"""Paginated list of documents."""
+type DocumentConnection {
+  documents: [Document!]!
+  nextPageToken: String
+}
+
+"""Paginated list of chunks."""
+type ChunkConnection {
+  chunks: [Chunk!]!
+  nextPageToken: String
+}
+
+"""Permission assigned to a corpus or tuned model."""
+type Permission {
+  name: String!
+  granteeType: GranteeType
+  emailAddress: String
+  role: PermissionRole!
+}
+
+"""Who the permission applies to."""
+enum GranteeType {
+  GRANTEE_TYPE_UNSPECIFIED
+  USER
+  GROUP
+  EVERYONE
+}
+
+"""Level of access granted by a permission."""
+enum PermissionRole {
+  PERMISSION_ROLE_UNSPECIFIED
+  OWNER
+  WRITER
+  READER
+}
+
+# ─────────────────────────────────────────────
+# Operations
+# ─────────────────────────────────────────────
+
+"""A long-running operation."""
+type Operation {
+  name: String!
+  metadata: JSON
+  done: Boolean!
+  error: Status
+  response: JSON
+}
+
+"""Standard error status."""
+type Status {
+  code: Int!
+  message: String!
+  details: [JSON!]
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+"""Input for generating content."""
+input GenerateContentInput {
+  model: String!
+  contents: [ContentInput!]!
+  systemInstruction: ContentInput
+  tools: [ToolInput!]
+  toolConfig: ToolConfigInput
+  safetySettings: [SafetySettingInput!]
+  generationConfig: GenerationConfigInput
+  cachedContent: String
+}
+
+"""Input for a single content block."""
+input ContentInput {
+  role: Role
+  parts: [PartInput!]!
+}
+
+"""Input for a single part."""
+input PartInput {
+  text: String
+  inlineData: BlobInput
+  fileData: FileDataInput
+  functionCall: FunctionCallInput
+  functionResponse: FunctionResponseInput
+  executableCode: ExecutableCodeInput
+  codeExecutionResult: CodeExecutionResultInput
+}
+
+"""Input for inline binary data."""
+input BlobInput {
+  mimeType: String!
+  data: String!
+}
+
+"""Input for a file reference."""
+input FileDataInput {
+  mimeType: String!
+  fileUri: String!
+}
+
+"""Input for a function call."""
+input FunctionCallInput {
+  name: String!
+  args: JSON
+}
+
+"""Input for a function response."""
+input FunctionResponseInput {
+  name: String!
+  response: JSON!
+}
+
+"""Input for executable code."""
+input ExecutableCodeInput {
+  language: Language!
+  code: String!
+}
+
+"""Input for a code execution result."""
+input CodeExecutionResultInput {
+  outcome: Outcome!
+  output: String
+}
+
+"""Input for generation configuration."""
+input GenerationConfigInput {
+  stopSequences: [String!]
+  responseMimeType: String
+  responseSchema: JSON
+  candidateCount: Int
+  maxOutputTokens: Int
+  temperature: Float
+  topP: Float
+  topK: Int
+  presencePenalty: Float
+  frequencyPenalty: Float
+  responseLogprobs: Boolean
+  logprobs: Int
+  seed: Int
+}
+
+"""Input for a tool."""
+input ToolInput {
+  functionDeclarations: [FunctionDeclarationInput!]
+  googleSearchRetrieval: GoogleSearchRetrievalInput
+  codeExecution: CodeExecutionToolInput
+  googleSearch: GoogleSearchToolInput
+}
+
+"""Input for a function declaration."""
+input FunctionDeclarationInput {
+  name: String!
+  description: String!
+  parameters: JSON
+  response: JSON
+}
+
+"""Input for Google Search retrieval configuration."""
+input GoogleSearchRetrievalInput {
+  dynamicRetrievalConfig: DynamicRetrievalConfigInput
+}
+
+"""Input for dynamic retrieval configuration."""
+input DynamicRetrievalConfigInput {
+  mode: DynamicRetrievalConfigMode
+  dynamicThreshold: Float
+}
+
+"""Input for enabling code execution."""
+input CodeExecutionToolInput {
+  enabled: Boolean
+}
+
+"""Input for Google Search tool."""
+input GoogleSearchToolInput {
+  enabled: Boolean
+}
+
+"""Input for tool configuration."""
+input ToolConfigInput {
+  functionCallingConfig: FunctionCallingConfigInput
+}
+
+"""Input for function calling configuration."""
+input FunctionCallingConfigInput {
+  mode: FunctionCallingMode
+  allowedFunctionNames: [String!]
+}
+
+"""Input for a safety setting."""
+input SafetySettingInput {
+  category: HarmCategory!
+  threshold: HarmBlockThreshold!
+}
+
+"""Input for embedding content."""
+input EmbedContentInput {
+  model: String!
+  content: ContentInput!
+  taskType: TaskType
+  title: String
+  outputDimensionality: Int
+}
+
+"""Input for batch embedding content."""
+input BatchEmbedContentsInput {
+  model: String!
+  requests: [EmbedContentInput!]!
+}
+
+"""Input for counting tokens."""
+input CountTokensInput {
+  model: String!
+  contents: [ContentInput!]
+  generateContentRequest: GenerateContentInput
+}
+
+"""Input for creating cached content."""
+input CreateCachedContentInput {
+  model: String!
+  displayName: String
+  systemInstruction: ContentInput
+  contents: [ContentInput!]
+  tools: [ToolInput!]
+  toolConfig: ToolConfigInput
+  expireTime: DateTime
+  ttl: String
+}
+
+"""Input for updating cached content."""
+input UpdateCachedContentInput {
+  name: String!
+  expireTime: DateTime
+  ttl: String
+}
+
+"""Input for creating a tuned model."""
+input CreateTunedModelInput {
+  displayName: String
+  description: String
+  baseModel: String!
+  tunedModelSource: TunedModelSourceInput
+  temperature: Float
+  topP: Float
+  topK: Int
+  trainingData: DatasetInput!
+  hyperparameters: HyperparametersInput
+}
+
+"""Input for a tuned model source."""
+input TunedModelSourceInput {
+  tunedModel: String
+  baseModel: String
+}
+
+"""Input for a training dataset."""
+input DatasetInput {
+  examples: TuningExamplesInput!
+}
+
+"""Input for training examples."""
+input TuningExamplesInput {
+  examples: [TuningExampleInput!]!
+}
+
+"""Input for a single training example."""
+input TuningExampleInput {
+  textInput: String
+  output: String
+  contents: [ContentInput!]
+}
+
+"""Input for tuning hyperparameters."""
+input HyperparametersInput {
+  epochCount: Int
+  batchSize: Int
+  learningRate: Float
+  learningRateMultiplier: Float
+}
+
+"""Input for updating a tuned model."""
+input UpdateTunedModelInput {
+  name: String!
+  displayName: String
+  description: String
+  temperature: Float
+  topP: Float
+  topK: Int
+}
+
+"""Input for creating a corpus."""
+input CreateCorpusInput {
+  displayName: String
+}
+
+"""Input for creating a document."""
+input CreateDocumentInput {
+  corpusName: String!
+  displayName: String
+  customMetadata: [CustomMetadataInput!]
+}
+
+"""Input for creating a chunk."""
+input CreateChunkInput {
+  documentName: String!
+  data: ChunkDataInput!
+  customMetadata: [CustomMetadataInput!]
+}
+
+"""Input for chunk data."""
+input ChunkDataInput {
+  stringValue: String!
+}
+
+"""Input for custom metadata."""
+input CustomMetadataInput {
+  key: String!
+  stringValue: String
+  numericValue: Float
+}
+
+"""Input for creating a permission."""
+input CreatePermissionInput {
+  resourceName: String!
+  granteeType: GranteeType
+  emailAddress: String
+  role: PermissionRole!
+}
+
+# ─────────────────────────────────────────────
+# Query Root
+# ─────────────────────────────────────────────
+
+type Query {
+  """List all available Gemini models."""
+  listModels(pageSize: Int, pageToken: String): ModelConnection!
+
+  """Get a specific model by name."""
+  getModel(name: String!): Model!
+
+  """List all tuned models accessible to the user."""
+  listTunedModels(pageSize: Int, pageToken: String, filter: String): TunedModelConnection!
+
+  """Get a specific tuned model."""
+  getTunedModel(name: String!): TunedModel!
+
+  """List all cached content objects."""
+  listCachedContents(pageSize: Int, pageToken: String): CachedContentConnection!
+
+  """Get a specific cached content object."""
+  getCachedContent(name: String!): CachedContent!
+
+  """List all files uploaded via the Files API."""
+  listFiles(pageSize: Int, pageToken: String): FileConnection!
+
+  """Get a specific file by name."""
+  getFile(name: String!): File!
+
+  """List all corpora accessible to the user."""
+  listCorpora(pageSize: Int, pageToken: String): CorpusConnection!
+
+  """Get a specific corpus."""
+  getCorpus(name: String!): Corpus!
+
+  """List all documents in a corpus."""
+  listDocuments(corpusName: String!, pageSize: Int, pageToken: String, filter: String): DocumentConnection!
+
+  """Get a specific document."""
+  getDocument(name: String!): Document!
+
+  """List all chunks in a document."""
+  listChunks(documentName: String!, pageSize: Int, pageToken: String): ChunkConnection!
+
+  """Get a specific chunk."""
+  getChunk(name: String!): Chunk!
+
+  """List permissions for a resource."""
+  listPermissions(parent: String!, pageSize: Int, pageToken: String): [Permission!]!
+
+  """Get a specific permission."""
+  getPermission(name: String!): Permission!
+
+  """Get the status of a long-running operation."""
+  getOperation(name: String!): Operation!
+
+  """Count the number of tokens in content."""
+  countTokens(input: CountTokensInput!): CountTokensResponse!
+
+  """Query a corpus for relevant chunks."""
+  queryCorpus(name: String!, query: String!, metadataFilters: [JSON!], resultsCount: Int): [RelevantChunk!]!
+
+  """Query a document for relevant chunks."""
+  queryDocument(name: String!, query: String!, metadataFilters: [JSON!], resultsCount: Int): [RelevantChunk!]!
+}
+
+"""A chunk returned from a semantic retrieval query with a relevance score."""
+type RelevantChunk {
+  chunkRelevanceScore: Float!
+  chunk: Chunk!
+}
+
+# ─────────────────────────────────────────────
+# Mutation Root
+# ─────────────────────────────────────────────
+
+type Mutation {
+  """Generate content (non-streaming) from a Gemini model."""
+  generateContent(input: GenerateContentInput!): GenerateContentResponse!
+
+  """Generate text embeddings for a single piece of content."""
+  embedContent(input: EmbedContentInput!): EmbedContentResponse!
+
+  """Generate text embeddings for a batch of content items."""
+  batchEmbedContents(input: BatchEmbedContentsInput!): BatchEmbedContentsResponse!
+
+  """Upload a file for use in multimodal requests."""
+  uploadFile(displayName: String, mimeType: String!, file: Upload!): File!
+
+  """Delete a file from the Files API."""
+  deleteFile(name: String!): Boolean!
+
+  """Create a new cached content resource."""
+  createCachedContent(input: CreateCachedContentInput!): CachedContent!
+
+  """Update the expiry of cached content."""
+  updateCachedContent(input: UpdateCachedContentInput!): CachedContent!
+
+  """Delete cached content."""
+  deleteCachedContent(name: String!): Boolean!
+
+  """Create a new fine-tuned model."""
+  createTunedModel(input: CreateTunedModelInput!): Operation!
+
+  """Update an existing tuned model's metadata."""
+  updateTunedModel(input: UpdateTunedModelInput!): TunedModel!
+
+  """Delete a tuned model."""
+  deleteTunedModel(name: String!): Boolean!
+
+  """Transfer ownership of a tuned model."""
+  transferOwnership(name: String!, emailAddress: String!): Boolean!
+
+  """Create a new semantic retrieval corpus."""
+  createCorpus(input: CreateCorpusInput!): Corpus!
+
+  """Delete a corpus and all its documents and chunks."""
+  deleteCorpus(name: String!, force: Boolean): Boolean!
+
+  """Create a document in a corpus."""
+  createDocument(input: CreateDocumentInput!): Document!
+
+  """Delete a document and all its chunks."""
+  deleteDocument(name: String!, force: Boolean): Boolean!
+
+  """Create a chunk in a document."""
+  createChunk(input: CreateChunkInput!): Chunk!
+
+  """Batch create chunks in a document."""
+  batchCreateChunks(documentName: String!, requests: [CreateChunkInput!]!): [Chunk!]!
+
+  """Delete a chunk."""
+  deleteChunk(name: String!): Boolean!
+
+  """Batch delete chunks."""
+  batchDeleteChunks(documentName: String!, names: [String!]!): Boolean!
+
+  """Create a permission on a resource."""
+  createPermission(input: CreatePermissionInput!): Permission!
+
+  """Delete a permission."""
+  deletePermission(name: String!): Boolean!
+
+  """Cancel a long-running operation."""
+  cancelOperation(name: String!): Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Subscription Root
+# ─────────────────────────────────────────────
+
+type Subscription {
+  """Stream generated content tokens as they are produced."""
+  streamGenerateContent(input: GenerateContentInput!): GenerateContentResponse!
+
+  """Receive real-time updates on a tuning job."""
+  tunedModelProgress(name: String!): TuningJobProgress!
+
+  """Receive real-time updates on a file being processed."""
+  fileProcessingStatus(name: String!): FileProcessingUpdate!
+
+  """Receive live multimodal streaming session updates."""
+  liveSession(sessionId: String!): LiveSessionMessage!
+}
+
+"""Progress update for an in-progress tuning job."""
+type TuningJobProgress {
+  state: TuningJobState!
+  completedSteps: Int
+  totalSteps: Int
+  snapshots: [TuningSnapshot!]
+}
+
+"""Update about a file being processed by the Files API."""
+type FileProcessingUpdate {
+  name: String!
+  state: FileState!
+  error: Status
+}
+
+"""A message from a Gemini Live streaming session."""
+type LiveSessionMessage {
+  sessionId: String!
+  serverContent: LiveServerContent
+  toolCall: LiveToolCall
+  toolCallCancellation: LiveToolCallCancellation
+  setupComplete: Boolean
+}
+
+"""Content delivered from the server in a live session."""
+type LiveServerContent {
+  modelTurn: Content
+  turnComplete: Boolean
+  interrupted: Boolean
+  groundingMetadata: GroundingMetadata
+}
+
+"""A tool call request within a live session."""
+type LiveToolCall {
+  functionCalls: [FunctionCall!]!
+}
+
+"""Cancellation of a tool call in a live session."""
+type LiveToolCallCancellation {
+  ids: [String!]!
+}
