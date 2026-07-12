@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/google-gemini-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: query
+  parameter: key
+  description: API key for authenticating requests. Obtain from Google AI Studio at https://aistudio.google.com/app/apikey.
+  sources:
+  - openapi/google-gemini-api-openapi.yml

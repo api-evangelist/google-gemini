@@ -260,6 +260,10 @@ apis:
   - type: Models
     url: https://firebase.google.com/docs/ai-logic/models
 common:
+- type: DomainSecurity
+  url: security/google-gemini-domain-security.yml
+- type: Authentication
+  url: authentication/google-gemini-authentication.yml
 - type: TermsOfService
   url: https://ai.google.dev/terms
 - type: PrivacyPolicy
