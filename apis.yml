@@ -260,6 +260,8 @@ apis:
   - type: Models
     url: https://firebase.google.com/docs/ai-logic/models
 common:
+- type: AgenticAccess
+  url: agentic-access/google-gemini-agentic-access.yml
 - type: DomainSecurity
   url: security/google-gemini-domain-security.yml
 - type: Authentication
