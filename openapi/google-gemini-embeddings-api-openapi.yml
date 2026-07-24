@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: Google Gemini Content Generation Embeddings API
+  description: Google's Gemini API provides access to generative AI models for text generation, multimodal understanding, and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation parameters, and tool use capabilities.
+  version: v1beta
+  termsOfService: https://ai.google.dev/terms
+  contact:
+    name: Google AI Developer Support
+    url: https://ai.google.dev/docs/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://generativelanguage.googleapis.com/v1beta
+  description: Google Generative Language API v1beta
+security:
+- ApiKeyAuth: []
+tags:
+- name: Embeddings
+  description: Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks using Gemini embedding models.
+paths:
+  /models/{model}:embedContent:
+    post:
+      operationId: embedContent
+      tags:
+      - Embeddings
+      summary: Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.
+      description: Generates an embedding from the model given input content. The embedding is a vector representation of the input text that captures semantic meaning. Embeddings can be used for semantic search, text classification, clustering, and retrieval tasks. Only the text parts of the input content are used for embedding generation.
+      parameters:
+      - name: model
+        in: path
+        required: true
+        description: 'The model name to use for embedding. Format: models/{model}. Example: models/gemini-embedding-001.'
+        schema:
+          type: string
+          example: gemini-embedding-001
+      - name: key
+        in: query
+        required: true
+        description: API key for authentication.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbedContentRequest'
+      responses:
+        '200':
+          description: Successful response with the generated embedding vector.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbedContentResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized. Invalid or missing API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found. The specified model does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many requests. Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    EmbedContentRequest:
+      type: object
+      description: Request containing the Content for the model to embed.
+      required:
+      - content
+      properties:
+        content:
+          $ref: '#/components/schemas/Content'
+        taskType:
+          type: string
+          description: The type of task for which the embedding will be used. Not supported by older embedding models.
+          enum:
+          - TASK_TYPE_UNSPECIFIED
+          - RETRIEVAL_QUERY
+          - RETRIEVAL_DOCUMENT
+          - SEMANTIC_SIMILARITY
+          - CLASSIFICATION
+          - CLUSTERING
+          - QUESTION_ANSWERING
+          - FACT_VERIFICATION
+          - CODE_RETRIEVAL_QUERY
+        title:
+          type: string
+          description: 'An optional title for the text. Only applicable when TaskType is RETRIEVAL_DOCUMENT. Note: Specifying a title for RETRIEVAL_DOCUMENT provides better quality embeddings for retrieval.'
+        outputDimensionality:
+          type: integer
+          format: int32
+          description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
+    FunctionCall:
+      type: object
+      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        args:
+          type: object
+          description: The function parameters and values in JSON object format.
+          additionalProperties: true
+    Blob:
+      type: object
+      description: Raw media bytes with MIME type information.
+      properties:
+        mimeType:
+          type: string
+          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
+        data:
+          type: string
+          format: byte
+          description: Raw bytes for media formats encoded as base64.
+    FunctionResponse:
+      type: object
+      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        response:
+          type: object
+          description: Required. The function response in JSON object format.
+          additionalProperties: true
+    EmbedContentResponse:
+      type: object
+      description: The response to an EmbedContentRequest.
+      properties:
+        embedding:
+          $ref: '#/components/schemas/ContentEmbedding'
+    ContentEmbedding:
+      type: object
+      description: A list of floats representing an embedding.
+      properties:
+        values:
+          type: array
+          description: The embedding values.
+          items:
+            type: number
+            format: float
+    FileData:
+      type: object
+      description: URI based data for media uploaded via the Files API.
+      properties:
+        mimeType:
+          type: string
+          description: The IANA standard MIME type of the source data.
+        fileUri:
+          type: string
+          description: URI of the file.
+    Content:
+      type: object
+      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
+      properties:
+        parts:
+          type: array
+          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
+          items:
+            $ref: '#/components/schemas/Part'
+        role:
+          type: string
+          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
+          enum:
+          - user
+          - model
+    Part:
+      type: object
+      description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
+      properties:
+        text:
+          type: string
+          description: Inline text.
+        inlineData:
+          $ref: '#/components/schemas/Blob'
+        fileData:
+          $ref: '#/components/schemas/FileData'
+        functionCall:
+          $ref: '#/components/schemas/FunctionCall'
+        functionResponse:
+          $ref: '#/components/schemas/FunctionResponse'
+    ErrorResponse:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP error code.
+            message:
+              type: string
+              description: Human-readable error message.
+            status:
+              type: string
+              description: Error status string.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
+      description: API key for authenticating requests. Obtain from Google AI Studio at https://aistudio.google.com/app/apikey.
