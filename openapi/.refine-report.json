@@ -1,0 +1,16 @@
+{
+  "provider": "google-gemini",
+  "sources": [
+    "google-gemini-content-generation-api-openapi.yml",
+    "google-gemini-embeddings-api-openapi.yml"
+  ],
+  "outputs": [
+    "google-gemini-content-generation-api-openapi.yml",
+    "google-gemini-embeddings-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
