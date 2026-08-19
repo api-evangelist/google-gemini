@@ -1,0 +1,719 @@
+{
+  "item": [
+    {
+      "id": "bf38755d-1a82-411c-8efc-170affc6460c",
+      "name": "Content Generation",
+      "description": {
+        "content": "Generate content using Gemini models with text, image, audio, and video inputs. Supports multimodal prompts, function calling, structured output, and configurable safety settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7707373e-db10-4304-8cbc-977e91d5e6fa",
+          "name": "Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation guide for detailed usage information. Input capabilities differ between models, including tuned models.",
+          "request": {
+            "name": "Google Gemini Generates a model response given an input GenerateContentRequest. Refer to the text generation guide for detailed usage information. Input capabilities differ between models, including tuned models.",
+            "description": {
+              "content": "Generates a response from the model given an input. The input can include text, images, audio, video, and other multimodal content. The model processes the input according to its capabilities and returns generated content along with safety ratings and usage metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                "{{model}}:generateContent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) API key for authentication."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": false,\n              \"key_1\": 5013.2034660400195,\n              \"key_2\": 7277\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": 2741,\n              \"key_1\": \"string\",\n              \"key_2\": 4212,\n              \"key_3\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": 7944\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": 4026.853595115193\n            }\n          }\n        }\n      ],\n      \"role\": \"<string>\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        },\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": true,\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": 1810.9589723238173\n            }\n          }\n        }\n      ],\n      \"role\": \"<string>\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": \"string\"\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": 5490,\n            \"key_1\": \"string\",\n            \"key_2\": 5641.116311603237\n          }\n        }\n      ],\n      \"codeExecution\": \"<object>\"\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": false\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": 6124\n          }\n        }\n      ],\n      \"codeExecution\": \"<object>\"\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"<string>\",\n      \"allowedFunctionNames\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"<string>\",\n      \"threshold\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"threshold\": \"<string>\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": 4622\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": false,\n            \"key_2\": 2350\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": 5312\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": true,\n            \"key_1\": 12.781836548493297,\n            \"key_2\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"<string>\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": \"<integer>\",\n    \"stopSequences\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"maxOutputTokens\": \"<integer>\",\n    \"temperature\": \"<float>\",\n    \"topP\": \"<float>\",\n    \"topK\": \"<integer>\",\n    \"responseMimeType\": \"<string>\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 7186\n    },\n    \"presencePenalty\": \"<float>\",\n    \"frequencyPenalty\": \"<float>\",\n    \"seed\": \"<integer>\"\n  },\n  \"cachedContent\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "abc67356-e33a-4862-9a8b-15a7daec6c4e",
+              "name": "Successful response with generated content.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"string\",\n            \"inlineData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fileData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionCall\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionResponse\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"text\": \"string\",\n            \"inlineData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fileData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionCall\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionResponse\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"role\": \"user\"\n      },\n      \"finishReason\": \"RECITATION\",\n      \"safetyRatings\": [\n        {\n          \"category\": \"HARM_CATEGORY_HARASSMENT\",\n          \"probability\": \"NEGLIGIBLE\",\n          \"blocked\": true\n        },\n        {\n          \"category\": \"HARM_CATEGORY_DANGEROUS_CONTENT\",\n          \"probability\": \"HARM_PROBABILITY_UNSPECIFIED\",\n          \"blocked\": false\n        }\n      ],\n      \"citationMetadata\": {\n        \"citationSources\": [\n          {\n            \"startIndex\": 6691,\n            \"endIndex\": 4673,\n            \"uri\": \"string\",\n            \"license\": \"string\"\n          },\n          {\n            \"startIndex\": 5096,\n            \"endIndex\": 8242,\n            \"uri\": \"string\",\n            \"license\": \"string\"\n          }\n        ]\n      },\n      \"tokenCount\": 1807,\n      \"index\": 4710\n    },\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"string\",\n            \"inlineData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fileData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionCall\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionResponse\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"text\": \"string\",\n            \"inlineData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fileData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionCall\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"functionResponse\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"role\": \"user\"\n      },\n      \"finishReason\": \"MAX_TOKENS\",\n      \"safetyRatings\": [\n        {\n          \"category\": \"HARM_CATEGORY_DANGEROUS_CONTENT\",\n          \"probability\": \"MEDIUM\",\n          \"blocked\": false\n        },\n        {\n          \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n          \"probability\": \"NEGLIGIBLE\",\n          \"blocked\": false\n        }\n      ],\n      \"citationMetadata\": {\n        \"citationSources\": [\n          {\n            \"startIndex\": 5120,\n            \"endIndex\": 4354,\n            \"uri\": \"string\",\n            \"license\": \"string\"\n          },\n          {\n            \"startIndex\": 240,\n            \"endIndex\": 7412,\n            \"uri\": \"string\",\n            \"license\": \"string\"\n          }\n        ]\n      },\n      \"tokenCount\": 7732,\n      \"index\": 6711\n    }\n  ],\n  \"promptFeedback\": {\n    \"blockReason\": \"BLOCKLIST\",\n    \"safetyRatings\": [\n      {\n        \"category\": \"HARM_CATEGORY_DANGEROUS_CONTENT\",\n        \"probability\": \"MEDIUM\",\n        \"blocked\": true\n      },\n      {\n        \"category\": \"HARM_CATEGORY_HARASSMENT\",\n        \"probability\": \"HIGH\",\n        \"blocked\": true\n      }\n    ]\n  },\n  \"usageMetadata\": {\n    \"promptTokenCount\": 3934,\n    \"candidatesTokenCount\": 1264,\n    \"totalTokenCount\": 6670,\n    \"cachedContentTokenCount\": 8891\n  },\n  \"modelVersion\": \"string\",\n  \"responseId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "caac6bd8-669b-44a8-be7e-322fe2f6b154",
+              "name": "Bad request. The request body is malformed or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cf0e64c-0e97-4f3e-afd3-79ef0d069afb",
+              "name": "Unauthorized. Invalid or missing API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea1efb85-11f9-48ca-bc27-104dd71bf9e2",
+              "name": "Forbidden. The API key does not have permission to access the requested model.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7ba1ce0-7e27-47cb-8f90-88b1790ee17c",
+              "name": "Not found. The specified model does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1b8cc97-c2ad-4799-8445-cd38548a3455",
+              "name": "Too many requests. Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28a4569a-7ce5-41b7-9607-6e14030d5d34",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:generateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d16e9b9-a725-4baf-8f7d-f79c7874e3d8",
+          "name": "Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns a stream of GenerateContentResponse chunks using server-sent events.",
+          "request": {
+            "name": "Google Gemini Generates a streamed response from the model given an input GenerateContentRequest. Returns a stream of GenerateContentResponse chunks using server-sent events.",
+            "description": {
+              "content": "Generates a streamed response from the model. This endpoint behaves identically to generateContent but returns partial responses incrementally as server-sent events. Each event contains a GenerateContentResponse with one or more candidate content parts. Use the alt=sse query parameter to enable streaming.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                "{{model}}:streamGenerateContent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) API key for authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "alt",
+                  "value": "sse",
+                  "description": "Set to 'sse' for server-sent events streaming."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": false,\n              \"key_1\": 5013.2034660400195,\n              \"key_2\": 7277\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": 2741,\n              \"key_1\": \"string\",\n              \"key_2\": 4212,\n              \"key_3\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": 7944\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": 4026.853595115193\n            }\n          }\n        }\n      ],\n      \"role\": \"<string>\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        },\n        {\n          \"text\": \"<string>\",\n          \"inlineData\": {\n            \"mimeType\": \"<string>\",\n            \"data\": \"<byte>\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"<string>\",\n            \"fileUri\": \"<string>\"\n          },\n          \"functionCall\": {\n            \"name\": \"<string>\",\n            \"args\": {\n              \"key_0\": true,\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"<string>\",\n            \"response\": {\n              \"key_0\": 1810.9589723238173\n            }\n          }\n        }\n      ],\n      \"role\": \"<string>\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": \"string\"\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": 5490,\n            \"key_1\": \"string\",\n            \"key_2\": 5641.116311603237\n          }\n        }\n      ],\n      \"codeExecution\": \"<object>\"\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": false\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": 6124\n          }\n        }\n      ],\n      \"codeExecution\": \"<object>\"\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"<string>\",\n      \"allowedFunctionNames\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"<string>\",\n      \"threshold\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"threshold\": \"<string>\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": 4622\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": false,\n            \"key_2\": 2350\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": 5312\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": true,\n            \"key_1\": 12.781836548493297,\n            \"key_2\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"<string>\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": \"<integer>\",\n    \"stopSequences\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"maxOutputTokens\": \"<integer>\",\n    \"temperature\": \"<float>\",\n    \"topP\": \"<float>\",\n    \"topK\": \"<integer>\",\n    \"responseMimeType\": \"<string>\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 7186\n    },\n    \"presencePenalty\": \"<float>\",\n    \"frequencyPenalty\": \"<float>\",\n    \"seed\": \"<integer>\"\n  },\n  \"cachedContent\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c425ccbb-d3a7-4ef6-9c5b-51be1081f07b",
+              "name": "Successful streaming response. Returns a stream of GenerateContentResponse objects as server-sent events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:streamGenerateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alt",
+                      "value": "sse"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c2eb42f-c14b-45d9-9e25-ab1ebf155c73",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:streamGenerateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alt",
+                      "value": "sse"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "202404ec-5c06-43e1-84d5-adcccd68894a",
+              "name": "Too many requests. Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:streamGenerateContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alt",
+                      "value": "sse"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 337,\n              \"key_1\": 4418.562112575301,\n              \"key_2\": 5704\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 4215,\n              \"key_1\": 2294,\n              \"key_2\": \"string\"\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": 5746\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    },\n    {\n      \"parts\": [\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": 7306\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": false,\n              \"key_1\": true\n            }\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"inlineData\": {\n            \"mimeType\": \"string\",\n            \"data\": \"string\"\n          },\n          \"fileData\": {\n            \"mimeType\": \"string\",\n            \"fileUri\": \"string\"\n          },\n          \"functionCall\": {\n            \"name\": \"string\",\n            \"args\": {\n              \"key_0\": \"string\",\n              \"key_1\": true\n            }\n          },\n          \"functionResponse\": {\n            \"name\": \"string\",\n            \"response\": {\n              \"key_0\": true\n            }\n          }\n        }\n      ],\n      \"role\": \"model\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 1771\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    },\n    {\n      \"functionDeclarations\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true,\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": true\n          }\n        }\n      ],\n      \"codeExecution\": {}\n    }\n  ],\n  \"toolConfig\": {\n    \"functionCallingConfig\": {\n      \"mode\": \"MODE_UNSPECIFIED\",\n      \"allowedFunctionNames\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"safetySettings\": [\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    },\n    {\n      \"category\": \"HARM_CATEGORY_CIVIC_INTEGRITY\",\n      \"threshold\": \"HARM_BLOCK_THRESHOLD_UNSPECIFIED\"\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": false,\n            \"key_1\": 3318\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 4898\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": \"string\"\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"generationConfig\": {\n    \"candidateCount\": 3504,\n    \"stopSequences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"maxOutputTokens\": 7218,\n    \"temperature\": 230.01131623273108,\n    \"topP\": 2884.703349430897,\n    \"topK\": 7084,\n    \"responseMimeType\": \"string\",\n    \"responseSchema\": {\n      \"key_0\": true,\n      \"key_1\": 323\n    },\n    \"presencePenalty\": 4512.019612733616,\n    \"frequencyPenalty\": 1277.845520343215,\n    \"seed\": 9052\n  },\n  \"cachedContent\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1183,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://generativelanguage.googleapis.com/v1beta",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The name of the Model to use for generating the completion. Format: models/{model}. Example: models/gemini-2.0-flash.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "model"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6b7f8ea5-1100-4b7c-ad0e-2e4bd87caa0a",
+    "name": "Google Gemini Content Generation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Google's Gemini API provides access to generative AI models for text generation, multimodal understanding, and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation parameters, and tool use capabilities.\n\nContact Support:\n Name: Google AI Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

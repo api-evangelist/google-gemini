@@ -1,0 +1,380 @@
+{
+  "item": [
+    {
+      "id": "ad822540-c996-4bee-992e-d20470f115e5",
+      "name": "Embeddings",
+      "description": {
+        "content": "Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks using Gemini embedding models.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dba08a9a-47fa-406b-9087-f687e95654a9",
+          "name": "Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.",
+          "request": {
+            "name": "Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.",
+            "description": {
+              "content": "Generates an embedding from the model given input content. The embedding is a vector representation of the input text that captures semantic meaning. Embeddings can be used for semantic search, text classification, clustering, and retrieval tasks. Only the text parts of the input content are used for embedding generation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                "{{model}}:embedContent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) API key for authentication."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": 8120.158961489879,\n            \"key_1\": 8852.48363637137\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": 4482.4411942197\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": true,\n            \"key_1\": 577\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": true,\n            \"key_1\": \"string\",\n            \"key_2\": 8107.14074128446\n          }\n        }\n      }\n    ],\n    \"role\": \"<string>\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "975db5c0-89c3-4647-ac39-cee0d8c02409",
+              "name": "Successful response with the generated embedding vector.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:embedContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"embedding\": {\n    \"values\": [\n      1250.849495352766,\n      4396.928148633763\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5375005-f207-4bad-971d-f18c0758c381",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:embedContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9f1288e-1d49-4960-a16c-5a0e6b744104",
+              "name": "Unauthorized. Invalid or missing API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:embedContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83ec9447-61f4-46cf-8d0d-c7c228cf03a8",
+              "name": "Not found. The specified model does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:embedContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d26caf86-0d28-4b9e-b9f6-c9613d5b7fd4",
+              "name": "Too many requests. Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    "{{model}}:embedContent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://generativelanguage.googleapis.com/v1beta",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The model name to use for embedding. Format: models/{model}. Example: models/gemini-embedding-001.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "model"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ef13c85f-1b60-4599-b6ff-d8cc34554b91",
+    "name": "Google Gemini Content Generation Embeddings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Google's Gemini API provides access to generative AI models for text generation, multimodal understanding, and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation parameters, and tool use capabilities.\n\nContact Support:\n Name: Google AI Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
