@@ -26,6 +26,16 @@ tags:
 - Code Generation
 - Embeddings
 - Generative AI
+- Image-Generation
+- LLM
+- Machine-Learning
+- Multi-Modal
+tags_raw:
+- Agentic AI
+- Artificial Intelligence
+- Code Generation
+- Embeddings
+- Generative AI
 - Image Generation
 - LLM
 - Machine Learning
@@ -44,6 +54,10 @@ apis:
   description: Multimodal understanding of text and images.
   baseURL: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision
   tags:
+  - Image Understanding
+  - Multi-Modal
+  - Vision
+  tags_raw:
   - Image Understanding
   - Multimodal
   - Vision
@@ -80,6 +94,13 @@ apis:
   humanURL: https://ai.google.dev/gemini-api/docs/live
   baseURL: https://generativelanguage.googleapis.com
   tags:
+  - Multi-Modal
+  - Real-Time
+  - Streaming
+  - Video
+  - Voice
+  - WebSockets
+  tags_raw:
   - Multimodal
   - Real-Time
   - Streaming
@@ -166,6 +187,11 @@ apis:
   humanURL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview
   baseURL: https://aiplatform.googleapis.com
   tags:
+  - Google Cloud
+  - Image-Generation
+  - Imagen
+  - Text-to-Image
+  tags_raw:
   - Google Cloud
   - Image Generation
   - Imagen
