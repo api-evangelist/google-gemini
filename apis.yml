@@ -1,6 +1,18 @@
 aid: google-gemini
 name: Google Gemini
 description: Google's multimodal AI model APIs for text, image, audio, and video understanding.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
