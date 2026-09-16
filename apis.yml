@@ -30,14 +30,13 @@ accessModel:
 image: https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg
 url: https://ai.google.dev/
 created: '2024-01-01'
-modified: '2026-05-29'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 type: Index
 tags:
 - Agentic AI
 - Artificial Intelligence
 - Code Generation
-- Developer Tools
 - Embeddings
 - Generative AI
 - Image-Generation
@@ -88,9 +87,8 @@ apis:
   - type: Documentation
     url: https://ai.google.dev/models/gemini
 - name: Gemini Embedding API
-  description: >-
-    Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks
-    using the gemini-embedding-001 model.
+  description: Generate text embedding vectors for semantic search, classification, clustering, and retrieval
+    tasks using the gemini-embedding-001 model.
   humanURL: https://ai.google.dev/gemini-api/docs/embeddings
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -102,9 +100,8 @@ apis:
   - type: Documentation
     url: https://ai.google.dev/gemini-api/docs/embeddings
 - name: Gemini Live API
-  description: >-
-    Low-latency real-time voice and video interactions with Gemini using WebSockets for streaming multimodal
-    input and output.
+  description: Low-latency real-time voice and video interactions with Gemini using WebSockets for streaming
+    multimodal input and output.
   humanURL: https://ai.google.dev/gemini-api/docs/live
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -125,9 +122,8 @@ apis:
   - type: Documentation
     url: https://ai.google.dev/gemini-api/docs/live
 - name: Gemini Context Caching API
-  description: >-
-    Cache input tokens for repeated use across multiple requests to reduce costs and improve latency for
-    large context workloads.
+  description: Cache input tokens for repeated use across multiple requests to reduce costs and improve
+    latency for large context workloads.
   humanURL: https://ai.google.dev/gemini-api/docs/caching
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -140,9 +136,8 @@ apis:
   - type: APIReference
     url: https://ai.google.dev/api/caching
 - name: Gemini Fine-Tuning API
-  description: >-
-    Customize Gemini model behavior for specific tasks using supervised fine-tuning with your own training
-    data.
+  description: Customize Gemini model behavior for specific tasks using supervised fine-tuning with your
+    own training data.
   humanURL: https://ai.google.dev/gemini-api/docs/model-tuning
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -155,9 +150,8 @@ apis:
   - type: APIReference
     url: https://ai.google.dev/api/tuning
 - name: Gemini Interactions API
-  description: >-
-    Unified interface for interacting with Gemini models and agents providing a consistent way to manage
-    multi-turn conversations and tool use.
+  description: Unified interface for interacting with Gemini models and agents providing a consistent
+    way to manage multi-turn conversations and tool use.
   humanURL: https://ai.google.dev/gemini-api/docs/interactions
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -169,9 +163,8 @@ apis:
   - type: Documentation
     url: https://ai.google.dev/gemini-api/docs/interactions
 - name: Vertex AI Gemini API
-  description: >-
-    Enterprise-grade access to Gemini models through Google Cloud Vertex AI with advanced features including
-    grounding, safety filters, and regional endpoints.
+  description: Enterprise-grade access to Gemini models through Google Cloud Vertex AI with advanced features
+    including grounding, safety filters, and regional endpoints.
   humanURL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/inference
   baseURL: https://aiplatform.googleapis.com
   tags:
@@ -195,9 +188,8 @@ apis:
   - type: Pricing
     url: https://cloud.google.com/vertex-ai/pricing
 - name: Vertex AI Imagen API
-  description: >-
-    Generate and edit images using Google Imagen models on Vertex AI for high-quality image creation from
-    text prompts.
+  description: Generate and edit images using Google Imagen models on Vertex AI for high-quality image
+    creation from text prompts.
   humanURL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview
   baseURL: https://aiplatform.googleapis.com
   tags:
@@ -216,9 +208,8 @@ apis:
   - type: APIReference
     url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/imagen-api
 - name: Vertex AI Gemini Live API
-  description: >-
-    Enterprise real-time multimodal streaming API on Vertex AI for building low-latency voice and video
-    AI agents.
+  description: Enterprise real-time multimodal streaming API on Vertex AI for building low-latency voice
+    and video AI agents.
   humanURL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api
   baseURL: https://aiplatform.googleapis.com
   tags:
@@ -232,14 +223,11 @@ apis:
   - type: Documentation
     url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api
   - type: APIReference
-    url: >-
-      https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/multimodal-live
+    url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/multimodal-live
 - name: Vertex AI Text Embeddings API
-  description: >-
-    Generate text embeddings for semantic search and classification tasks using Google embedding models
-    on Vertex AI.
-  humanURL: >-
-    https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings
+  description: Generate text embeddings for semantic search and classification tasks using Google embedding
+    models on Vertex AI.
+  humanURL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings
   baseURL: https://aiplatform.googleapis.com
   tags:
   - Embeddings
@@ -248,15 +236,12 @@ apis:
   - Vertex AI
   properties:
   - type: Documentation
-    url: >-
-      https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings
+    url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings
   - type: APIReference
-    url: >-
-      https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api
+    url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api
 - name: Firebase AI Logic API
-  description: >-
-    Access Gemini API capabilities through Firebase SDKs for mobile and web applications with built-in
-    security and authentication.
+  description: Access Gemini API capabilities through Firebase SDKs for mobile and web applications with
+    built-in security and authentication.
   humanURL: https://firebase.google.com/docs/ai-logic
   baseURL: https://firebaseml.googleapis.com
   tags:
@@ -273,9 +258,8 @@ apis:
     url: https://firebase.google.com/docs/ai-logic/models
 - aid: google-gemini:google-gemini-content-generation-api
   name: Google Gemini Content Generation API
-  description: >-
-    Generate content using Gemini models with text, image, audio, and video inputs. Supports multimodal
-    prompts, function calling, structured output, and configurable safety settings.
+  description: Generate content using Gemini models with text, image, audio, and video inputs. Supports
+    multimodal prompts, function calling, structured output, and configurable safety settings.
   humanURL: https://ai.google.dev/
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -321,9 +305,8 @@ apis:
     url: graphql/google-gemini-graphql.md
 - aid: google-gemini:google-gemini-embeddings-api
   name: Google Gemini Embeddings API
-  description: >-
-    Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks
-    using Gemini embedding models.
+  description: Generate text embedding vectors for semantic search, classification, clustering, and retrieval
+    tasks using Gemini embedding models.
   humanURL: https://ai.google.dev/
   baseURL: https://generativelanguage.googleapis.com
   tags:
@@ -368,6 +351,8 @@ apis:
   - type: GraphQL
     url: graphql/google-gemini-graphql.md
 common:
+- type: Website
+  url: https://google.dev
 - type: AgenticAccess
   url: agentic-access/google-gemini-agentic-access.yml
 - type: DomainSecurity
