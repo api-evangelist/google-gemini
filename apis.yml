@@ -110,7 +110,7 @@ apis:
   - Streaming
   - Video
   - Voice
-  - WebSockets
+  - WebSocket
   tags_raw:
   - Multimodal
   - Real-Time
