@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Google Gemini Content Generation Embeddings API
+  title: Google Gemini Embeddings API
   description: Google's Gemini API provides access to generative AI models for text generation, multimodal understanding, and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation parameters, and tool use capabilities.
   version: v1beta
   termsOfService: https://ai.google.dev/terms
@@ -24,7 +24,7 @@ paths:
       operationId: embedContent
       tags:
       - Embeddings
-      summary: Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.
+      summary: Google Gemini Generates a text embedding vector from the input Content using…
       description: Generates an embedding from the model given input content. The embedding is a vector representation of the input text that captures semantic meaning. Embeddings can be used for semantic search, text classification, clustering, and retrieval tasks. Only the text parts of the input content are used for embedding generation.
       parameters:
       - name: model
@@ -79,6 +79,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP error code.
+            message:
+              type: string
+              description: Human-readable error message.
+            status:
+              type: string
+              description: Error status string.
     EmbedContentRequest:
       type: object
       description: Request containing the Content for the model to embed.
@@ -107,55 +123,6 @@ components:
           type: integer
           format: int32
           description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
-    FunctionCall:
-      type: object
-      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
-      properties:
-        name:
-          type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        args:
-          type: object
-          description: The function parameters and values in JSON object format.
-          additionalProperties: true
-    Blob:
-      type: object
-      description: Raw media bytes with MIME type information.
-      properties:
-        mimeType:
-          type: string
-          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
-        data:
-          type: string
-          format: byte
-          description: Raw bytes for media formats encoded as base64.
-    FunctionResponse:
-      type: object
-      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
-      properties:
-        name:
-          type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        response:
-          type: object
-          description: Required. The function response in JSON object format.
-          additionalProperties: true
-    EmbedContentResponse:
-      type: object
-      description: The response to an EmbedContentRequest.
-      properties:
-        embedding:
-          $ref: '#/components/schemas/ContentEmbedding'
-    ContentEmbedding:
-      type: object
-      description: A list of floats representing an embedding.
-      properties:
-        values:
-          type: array
-          description: The embedding values.
-          items:
-            type: number
-            format: float
     FileData:
       type: object
       description: URI based data for media uploaded via the Files API.
@@ -166,21 +133,6 @@ components:
         fileUri:
           type: string
           description: URI of the file.
-    Content:
-      type: object
-      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
-      properties:
-        parts:
-          type: array
-          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
-          items:
-            $ref: '#/components/schemas/Part'
-        role:
-          type: string
-          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
-          enum:
-          - user
-          - model
     Part:
       type: object
       description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
@@ -196,22 +148,70 @@ components:
           $ref: '#/components/schemas/FunctionCall'
         functionResponse:
           $ref: '#/components/schemas/FunctionResponse'
-    ErrorResponse:
+    Content:
       type: object
-      description: Error response from the API.
+      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
       properties:
-        error:
+        parts:
+          type: array
+          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
+          items:
+            $ref: '#/components/schemas/Part'
+        role:
+          type: string
+          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
+          enum:
+          - user
+          - model
+    ContentEmbedding:
+      type: object
+      description: A list of floats representing an embedding.
+      properties:
+        values:
+          type: array
+          description: The embedding values.
+          items:
+            type: number
+            format: float
+    FunctionCall:
+      type: object
+      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        args:
           type: object
-          properties:
-            code:
-              type: integer
-              description: HTTP error code.
-            message:
-              type: string
-              description: Human-readable error message.
-            status:
-              type: string
-              description: Error status string.
+          description: The function parameters and values in JSON object format.
+          additionalProperties: true
+    FunctionResponse:
+      type: object
+      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        response:
+          type: object
+          description: Required. The function response in JSON object format.
+          additionalProperties: true
+    Blob:
+      type: object
+      description: Raw media bytes with MIME type information.
+      properties:
+        mimeType:
+          type: string
+          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
+        data:
+          type: string
+          format: byte
+          description: Raw bytes for media formats encoded as base64.
+    EmbedContentResponse:
+      type: object
+      description: The response to an EmbedContentRequest.
+      properties:
+        embedding:
+          $ref: '#/components/schemas/ContentEmbedding'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

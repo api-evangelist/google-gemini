@@ -1,0 +1,29 @@
+# Front Door AI Index — google-gemini — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: google-gemini
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: google.dev
+  final_host: developers.google.com
+  ownership: own
+  owner: google-gemini
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 23
+  host_score: 23
+  density: 30.96
+  words: 743
+  tiers:
+    agentic: 2
+    core: 16
+    model: 5
+  ambiguous: 3
+  top_terms:
+    AI: 16
+    Gemini: 5
+    agent: 3
+    AI agent: 1
+    agentic: 1
