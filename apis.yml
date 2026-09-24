@@ -34,15 +34,16 @@ modified: '2026-09-16'
 specificationVersion: '0.23'
 type: Index
 tags:
-- Agentic AI
+- AI Agents
 - Artificial Intelligence
 - Code Generation
 - Embeddings
 - Generative AI
-- Image-Generation
+- Image Generation
 - LLM
-- Machine-Learning
+- Machine Learning
 - Multi-Modal
+- Real-Time
 tags_raw:
 - Agentic AI
 - Artificial Intelligence
@@ -53,6 +54,9 @@ tags_raw:
 - LLM
 - Machine Learning
 - Multimodal
+- Image-Generation
+- Machine-Learning
+- Real-Time
 apis:
 - name: Gemini Pro API
   description: Advanced reasoning and complex task handling.
@@ -194,7 +198,7 @@ apis:
   baseURL: https://aiplatform.googleapis.com
   tags:
   - Google Cloud
-  - Image-Generation
+  - Image Generation
   - Imagen
   - Text-to-Image
   tags_raw:
@@ -202,6 +206,7 @@ apis:
   - Image Generation
   - Imagen
   - Text-To-Image
+  - Image-Generation
   properties:
   - type: Documentation
     url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview
@@ -301,8 +306,6 @@ apis:
     url: https://ai.google.dev/gemini-api/docs/structured-output
   - type: Token Counting
     url: https://ai.google.dev/gemini-api/docs/tokens
-  - type: GraphQL
-    url: graphql/google-gemini-graphql.md
 - aid: google-gemini:google-gemini-embeddings-api
   name: Google Gemini Embeddings API
   description: Generate text embedding vectors for semantic search, classification, clustering, and retrieval
@@ -348,8 +351,6 @@ apis:
     url: https://ai.google.dev/gemini-api/docs/structured-output
   - type: Token Counting
     url: https://ai.google.dev/gemini-api/docs/tokens
-  - type: GraphQL
-    url: graphql/google-gemini-graphql.md
 common:
 - type: Website
   url: https://google.dev
