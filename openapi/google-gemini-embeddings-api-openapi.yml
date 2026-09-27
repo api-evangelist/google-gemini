@@ -79,22 +79,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Error response from the API.
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: HTTP error code.
-            message:
-              type: string
-              description: Human-readable error message.
-            status:
-              type: string
-              description: Error status string.
     EmbedContentRequest:
       type: object
       description: Request containing the Content for the model to embed.
@@ -123,16 +107,34 @@ components:
           type: integer
           format: int32
           description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
-    FileData:
+    EmbedContentResponse:
       type: object
-      description: URI based data for media uploaded via the Files API.
+      description: The response to an EmbedContentRequest.
+      properties:
+        embedding:
+          $ref: '#/components/schemas/ContentEmbedding'
+    Blob:
+      type: object
+      description: Raw media bytes with MIME type information.
       properties:
         mimeType:
           type: string
-          description: The IANA standard MIME type of the source data.
-        fileUri:
+          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
+        data:
           type: string
-          description: URI of the file.
+          format: byte
+          description: Raw bytes for media formats encoded as base64.
+    FunctionResponse:
+      type: object
+      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        response:
+          type: object
+          description: Required. The function response in JSON object format.
+          additionalProperties: true
     Part:
       type: object
       description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
@@ -148,21 +150,22 @@ components:
           $ref: '#/components/schemas/FunctionCall'
         functionResponse:
           $ref: '#/components/schemas/FunctionResponse'
-    Content:
+    ErrorResponse:
       type: object
-      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
+      description: Error response from the API.
       properties:
-        parts:
-          type: array
-          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
-          items:
-            $ref: '#/components/schemas/Part'
-        role:
-          type: string
-          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
-          enum:
-          - user
-          - model
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP error code.
+            message:
+              type: string
+              description: Human-readable error message.
+            status:
+              type: string
+              description: Error status string.
     ContentEmbedding:
       type: object
       description: A list of floats representing an embedding.
@@ -184,34 +187,31 @@ components:
           type: object
           description: The function parameters and values in JSON object format.
           additionalProperties: true
-    FunctionResponse:
+    Content:
       type: object
-      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
       properties:
-        name:
+        parts:
+          type: array
+          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
+          items:
+            $ref: '#/components/schemas/Part'
+        role:
           type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        response:
-          type: object
-          description: Required. The function response in JSON object format.
-          additionalProperties: true
-    Blob:
+          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
+          enum:
+          - user
+          - model
+    FileData:
       type: object
-      description: Raw media bytes with MIME type information.
+      description: URI based data for media uploaded via the Files API.
       properties:
         mimeType:
           type: string
-          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
-        data:
+          description: The IANA standard MIME type of the source data.
+        fileUri:
           type: string
-          format: byte
-          description: Raw bytes for media formats encoded as base64.
-    EmbedContentResponse:
-      type: object
-      description: The response to an EmbedContentRequest.
-      properties:
-        embedding:
-          $ref: '#/components/schemas/ContentEmbedding'
+          description: URI of the file.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
