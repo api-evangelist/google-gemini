@@ -79,40 +79,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    EmbedContentRequest:
+    FunctionCall:
       type: object
-      description: Request containing the Content for the model to embed.
-      required:
-      - content
+      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
       properties:
-        content:
-          $ref: '#/components/schemas/Content'
-        taskType:
+        name:
           type: string
-          description: The type of task for which the embedding will be used. Not supported by older embedding models.
-          enum:
-          - TASK_TYPE_UNSPECIFIED
-          - RETRIEVAL_QUERY
-          - RETRIEVAL_DOCUMENT
-          - SEMANTIC_SIMILARITY
-          - CLASSIFICATION
-          - CLUSTERING
-          - QUESTION_ANSWERING
-          - FACT_VERIFICATION
-          - CODE_RETRIEVAL_QUERY
-        title:
-          type: string
-          description: 'An optional title for the text. Only applicable when TaskType is RETRIEVAL_DOCUMENT. Note: Specifying a title for RETRIEVAL_DOCUMENT provides better quality embeddings for retrieval.'
-        outputDimensionality:
-          type: integer
-          format: int32
-          description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
-    EmbedContentResponse:
-      type: object
-      description: The response to an EmbedContentRequest.
-      properties:
-        embedding:
-          $ref: '#/components/schemas/ContentEmbedding'
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        args:
+          type: object
+          description: The function parameters and values in JSON object format.
+          additionalProperties: true
     Blob:
       type: object
       description: Raw media bytes with MIME type information.
@@ -150,6 +127,65 @@ components:
           $ref: '#/components/schemas/FunctionCall'
         functionResponse:
           $ref: '#/components/schemas/FunctionResponse'
+    Content:
+      type: object
+      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
+      properties:
+        parts:
+          type: array
+          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
+          items:
+            $ref: '#/components/schemas/Part'
+        role:
+          type: string
+          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
+          enum:
+          - user
+          - model
+    EmbedContentResponse:
+      type: object
+      description: The response to an EmbedContentRequest.
+      properties:
+        embedding:
+          $ref: '#/components/schemas/ContentEmbedding'
+    FileData:
+      type: object
+      description: URI based data for media uploaded via the Files API.
+      properties:
+        mimeType:
+          type: string
+          description: The IANA standard MIME type of the source data.
+        fileUri:
+          type: string
+          description: URI of the file.
+    EmbedContentRequest:
+      type: object
+      description: Request containing the Content for the model to embed.
+      required:
+      - content
+      properties:
+        content:
+          $ref: '#/components/schemas/Content'
+        taskType:
+          type: string
+          description: The type of task for which the embedding will be used. Not supported by older embedding models.
+          enum:
+          - TASK_TYPE_UNSPECIFIED
+          - RETRIEVAL_QUERY
+          - RETRIEVAL_DOCUMENT
+          - SEMANTIC_SIMILARITY
+          - CLASSIFICATION
+          - CLUSTERING
+          - QUESTION_ANSWERING
+          - FACT_VERIFICATION
+          - CODE_RETRIEVAL_QUERY
+        title:
+          type: string
+          description: 'An optional title for the text. Only applicable when TaskType is RETRIEVAL_DOCUMENT. Note: Specifying a title for RETRIEVAL_DOCUMENT provides better quality embeddings for retrieval.'
+        outputDimensionality:
+          type: integer
+          format: int32
+          description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
     ErrorResponse:
       type: object
       description: Error response from the API.
@@ -176,42 +212,6 @@ components:
           items:
             type: number
             format: float
-    FunctionCall:
-      type: object
-      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
-      properties:
-        name:
-          type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        args:
-          type: object
-          description: The function parameters and values in JSON object format.
-          additionalProperties: true
-    Content:
-      type: object
-      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
-      properties:
-        parts:
-          type: array
-          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
-          items:
-            $ref: '#/components/schemas/Part'
-        role:
-          type: string
-          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
-          enum:
-          - user
-          - model
-    FileData:
-      type: object
-      description: URI based data for media uploaded via the Files API.
-      properties:
-        mimeType:
-          type: string
-          description: The IANA standard MIME type of the source data.
-        fileUri:
-          type: string
-          description: URI of the file.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
