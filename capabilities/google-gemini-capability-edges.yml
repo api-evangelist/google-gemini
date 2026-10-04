@@ -1,0 +1,27 @@
+slug: google-gemini
+provider: Google Gemini
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Content Generation
+  spec_file: google-gemini-content-generation-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /models/{model}:generateContent — "Generates a model response given an input GenerateContentRequest";
+    schemas SafetyRating, GenerationConfig, Candidate
+  reason: The operations invoke generative AI models with safety settings and tool-use configuration.
+    The only honest fit is Artificial Intelligence Management (AI/ML model lifecycle, responsible AI),
+    though this is model inference/consumption rather than full model lifecycle management, so confidence
+    is moderate rather than high.

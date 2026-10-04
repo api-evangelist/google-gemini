@@ -44,6 +44,7 @@ tags:
 - Machine Learning
 - Multi-Modal
 - Real-Time
+- Foundation Models
 tags_raw:
 - Agentic AI
 - Artificial Intelligence
@@ -57,6 +58,7 @@ tags_raw:
 - Image-Generation
 - Machine-Learning
 - Real-Time
+- Foundation Models
 apis:
 - name: Gemini Pro API
   description: Advanced reasoning and complex task handling.
@@ -352,6 +354,9 @@ apis:
   - type: Token Counting
     url: https://ai.google.dev/gemini-api/docs/tokens
 common:
+- type: CapabilityMap
+  url: capabilities/google-gemini-capability-edges.yml
+  name: Google Gemini Business Capability Map
 - type: Website
   url: https://google.dev
 - type: AgenticAccess
