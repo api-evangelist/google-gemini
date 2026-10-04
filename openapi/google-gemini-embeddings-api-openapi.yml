@@ -79,6 +79,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ContentEmbedding:
+      type: object
+      description: A list of floats representing an embedding.
+      properties:
+        values:
+          type: array
+          description: The embedding values.
+          items:
+            type: number
+            format: float
+    EmbedContentResponse:
+      type: object
+      description: The response to an EmbedContentRequest.
+      properties:
+        embedding:
+          $ref: '#/components/schemas/ContentEmbedding'
+    FileData:
+      type: object
+      description: URI based data for media uploaded via the Files API.
+      properties:
+        mimeType:
+          type: string
+          description: The IANA standard MIME type of the source data.
+        fileUri:
+          type: string
+          description: URI of the file.
     FunctionCall:
       type: object
       description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
@@ -90,17 +116,34 @@ components:
           type: object
           description: The function parameters and values in JSON object format.
           additionalProperties: true
-    Blob:
+    EmbedContentRequest:
       type: object
-      description: Raw media bytes with MIME type information.
+      description: Request containing the Content for the model to embed.
+      required:
+      - content
       properties:
-        mimeType:
+        content:
+          $ref: '#/components/schemas/Content'
+        taskType:
           type: string
-          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
-        data:
+          description: The type of task for which the embedding will be used. Not supported by older embedding models.
+          enum:
+          - TASK_TYPE_UNSPECIFIED
+          - RETRIEVAL_QUERY
+          - RETRIEVAL_DOCUMENT
+          - SEMANTIC_SIMILARITY
+          - CLASSIFICATION
+          - CLUSTERING
+          - QUESTION_ANSWERING
+          - FACT_VERIFICATION
+          - CODE_RETRIEVAL_QUERY
+        title:
           type: string
-          format: byte
-          description: Raw bytes for media formats encoded as base64.
+          description: 'An optional title for the text. Only applicable when TaskType is RETRIEVAL_DOCUMENT. Note: Specifying a title for RETRIEVAL_DOCUMENT provides better quality embeddings for retrieval.'
+        outputDimensionality:
+          type: integer
+          format: int32
+          description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
     FunctionResponse:
       type: object
       description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
@@ -142,50 +185,6 @@ components:
           enum:
           - user
           - model
-    EmbedContentResponse:
-      type: object
-      description: The response to an EmbedContentRequest.
-      properties:
-        embedding:
-          $ref: '#/components/schemas/ContentEmbedding'
-    FileData:
-      type: object
-      description: URI based data for media uploaded via the Files API.
-      properties:
-        mimeType:
-          type: string
-          description: The IANA standard MIME type of the source data.
-        fileUri:
-          type: string
-          description: URI of the file.
-    EmbedContentRequest:
-      type: object
-      description: Request containing the Content for the model to embed.
-      required:
-      - content
-      properties:
-        content:
-          $ref: '#/components/schemas/Content'
-        taskType:
-          type: string
-          description: The type of task for which the embedding will be used. Not supported by older embedding models.
-          enum:
-          - TASK_TYPE_UNSPECIFIED
-          - RETRIEVAL_QUERY
-          - RETRIEVAL_DOCUMENT
-          - SEMANTIC_SIMILARITY
-          - CLASSIFICATION
-          - CLUSTERING
-          - QUESTION_ANSWERING
-          - FACT_VERIFICATION
-          - CODE_RETRIEVAL_QUERY
-        title:
-          type: string
-          description: 'An optional title for the text. Only applicable when TaskType is RETRIEVAL_DOCUMENT. Note: Specifying a title for RETRIEVAL_DOCUMENT provides better quality embeddings for retrieval.'
-        outputDimensionality:
-          type: integer
-          format: int32
-          description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
     ErrorResponse:
       type: object
       description: Error response from the API.
@@ -202,16 +201,17 @@ components:
             status:
               type: string
               description: Error status string.
-    ContentEmbedding:
+    Blob:
       type: object
-      description: A list of floats representing an embedding.
+      description: Raw media bytes with MIME type information.
       properties:
-        values:
-          type: array
-          description: The embedding values.
-          items:
-            type: number
-            format: float
+        mimeType:
+          type: string
+          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
+        data:
+          type: string
+          format: byte
+          description: Raw bytes for media formats encoded as base64.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

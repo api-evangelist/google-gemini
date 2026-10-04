@@ -146,32 +146,42 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    SafetyRating:
+    Candidate:
       type: object
-      description: Safety rating for a piece of content. The safety rating contains the category of harm and the harm probability level in that category for a piece of content.
+      description: A response candidate generated from the model.
       properties:
-        category:
+        content:
+          $ref: '#/components/schemas/Content'
+        finishReason:
           type: string
-          description: The category for this rating.
+          description: The reason why the model stopped generating tokens. If empty, the model has not stopped generating tokens.
           enum:
-          - HARM_CATEGORY_UNSPECIFIED
-          - HARM_CATEGORY_HATE_SPEECH
-          - HARM_CATEGORY_SEXUALLY_EXPLICIT
-          - HARM_CATEGORY_DANGEROUS_CONTENT
-          - HARM_CATEGORY_HARASSMENT
-          - HARM_CATEGORY_CIVIC_INTEGRITY
-        probability:
-          type: string
-          description: The probability of harm for this content.
-          enum:
-          - HARM_PROBABILITY_UNSPECIFIED
-          - NEGLIGIBLE
-          - LOW
-          - MEDIUM
-          - HIGH
-        blocked:
-          type: boolean
-          description: Was this content blocked because of this rating?
+          - FINISH_REASON_UNSPECIFIED
+          - STOP
+          - MAX_TOKENS
+          - SAFETY
+          - RECITATION
+          - LANGUAGE
+          - OTHER
+          - BLOCKLIST
+          - PROHIBITED_CONTENT
+          - SPII
+          - MALFORMED_FUNCTION_CALL
+        safetyRatings:
+          type: array
+          description: List of ratings for the safety of a response candidate. There is at most one rating per category.
+          items:
+            $ref: '#/components/schemas/SafetyRating'
+        citationMetadata:
+          $ref: '#/components/schemas/CitationMetadata'
+        tokenCount:
+          type: integer
+          format: int32
+          description: Token count for this candidate.
+        index:
+          type: integer
+          format: int32
+          description: Index of the candidate in the list of response candidates.
     PromptFeedback:
       type: object
       description: A set of the feedback metadata for the prompt specified in GenerateContentRequest.content.
@@ -190,21 +200,57 @@ components:
           description: Ratings for safety of the prompt.
           items:
             $ref: '#/components/schemas/SafetyRating'
-    Content:
+    GenerateContentRequest:
       type: object
-      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
+      description: Request to generate a completion from the model. Contains the conversation content, optional tools, safety settings, system instructions, and generation configuration.
+      required:
+      - contents
       properties:
-        parts:
+        contents:
           type: array
-          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
+          description: Required. The content of the current conversation with the model. For single-turn queries, this is a single instance. For multi-turn queries such as chat, this is a repeated field that contains the conversation history and the latest request.
           items:
-            $ref: '#/components/schemas/Part'
-        role:
+            $ref: '#/components/schemas/Content'
+        tools:
+          type: array
+          description: A list of Tools the Model may use to generate the next response. A Tool is a piece of code that enables the system to interact with external systems to perform an action, or set of actions, outside of knowledge and scope of the Model.
+          items:
+            $ref: '#/components/schemas/Tool'
+        toolConfig:
+          $ref: '#/components/schemas/ToolConfig'
+        safetySettings:
+          type: array
+          description: A list of unique SafetySetting instances for blocking unsafe content. This will be enforced on the GenerateContentRequest.contents and GenerateContentResponse.candidates. There should be at most one setting for each SafetyCategory type.
+          items:
+            $ref: '#/components/schemas/SafetySetting'
+        systemInstruction:
+          $ref: '#/components/schemas/Content'
+        generationConfig:
+          $ref: '#/components/schemas/GenerationConfig'
+        cachedContent:
           type: string
-          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
-          enum:
-          - user
-          - model
+          description: 'The name of the cached content used as context to serve the prediction. Format: cachedContents/{cachedContent}.'
+    FileData:
+      type: object
+      description: URI based data for media uploaded via the Files API.
+      properties:
+        mimeType:
+          type: string
+          description: The IANA standard MIME type of the source data.
+        fileUri:
+          type: string
+          description: URI of the file.
+    FunctionCall:
+      type: object
+      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        args:
+          type: object
+          description: The function parameters and values in JSON object format.
+          additionalProperties: true
     GenerationConfig:
       type: object
       description: Configuration options for model generation and outputs. Not all parameters are configurable for every model.
@@ -253,36 +299,58 @@ components:
           type: integer
           format: int32
           description: Seed used in decoding. If specified with the same seed and parameters, the model will attempt to return the same response.
-    GenerateContentRequest:
+    SafetySetting:
       type: object
-      description: Request to generate a completion from the model. Contains the conversation content, optional tools, safety settings, system instructions, and generation configuration.
-      required:
-      - contents
+      description: Safety setting, affecting the safety-blocking behavior. Passing a safety setting for a category changes the allowed probability that content is blocked.
       properties:
-        contents:
-          type: array
-          description: Required. The content of the current conversation with the model. For single-turn queries, this is a single instance. For multi-turn queries such as chat, this is a repeated field that contains the conversation history and the latest request.
-          items:
-            $ref: '#/components/schemas/Content'
-        tools:
-          type: array
-          description: A list of Tools the Model may use to generate the next response. A Tool is a piece of code that enables the system to interact with external systems to perform an action, or set of actions, outside of knowledge and scope of the Model.
-          items:
-            $ref: '#/components/schemas/Tool'
-        toolConfig:
-          $ref: '#/components/schemas/ToolConfig'
-        safetySettings:
-          type: array
-          description: A list of unique SafetySetting instances for blocking unsafe content. This will be enforced on the GenerateContentRequest.contents and GenerateContentResponse.candidates. There should be at most one setting for each SafetyCategory type.
-          items:
-            $ref: '#/components/schemas/SafetySetting'
-        systemInstruction:
-          $ref: '#/components/schemas/Content'
-        generationConfig:
-          $ref: '#/components/schemas/GenerationConfig'
-        cachedContent:
+        category:
           type: string
-          description: 'The name of the cached content used as context to serve the prediction. Format: cachedContents/{cachedContent}.'
+          description: Required. The category for this setting.
+          enum:
+          - HARM_CATEGORY_UNSPECIFIED
+          - HARM_CATEGORY_HATE_SPEECH
+          - HARM_CATEGORY_SEXUALLY_EXPLICIT
+          - HARM_CATEGORY_DANGEROUS_CONTENT
+          - HARM_CATEGORY_HARASSMENT
+          - HARM_CATEGORY_CIVIC_INTEGRITY
+        threshold:
+          type: string
+          description: Required. Controls the probability threshold at which harm is blocked.
+          enum:
+          - HARM_BLOCK_THRESHOLD_UNSPECIFIED
+          - BLOCK_LOW_AND_ABOVE
+          - BLOCK_MEDIUM_AND_ABOVE
+          - BLOCK_ONLY_HIGH
+          - BLOCK_NONE
+          - 'OFF'
+    GenerateContentResponse:
+      type: object
+      description: Response from the model supporting multiple candidate responses. Safety ratings and content filtering are reported for both prompt in GenerateContentResponse.prompt_feedback and for each candidate in finishReason and safetyRatings.
+      properties:
+        candidates:
+          type: array
+          description: Candidate responses from the model. There may be multiple candidates if candidateCount was set in the GenerationConfig.
+          items:
+            $ref: '#/components/schemas/Candidate'
+        promptFeedback:
+          $ref: '#/components/schemas/PromptFeedback'
+        usageMetadata:
+          $ref: '#/components/schemas/UsageMetadata'
+        modelVersion:
+          type: string
+          description: The model version used to generate the response.
+        responseId:
+          type: string
+          description: Unique identifier for the response.
+    CitationMetadata:
+      type: object
+      description: A collection of source attributions for a piece of content.
+      properties:
+        citationSources:
+          type: array
+          description: Citations to sources for a specific response.
+          items:
+            $ref: '#/components/schemas/CitationSource'
     CitationSource:
       type: object
       description: A citation to a source for a portion of a specific response.
@@ -301,6 +369,43 @@ components:
         license:
           type: string
           description: License for the GitHub project that is attributed as a source.
+    Blob:
+      type: object
+      description: Raw media bytes with MIME type information.
+      properties:
+        mimeType:
+          type: string
+          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
+        data:
+          type: string
+          format: byte
+          description: Raw bytes for media formats encoded as base64.
+    FunctionResponse:
+      type: object
+      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      properties:
+        name:
+          type: string
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        response:
+          type: object
+          description: Required. The function response in JSON object format.
+          additionalProperties: true
+    Part:
+      type: object
+      description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
+      properties:
+        text:
+          type: string
+          description: Inline text.
+        inlineData:
+          $ref: '#/components/schemas/Blob'
+        fileData:
+          $ref: '#/components/schemas/FileData'
+        functionCall:
+          $ref: '#/components/schemas/FunctionCall'
+        functionResponse:
+          $ref: '#/components/schemas/FunctionResponse'
     FunctionCallingConfig:
       type: object
       description: Configuration for specifying function calling behavior.
@@ -334,68 +439,32 @@ components:
           type: object
           description: 'Describes the parameters to this function. Reflects the Open API 3.03 Parameter Object. String key: the name of the parameter. Parameter names are case sensitive. Schema Value: the Schema defining the type used for the parameter.'
           additionalProperties: true
-    ToolConfig:
+    SafetyRating:
       type: object
-      description: The Tool configuration containing parameters for specifying Tool use in the request.
+      description: Safety rating for a piece of content. The safety rating contains the category of harm and the harm probability level in that category for a piece of content.
       properties:
-        functionCallingConfig:
-          $ref: '#/components/schemas/FunctionCallingConfig'
-    Blob:
-      type: object
-      description: Raw media bytes with MIME type information.
-      properties:
-        mimeType:
+        category:
           type: string
-          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
-        data:
-          type: string
-          format: byte
-          description: Raw bytes for media formats encoded as base64.
-    CitationMetadata:
-      type: object
-      description: A collection of source attributions for a piece of content.
-      properties:
-        citationSources:
-          type: array
-          description: Citations to sources for a specific response.
-          items:
-            $ref: '#/components/schemas/CitationSource'
-    Candidate:
-      type: object
-      description: A response candidate generated from the model.
-      properties:
-        content:
-          $ref: '#/components/schemas/Content'
-        finishReason:
-          type: string
-          description: The reason why the model stopped generating tokens. If empty, the model has not stopped generating tokens.
+          description: The category for this rating.
           enum:
-          - FINISH_REASON_UNSPECIFIED
-          - STOP
-          - MAX_TOKENS
-          - SAFETY
-          - RECITATION
-          - LANGUAGE
-          - OTHER
-          - BLOCKLIST
-          - PROHIBITED_CONTENT
-          - SPII
-          - MALFORMED_FUNCTION_CALL
-        safetyRatings:
-          type: array
-          description: List of ratings for the safety of a response candidate. There is at most one rating per category.
-          items:
-            $ref: '#/components/schemas/SafetyRating'
-        citationMetadata:
-          $ref: '#/components/schemas/CitationMetadata'
-        tokenCount:
-          type: integer
-          format: int32
-          description: Token count for this candidate.
-        index:
-          type: integer
-          format: int32
-          description: Index of the candidate in the list of response candidates.
+          - HARM_CATEGORY_UNSPECIFIED
+          - HARM_CATEGORY_HATE_SPEECH
+          - HARM_CATEGORY_SEXUALLY_EXPLICIT
+          - HARM_CATEGORY_DANGEROUS_CONTENT
+          - HARM_CATEGORY_HARASSMENT
+          - HARM_CATEGORY_CIVIC_INTEGRITY
+        probability:
+          type: string
+          description: The probability of harm for this content.
+          enum:
+          - HARM_PROBABILITY_UNSPECIFIED
+          - NEGLIGIBLE
+          - LOW
+          - MEDIUM
+          - HIGH
+        blocked:
+          type: boolean
+          description: Was this content blocked because of this rating?
     Tool:
       type: object
       description: Tool details that the model may use to generate response. A Tool is a piece of code that enables the system to interact with external systems to perform an action, or set of actions, outside of knowledge and scope of the model.
@@ -408,36 +477,12 @@ components:
         codeExecution:
           type: object
           description: Enables the model to execute code as part of generation. Code execution is enabled by passing an empty object.
-    FunctionCall:
+    ToolConfig:
       type: object
-      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
+      description: The Tool configuration containing parameters for specifying Tool use in the request.
       properties:
-        name:
-          type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        args:
-          type: object
-          description: The function parameters and values in JSON object format.
-          additionalProperties: true
-    GenerateContentResponse:
-      type: object
-      description: Response from the model supporting multiple candidate responses. Safety ratings and content filtering are reported for both prompt in GenerateContentResponse.prompt_feedback and for each candidate in finishReason and safetyRatings.
-      properties:
-        candidates:
-          type: array
-          description: Candidate responses from the model. There may be multiple candidates if candidateCount was set in the GenerationConfig.
-          items:
-            $ref: '#/components/schemas/Candidate'
-        promptFeedback:
-          $ref: '#/components/schemas/PromptFeedback'
-        usageMetadata:
-          $ref: '#/components/schemas/UsageMetadata'
-        modelVersion:
-          type: string
-          description: The model version used to generate the response.
-        responseId:
-          type: string
-          description: Unique identifier for the response.
+        functionCallingConfig:
+          $ref: '#/components/schemas/FunctionCallingConfig'
     UsageMetadata:
       type: object
       description: Metadata on the generation request's token usage.
@@ -458,42 +503,21 @@ components:
           type: integer
           format: int32
           description: Number of tokens in the cached part of the prompt (the cached content).
-    FunctionResponse:
+    Content:
       type: object
-      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
       properties:
-        name:
+        parts:
+          type: array
+          description: Ordered Parts that constitute a single message. Parts may have different MIME types.
+          items:
+            $ref: '#/components/schemas/Part'
+        role:
           type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        response:
-          type: object
-          description: Required. The function response in JSON object format.
-          additionalProperties: true
-    Part:
-      type: object
-      description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
-      properties:
-        text:
-          type: string
-          description: Inline text.
-        inlineData:
-          $ref: '#/components/schemas/Blob'
-        fileData:
-          $ref: '#/components/schemas/FileData'
-        functionCall:
-          $ref: '#/components/schemas/FunctionCall'
-        functionResponse:
-          $ref: '#/components/schemas/FunctionResponse'
-    FileData:
-      type: object
-      description: URI based data for media uploaded via the Files API.
-      properties:
-        mimeType:
-          type: string
-          description: The IANA standard MIME type of the source data.
-        fileUri:
-          type: string
-          description: URI of the file.
+          description: The producer of the content. Must be either 'user' or 'model'. Useful to set for multi-turn conversations, otherwise can be left blank or unset.
+          enum:
+          - user
+          - model
     ErrorResponse:
       type: object
       description: Error response from the API.
@@ -510,30 +534,6 @@ components:
             status:
               type: string
               description: Error status string.
-    SafetySetting:
-      type: object
-      description: Safety setting, affecting the safety-blocking behavior. Passing a safety setting for a category changes the allowed probability that content is blocked.
-      properties:
-        category:
-          type: string
-          description: Required. The category for this setting.
-          enum:
-          - HARM_CATEGORY_UNSPECIFIED
-          - HARM_CATEGORY_HATE_SPEECH
-          - HARM_CATEGORY_SEXUALLY_EXPLICIT
-          - HARM_CATEGORY_DANGEROUS_CONTENT
-          - HARM_CATEGORY_HARASSMENT
-          - HARM_CATEGORY_CIVIC_INTEGRITY
-        threshold:
-          type: string
-          description: Required. Controls the probability threshold at which harm is blocked.
-          enum:
-          - HARM_BLOCK_THRESHOLD_UNSPECIFIED
-          - BLOCK_LOW_AND_ABOVE
-          - BLOCK_MEDIUM_AND_ABOVE
-          - BLOCK_ONLY_HIGH
-          - BLOCK_NONE
-          - 'OFF'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
