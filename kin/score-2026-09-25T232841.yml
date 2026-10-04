@@ -1,24 +1,22 @@
-# Kin Score artifact — google-gemini — 2026-09-02T211804
+# Kin Score artifact — google-gemini — 2026-09-25T232841
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: google-gemini
-  schema_version: 0.18.0
-  scored_at: '2026-09-02'
-  run_ts: 2026-09-02T211804
-  composite: 52.9
+  schema_version: 0.23.0
+  scored_at: '2026-09-25'
+  run_ts: 2026-09-25T232841
+  composite: 50.7
   band: developing
   facets:
-    discoverability: 57.4
-    contract_quality: 76.8
-    governance: 13.6
-    operational_transparency: 42.1
-    developer_ergonomics: 57.1
-    commercial_clarity: 47.4
+    discoverability: 55.4
+    contract_quality: 67.8
     contract_governance: 13.6
+    operational_transparency: 42.1
+    developer_ergonomics: 56.4
     access_clarity: 47.4
   agent_readiness:
-    score: 30.2
+    score: 29.9
     band: agent-ready
     dimensions:
       spec_presence: true
@@ -31,7 +29,7 @@ kin_score:
       openapi_examples: false
       rate_limit_signal: documented
       event_surface_described: derived
-      agent_skills: true
+      agent_skills: unknown
       well_known_catalog: false
       consent_identity: false
       agent_card: false
@@ -40,6 +38,12 @@ kin_score:
       protected_resource_metadata: false
       dynamic_client_registration: false
       agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 22.7
+    matched_via: fallback
   provenance:
     agentic_access: derived
     contracts:
