@@ -354,6 +354,8 @@ apis:
   - type: Token Counting
     url: https://ai.google.dev/gemini-api/docs/tokens
 common:
+- type: Plans
+  url: plans/google-gemini-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/google-gemini-capability-edges.yml
   name: Google Gemini Business Capability Map
