@@ -45,6 +45,16 @@ tags:
 - Multi-Modal
 - Real-Time
 - Foundation Models
+- Agents
+- Audio Understanding
+- Batch Processing
+- Deep Research
+- Document Understanding
+- Function Calling
+- Structured Output
+- Text-to-Speech
+- Video Generation
+- Video Understanding
 tags_raw:
 - Agentic AI
 - Artificial Intelligence
@@ -59,6 +69,16 @@ tags_raw:
 - Machine-Learning
 - Real-Time
 - Foundation Models
+- Agents
+- Audio Understanding
+- Batch Processing
+- Deep Research
+- Document Understanding
+- Function Calling
+- Structured Output
+- Text-to-Speech
+- Video Generation
+- Video Understanding
 apis:
 - name: Gemini Pro API
   description: Advanced reasoning and complex task handling.
@@ -353,7 +373,127 @@ apis:
     url: https://ai.google.dev/gemini-api/docs/structured-output
   - type: Token Counting
     url: https://ai.google.dev/gemini-api/docs/tokens
+- name: Gemini Python SDK
+  description: Python client library for the Gemini API.
+  humanURL: https://ai.google.dev/api/python
+  baseURL: https://pypi.org/project/google-generativeai/
+  tags:
+  - Client Library
+  - Python
+  - SDK
+  tags_raw:
+  - Client Library
+  - Python
+  - Sdk
+  properties:
+  - type: Documentation
+    url: https://ai.google.dev/api/python/google/generativeai
+  - type: GitHub
+    url: https://github.com/google/generative-ai-python
+  - type: Installation
+    url: https://pypi.org/project/google-generativeai/
+  - type: GitHub
+    url: https://github.com/googleapis/python-genai
+  - type: Installation
+    url: https://pypi.org/project/google-genai/
+- name: Gemini Node.js SDK
+  description: Node.js client library for the Gemini API.
+  humanURL: https://ai.google.dev/api/node
+  baseURL: https://www.npmjs.com/package/@google/generative-ai
+  tags:
+  - Client Library
+  - JavaScript
+  - Node.js
+  - SDK
+  - TypeScript
+  tags_raw:
+  - Client Library
+  - Javascript
+  - Nodejs
+  - Sdk
+  - Typescript
+  properties:
+  - type: Documentation
+    url: https://ai.google.dev/api/node
+  - type: GitHub
+    url: https://github.com/google/generative-ai-js
+  - type: Installation
+    url: https://www.npmjs.com/package/@google/generative-ai
+  - type: GitHub
+    url: https://github.com/googleapis/js-genai
+  - type: Installation
+    url: https://www.npmjs.com/package/@google/genai
+- name: Gemini Go SDK
+  description: Go client library for the Gemini API, providing an interface for developers to integrate
+    Google generative models into Go applications.
+  humanURL: https://ai.google.dev/gemini-api/docs/libraries
+  baseURL: https://pkg.go.dev/google.golang.org/genai
+  tags:
+  - Client Library
+  - Go
+  - Golang
+  - SDK
+  tags_raw:
+  - Client Library
+  - Go
+  - Golang
+  - Sdk
+  properties:
+  - type: Documentation
+    url: https://pkg.go.dev/google.golang.org/genai
+  - type: GitHub
+    url: https://github.com/googleapis/go-genai
+  - type: Installation
+    url: https://pkg.go.dev/google.golang.org/genai
+- name: Gemini Java SDK
+  description: Java client library for the Gemini API, providing an interface for developers to integrate
+    Google generative models into Java applications.
+  humanURL: https://ai.google.dev/gemini-api/docs/libraries
+  baseURL: https://central.sonatype.com/artifact/com.google.genai/google-genai
+  tags:
+  - Client Library
+  - Java
+  - SDK
+  tags_raw:
+  - Client Library
+  - Java
+  - Sdk
+  properties:
+  - type: Documentation
+    url: https://ai.google.dev/gemini-api/docs/libraries
+  - type: GitHub
+    url: https://github.com/googleapis/java-genai
+  - type: Installation
+    url: https://central.sonatype.com/artifact/com.google.genai/google-genai
+- name: Gemini C# SDK
+  description: C# client library for the Gemini API, providing an interface for developers to integrate
+    Google generative models into .NET applications.
+  humanURL: https://ai.google.dev/gemini-api/docs/libraries
+  baseURL: https://www.nuget.org/packages/Google.GenAI
+  tags:
+  - Client Library
+  - C#
+  - Dotnet
+  - SDK
+  tags_raw:
+  - Client Library
+  - Csharp
+  - Dotnet
+  - Sdk
+  properties:
+  - type: Documentation
+    url: https://googleapis.github.io/dotnet-genai/
+  - type: GitHub
+    url: https://github.com/googleapis/dotnet-genai
+  - type: Installation
+    url: https://www.nuget.org/packages/Google.GenAI
 common:
+- type: Pricing
+  url: https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+- type: RateLimits
+  url: rate-limits/google-gemini-rate-limits.yml
+- type: FinOps
+  url: finops/google-gemini-finops.yml
 - type: Plans
   url: plans/google-gemini-plans-pricing.yml
 - type: CapabilityMap
@@ -396,6 +536,8 @@ common:
 - name: Agent Skills
   url: https://github.com/google-gemini/gemini-skills
   type: AgentSkills
+- type: Website
+  url: https://ai.google.dev/gemini-api
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
