@@ -1,319 +1,195 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Google Gemini
-providerId: google-gemini
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - Generative AI
-  - LLM
-  - Google
-  - AI Infrastructure
-description: Gemini API is offered in three service tiers - Free (limited models, no charge), Paid (higher
-  rate limits, context caching, Batch API at 50% off), and Enterprise (custom security, provisioned throughput,
-  volume discounts). Per-model pricing is per-million tokens with separate input and output rates and
-  multi-band pricing for very long prompts. Multimodal inputs (audio) are priced higher than text/image/video.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
 sources:
-  - https://ai.google.dev/pricing
-  - https://ai.google.dev/gemini-api/docs/pricing
-  - https://ai.google.dev/gemini-api/docs/rate-limits
+- https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
+- https://cloud.google.com/vertex-ai/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: 'Extensive Google Cloud pricing page for Gemini Enterprise Agent Platform: hourly machine/accelerator/disk
+  rates, AutoML per-hour and per-prediction tiers, agent compute/memory/storage with monthly free tiers,
+  plus 1-year/3-year Flexible Savings Plan discount columns. Only a representative subset of the many
+  hundreds of listed SKU prices is captured here.'
+plan_count: 11
+currency: USD
 plans:
-  - id: google-gemini-free
-    name: Free Tier
-    type: freemium
-    description: Free access to a subset of Gemini models (e.g., Gemini 3.1 Flash-Lite Preview, 2.5 Flash)
-      with input and output tokens at no charge. Subject to lower per-minute rate limits than paid tier.
-    entries:
-      - label: Free input/output tokens
-        description: Tokens at no charge on free-tier-eligible models
-        name: free_tokens
-        type: quota
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Gemini 3.1 Flash-Lite Preview (free models)
-      - name: Gemini 2.5 Flash (limited)
-      - name: Lower rate limits
-      - name: Best-effort availability
-  - id: google-gemini-3-1-pro-preview
-    name: Paid - Gemini 3.1 Pro Preview
-    type: usage-based
-    description: Per-token pricing for Gemini 3.1 Pro Preview with banded pricing for prompts above 200K
-      tokens.
-    entries:
-      - label: Input tokens (<=200K)
-        description: Per-million input tokens for prompts up to 200K tokens
-        name: g31_pro_input_short
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '2.00'
-        userMultiplied: false
-      - label: Input tokens (>200K)
-        description: Per-million input tokens for prompts above 200K tokens
-        name: g31_pro_input_long
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '4.00'
-        userMultiplied: false
-      - label: Output tokens (<=200K prompt)
-        description: Per-million output tokens for prompts up to 200K tokens
-        name: g31_pro_output_short
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '12.00'
-        userMultiplied: false
-      - label: Output tokens (>200K prompt)
-        description: Per-million output tokens for prompts above 200K tokens
-        name: g31_pro_output_long
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '18.00'
-        userMultiplied: false
-    elements:
-      - name: Gemini 3.1 Pro (Preview)
-      - name: Long-context banded pricing
-      - name: Context caching
-      - name: Batch API (50% off)
-  - id: google-gemini-3-1-flash-lite-preview
-    name: Paid - Gemini 3.1 Flash-Lite Preview
-    type: usage-based
-    description: Per-token pricing for Gemini 3.1 Flash-Lite Preview. Audio inputs priced higher than
-      text/image/video.
-    entries:
-      - label: Input tokens (text / image / video)
-        description: Per-million input tokens for text, image, or video
-        name: g31_fl_input_text
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '0.25'
-        userMultiplied: false
-      - label: Input tokens (audio)
-        description: Per-million input tokens for audio
-        name: g31_fl_input_audio
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '0.50'
-        userMultiplied: false
-      - label: Output tokens
-        description: Per-million output tokens
-        name: g31_fl_output
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '1.50'
-        userMultiplied: false
-    elements:
-      - name: Gemini 3.1 Flash-Lite (Preview)
-      - name: Multimodal input (text/image/video/audio)
-      - name: Batch API (50% off)
-  - id: google-gemini-2-5-flash
-    name: Paid - Gemini 2.5 Flash
-    type: usage-based
-    description: Per-token pricing for Gemini 2.5 Flash. Audio inputs priced higher than text/image/video.
-    entries:
-      - label: Input tokens (text / image / video)
-        description: Per-million input tokens for text, image, or video
-        name: g25_flash_input_text
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '0.30'
-        userMultiplied: false
-      - label: Input tokens (audio)
-        description: Per-million input tokens for audio
-        name: g25_flash_input_audio
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '1.00'
-        userMultiplied: false
-      - label: Output tokens
-        description: Per-million output tokens
-        name: g25_flash_output
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '2.50'
-        userMultiplied: false
-    elements:
-      - name: Gemini 2.5 Flash
-      - name: Multimodal input
-      - name: Batch API (50% off)
-  - id: google-gemini-2-5-flash-lite
-    name: Paid - Gemini 2.5 Flash-Lite
-    type: usage-based
-    description: Per-token pricing for Gemini 2.5 Flash-Lite. Lowest list price for cost-sensitive workloads.
-    entries:
-      - label: Input tokens (text / image / video)
-        description: Per-million input tokens for text, image, or video
-        name: g25_fl_input_text
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '0.10'
-        userMultiplied: false
-      - label: Input tokens (audio)
-        description: Per-million input tokens for audio
-        name: g25_fl_input_audio
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '0.30'
-        userMultiplied: false
-      - label: Output tokens
-        description: Per-million output tokens
-        name: g25_fl_output
-        type: metered
-        metric: tokens
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000000
-        price: '0.40'
-        userMultiplied: false
-    elements:
-      - name: Gemini 2.5 Flash-Lite
-      - name: Lowest cost tier
-      - name: Batch API (50% off)
-  - id: google-gemini-grounding-search
-    name: Add-on - Google Search Grounding
-    type: usage-based
-    description: Per-search pricing for Google Search grounding requests. First 5,000 prompts/month are
-      free (shared across Gemini 3 models).
-    entries:
-      - label: Free monthly prompts
-        description: Free Google Search grounding prompts per month
-        name: search_free
-        type: quota
-        metric: requests
-        limit: 5000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Search grounding overage
-        description: Per-1,000 search queries above the free monthly allowance
-        name: search_overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://generativelanguage.googleapis.com
-        unit: 1000
-        price: '14.00'
-        userMultiplied: false
-    elements:
-      - name: Google Search grounding for Gemini 3
-      - name: Free 5K prompts/month shared across Gemini 3
-  - id: google-gemini-enterprise
-    name: Enterprise (Vertex AI)
-    type: enterprise
-    description: Enterprise SKU sold via Google Cloud / Vertex AI with provisioned throughput, custom
-      security, VPC-SC, customer-managed encryption keys, and volume discount commitments. Pricing custom.
-    entries:
-      - label: Provisioned throughput
-        description: Reserved Gemini capacity at negotiated rate
-        name: provisioned_throughput
-        type: subscription
-        metric: contract
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://aiplatform.googleapis.com
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: Provisioned throughput
-      - name: VPC-SC + CMEK + data residency controls
-      - name: Volume / commit discounts
-      - name: Vertex AI integration
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: AutoML image classification - Training
+  price_text: $3.465 / 1 hour
+  price: 3.465
+  currency: USD
+  period: per-use
+  unit: hour
+- name: AutoML image Training (Edge on-device model)
+  price_text: $18.00 / 1 hour
+  price: 18.0
+  currency: USD
+  period: per-use
+  unit: hour
+- name: AutoML tabular classification/regression Training
+  price_text: $21.252 / 1 hour
+  price: 21.252
+  currency: USD
+  period: per-use
+  unit: hour
+- name: ARIMA+ Prediction
+  price_text: $5.00 / 1,000 count
+  price: 5.0
+  currency: USD
+  period: per-use
+  unit: 1,000 count
+- name: Agent Compute
+  price_text: $0.085 / 1 hour, per 1 month / account
+  price: 0.085
+  currency: USD
+  period: per-use
+  unit: vCPU-hour
+  included_quota: 0 hour to 50 hour $0.00 (Free) / 1 hour, per 1 month / account
+- name: Agent Memory (RAM)
+  price_text: $0.009 / 1 gibibyte hour, per 1 month / account
+  price: 0.009
+  currency: USD
+  period: per-use
+  unit: GiB-hour
+  included_quota: 0 gibibyte hour to 100 gibibyte hour free
+- name: Agent Storage
+  price_text: $0.000410959 / 1 gibibyte hour, per 1 month / account
+  price: 0.000410959
+  currency: USD
+  period: per-use
+  unit: GiB-hour
+  included_quota: 0 gibibyte month to 1 gibibyte month free
+- name: Custom training n1-standard-4
+  price_text: $0.21849885 / 1 hour
+  price: 0.21849885
+  currency: USD
+  period: per-use
+  unit: hour
+- name: Accelerator NVIDIA_H100_80GB (training)
+  price_text: $9.79655057 / 1 hour
+  price: 9.79655057
+  currency: USD
+  period: per-use
+  unit: hour
+- name: Gen AI Evals computation-based metrics
+  price_text: $0.00003 per 1k characters
+  price: 3.0e-05
+  currency: USD
+  period: per-use
+  unit: 1k characters input
+- name: Gen AI Evals legacy model-based metrics
+  price_text: $0.005 per 1k characters
+  price: 0.005
+  currency: USD
+  period: per-use
+  unit: 1k characters input
+rate_limit_statements:
+- All use is subject to the Agent Platform quota policy.
+- 'Warning: Your training jobs are limited by the Agent Platform quota policy.'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - subscription
+  units:
+  - compute
+  - data
+  plans:
+  - name: AutoML image classification - Training
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: AutoML image Training (Edge on-device model)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: AutoML tabular classification/regression Training
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: ARIMA+ Prediction
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Agent Compute
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Agent Memory (RAM)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: Agent Storage
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: Custom training n1-standard-4
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Accelerator NVIDIA_H100_80GB (training)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Gen AI Evals computation-based metrics
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Gen AI Evals legacy model-based metrics
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
