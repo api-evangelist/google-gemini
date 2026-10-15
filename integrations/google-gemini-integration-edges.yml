@@ -12,17 +12,17 @@ edges:
   - model-maker
   router_signals:
     model-maker:
-      models: 44
+      models: 46
       router_ids:
       - google
       - ~google
       tools_share: 0.8
       structured_output_share: 1.0
     inference-host:
-      models: 25
+      models: 26
       router_ids:
       - Google AI Studio
-      tools_share: 0.76
+      tools_share: 0.77
       structured_output_share: 1.0
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
@@ -39,11 +39,11 @@ edges:
   - provider
   router_signals:
     provider:
-      models: 84
+      models: 85
       router_ids:
       - gemini
-      tools_share: 0.72
-      structured_output_share: 0.65
+      tools_share: 0.73
+      structured_output_share: 0.66
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
@@ -59,11 +59,11 @@ edges:
   - provider
   router_signals:
     provider:
-      models: 26
+      models: 27
       router_ids:
       - google-ai-studio
-      tools_share: 0.54
-      structured_output_share: 0.65
+      tools_share: 0.56
+      structured_output_share: 0.67
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
@@ -104,25 +104,6 @@ edges:
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
-- partner_name: LiveKit Agents
-  partner: livekit
-  partner_match: framework
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/livekit/agents/tree/main/livekit-plugins/livekit-plugins-google
-  coverage_role:
-  - realtime
-  framework_signals:
-    packages:
-    - livekit-plugins-google
-    roles:
-    - realtime
-    vendor_domain: ai.google.dev
-  matched_by: verified-domain-table
-  detected_by: sweep-voice-ai.py
-  first_seen: '2026-10-15'
 - partner_name: LlamaIndex
   partner: llamaindex
   partner_match: framework
@@ -142,13 +123,61 @@ edges:
   matched_by: verified-domain-table
   detected_by: sweep-rag-vector.py
   first_seen: '2026-10-15'
+- partner_name: LiveKit Agents
+  partner: livekit
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/livekit/agents/tree/main/livekit-plugins/livekit-plugins-google
+  coverage_role:
+  - realtime
+  framework_signals:
+    packages:
+    - livekit-plugins-google
+    roles:
+    - realtime
+    vendor_domain: ai.google.dev
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: Pipedream
+  partner: pipedream
+  partner_match: aggregator
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/google_gemini
+  category: null
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: google gemini
+    matched_domain: google.dev
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: google_gemini
+    actions: true
+    sources: false
+    builder: Pipedream repo (component)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 generated: '2026-10-13'
 method: searched
 checked:
 - https://api.llmgateway.io/v1/models
 - https://developers.cloudflare.com/ai-gateway/usage/providers/
 - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
+- https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
 - https://github.com/livekit/agents/tree/main/livekit-plugins
 - https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
 - https://openrouter.ai/api/v1/models
+source:
+- https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/

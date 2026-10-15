@@ -58,6 +58,17 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
+- slug: google-gemini-llamaindex
+  label: LlamaIndex
+  partner: llamaindex
+  partner_name: LlamaIndex
+  type: coverage
+  channel: partner-built
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-google-genai
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
 - slug: google-gemini-livekit-agents
   label: LiveKit Agents
   partner: livekit
@@ -69,14 +80,29 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
-- slug: google-gemini-llamaindex
-  label: LlamaIndex
-  partner: llamaindex
-  partner_name: LlamaIndex
-  type: coverage
-  channel: partner-built
-  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-google-genai
+- slug: google-gemini-pipedream
+  label: Pipedream
+  partner: pipedream
+  partner_name: Pipedream
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/google_gemini
   source: edge
-  relationship: system-coverage
-  status: not-a-workflow
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: google gemini
+    matched_domain: google.dev
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: google_gemini
+    actions: true
+    sources: false
+    builder: Pipedream repo (component)
+  status: pending-generation
   arazzo: null
