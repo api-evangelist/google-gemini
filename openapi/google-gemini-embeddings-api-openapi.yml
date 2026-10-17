@@ -89,33 +89,32 @@ components:
           items:
             type: number
             format: float
-    EmbedContentResponse:
+    Part:
       type: object
-      description: The response to an EmbedContentRequest.
+      description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
       properties:
-        embedding:
-          $ref: '#/components/schemas/ContentEmbedding'
-    FileData:
+        text:
+          type: string
+          description: Inline text.
+        inlineData:
+          $ref: '#/components/schemas/Blob'
+        fileData:
+          $ref: '#/components/schemas/FileData'
+        functionCall:
+          $ref: '#/components/schemas/FunctionCall'
+        functionResponse:
+          $ref: '#/components/schemas/FunctionResponse'
+    Blob:
       type: object
-      description: URI based data for media uploaded via the Files API.
+      description: Raw media bytes with MIME type information.
       properties:
         mimeType:
           type: string
-          description: The IANA standard MIME type of the source data.
-        fileUri:
+          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
+        data:
           type: string
-          description: URI of the file.
-    FunctionCall:
-      type: object
-      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
-      properties:
-        name:
-          type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        args:
-          type: object
-          description: The function parameters and values in JSON object format.
-          additionalProperties: true
+          format: byte
+          description: Raw bytes for media formats encoded as base64.
     EmbedContentRequest:
       type: object
       description: Request containing the Content for the model to embed.
@@ -144,32 +143,6 @@ components:
           type: integer
           format: int32
           description: Reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end. Supported by newer models since 2024 only.
-    FunctionResponse:
-      type: object
-      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
-      properties:
-        name:
-          type: string
-          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
-        response:
-          type: object
-          description: Required. The function response in JSON object format.
-          additionalProperties: true
-    Part:
-      type: object
-      description: A datatype containing media that is part of a multi-part Content message. A Part consists of data which has an associated datatype. A Part can only contain one of the accepted types in its corresponding field.
-      properties:
-        text:
-          type: string
-          description: Inline text.
-        inlineData:
-          $ref: '#/components/schemas/Blob'
-        fileData:
-          $ref: '#/components/schemas/FileData'
-        functionCall:
-          $ref: '#/components/schemas/FunctionCall'
-        functionResponse:
-          $ref: '#/components/schemas/FunctionResponse'
     Content:
       type: object
       description: The base structured datatype containing multi-part content of a message. A Content includes a role field designating the producer of the Content and a parts field containing multi-part data that contains the content of the message turn.
@@ -185,6 +158,22 @@ components:
           enum:
           - user
           - model
+    FileData:
+      type: object
+      description: URI based data for media uploaded via the Files API.
+      properties:
+        mimeType:
+          type: string
+          description: The IANA standard MIME type of the source data.
+        fileUri:
+          type: string
+          description: URI of the file.
+    EmbedContentResponse:
+      type: object
+      description: The response to an EmbedContentRequest.
+      properties:
+        embedding:
+          $ref: '#/components/schemas/ContentEmbedding'
     ErrorResponse:
       type: object
       description: Error response from the API.
@@ -201,17 +190,28 @@ components:
             status:
               type: string
               description: Error status string.
-    Blob:
+    FunctionCall:
       type: object
-      description: Raw media bytes with MIME type information.
+      description: A predicted FunctionCall returned from the model that contains a string representing the FunctionDeclaration.name with the arguments and their values.
       properties:
-        mimeType:
+        name:
           type: string
-          description: 'The IANA standard MIME type of the source data. Examples: image/png, image/jpeg, audio/mp3, video/mp4.'
-        data:
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        args:
+          type: object
+          description: The function parameters and values in JSON object format.
+          additionalProperties: true
+    FunctionResponse:
+      type: object
+      description: The result output from a FunctionCall that contains a string representing the FunctionDeclaration.name and a structured JSON object containing any output from the function call.
+      properties:
+        name:
           type: string
-          format: byte
-          description: Raw bytes for media formats encoded as base64.
+          description: Required. The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 63.
+        response:
+          type: object
+          description: Required. The function response in JSON object format.
+          additionalProperties: true
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
