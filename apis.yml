@@ -222,13 +222,13 @@ apis:
   - Google Cloud
   - Image Generation
   - Imagen
-  - Text-to-Image
   tags_raw:
   - Google Cloud
   - Image Generation
   - Imagen
   - Text-To-Image
   - Image-Generation
+  - Text-to-Image
   properties:
   - type: Documentation
     url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview
@@ -431,7 +431,6 @@ apis:
   tags:
   - Client Library
   - Go
-  - Golang
   - SDK
   tags_raw:
   - Client Library
@@ -473,7 +472,7 @@ apis:
   tags:
   - Client Library
   - C#
-  - Dotnet
+  - .NET
   - SDK
   tags_raw:
   - Client Library
