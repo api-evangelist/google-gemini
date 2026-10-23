@@ -487,6 +487,8 @@ apis:
   - type: Installation
     url: https://www.nuget.org/packages/Google.GenAI
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/google-gemini/overview
 - type: Pricing
   url: https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing
 - type: RateLimits
