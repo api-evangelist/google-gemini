@@ -1,354 +1,380 @@
 {
+  "info": {
+    "_postman_id": "94b68a98-6d28-4ad5-af42-b2c43e4d8b8c",
+    "name": "Google Gemini Embeddings API",
+    "description": "Google's Gemini API provides access to generative AI models for text generation, multimodal understanding, and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation parameters, and tool use capabilities.\n\nContact Support:\n Name: Google AI Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:56:55.000Z",
+    "updatedAt": "2026-10-21T20:56:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-94b68a98-6d28-4ad5-af42-b2c43e4d8b8c"
+  },
   "item": [
     {
-      "id": "ad822540-c996-4bee-992e-d20470f115e5",
-      "name": "Embeddings",
-      "description": {
-        "content": "Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks using Gemini embedding models.",
-        "type": "text/plain"
-      },
+      "name": "models",
       "item": [
         {
-          "id": "dba08a9a-47fa-406b-9087-f687e95654a9",
-          "name": "Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.",
-          "request": {
-            "name": "Google Gemini Generates a text embedding vector from the input Content using the specified Gemini Embedding model.",
-            "description": {
-              "content": "Generates an embedding from the model given input content. The embedding is a vector representation of the input text that captures semantic meaning. Embeddings can be used for semantic search, text classification, clustering, and retrieval tasks. Only the text parts of the input content are used for embedding generation.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "models",
-                "{{model}}:embedContent"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "key",
-                  "value": "<string>",
-                  "description": "(Required) API key for authentication."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": 8120.158961489879,\n            \"key_1\": 8852.48363637137\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": 4482.4411942197\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<byte>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"key_0\": true,\n            \"key_1\": 577\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"key_0\": true,\n            \"key_1\": \"string\",\n            \"key_2\": 8107.14074128446\n          }\n        }\n      }\n    ],\n    \"role\": \"<string>\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{model}:embedContent",
+          "item": [
             {
-              "id": "975db5c0-89c3-4647-ac39-cee0d8c02409",
-              "name": "Successful response with the generated embedding vector.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    "{{model}}:embedContent"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "key",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Google Gemini Generates a text embedding vector from the input Content using\u2026",
+              "id": "85248bde-486a-4df4-b38a-cba0d83f70a9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"commodobaa\": 4697389\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"consectetur_58\": \"laboris Duis nostrud dolore\",\n            \"sint28a\": -28324138,\n            \"aute4\": 68362091\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"elit_66\": -82261976,\n            \"est_dc\": -51531604.53318759,\n            \"incididunt_40\": -93052776.47101934,\n            \"aliqua_8b8\": 50455829.86458874\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"ut_b\": 75463835.80404732\n          }\n        }\n      }\n    ],\n    \"role\": \"model\"\n  },\n  \"taskType\": \"CLASSIFICATION\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"embedding\": {\n    \"values\": [\n      1250.849495352766,\n      4396.928148633763\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b5375005-f207-4bad-971d-f18c0758c381",
-              "name": "Bad request.",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/models/{{model}}:embedContent?key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "models",
                     "{{model}}:embedContent"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) API key for authentication.",
                       "key": "key",
                       "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Generates an embedding from the model given input content. The embedding is a vector representation of the input text that captures semantic meaning. Embeddings can be used for semantic search, text classification, clustering, and retrieval tasks. Only the text parts of the input content are used for embedding generation."
+              },
+              "response": [
+                {
+                  "id": "c8fbacd4-f51e-40f8-af71-fc56fd5454ff",
+                  "name": "Successful response with the generated embedding vector.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"commodobaa\": 4697389\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"consectetur_58\": \"laboris Duis nostrud dolore\",\n            \"sint28a\": -28324138,\n            \"aute4\": 68362091\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"elit_66\": -82261976,\n            \"est_dc\": -51531604.53318759,\n            \"incididunt_40\": -93052776.47101934,\n            \"aliqua_8b8\": 50455829.86458874\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"ut_b\": 75463835.80404732\n          }\n        }\n      }\n    ],\n    \"role\": \"model\"\n  },\n  \"taskType\": \"CLASSIFICATION\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/{{model}}:embedContent?key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "{{model}}:embedContent"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) API key for authentication.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "key",
-                      "value": "<API Key>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"embedding\": {\n    \"values\": [\n      \"<float>\",\n      \"<float>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-10-21T20:56:56.000Z",
+                  "updatedAt": "2026-10-21T20:56:56.000Z",
+                  "uid": "35240-c8fbacd4-f51e-40f8-af71-fc56fd5454ff"
                 },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "88c1b026-e3f0-4dbc-a041-dbc2ff788d52",
+                  "name": "Bad request.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"commodobaa\": 4697389\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"consectetur_58\": \"laboris Duis nostrud dolore\",\n            \"sint28a\": -28324138,\n            \"aute4\": 68362091\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"elit_66\": -82261976,\n            \"est_dc\": -51531604.53318759,\n            \"incididunt_40\": -93052776.47101934,\n            \"aliqua_8b8\": 50455829.86458874\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"ut_b\": 75463835.80404732\n          }\n        }\n      }\n    ],\n    \"role\": \"model\"\n  },\n  \"taskType\": \"CLASSIFICATION\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/{{model}}:embedContent?key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "{{model}}:embedContent"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) API key for authentication.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:56:56.000Z",
+                  "updatedAt": "2026-10-21T20:56:56.000Z",
+                  "uid": "35240-88c1b026-e3f0-4dbc-a041-dbc2ff788d52"
+                },
+                {
+                  "id": "522ba32b-d1f5-4cf8-8060-70d52976e655",
+                  "name": "Unauthorized. Invalid or missing API key.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"commodobaa\": 4697389\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"consectetur_58\": \"laboris Duis nostrud dolore\",\n            \"sint28a\": -28324138,\n            \"aute4\": 68362091\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"elit_66\": -82261976,\n            \"est_dc\": -51531604.53318759,\n            \"incididunt_40\": -93052776.47101934,\n            \"aliqua_8b8\": 50455829.86458874\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"ut_b\": 75463835.80404732\n          }\n        }\n      }\n    ],\n    \"role\": \"model\"\n  },\n  \"taskType\": \"CLASSIFICATION\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/{{model}}:embedContent?key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "{{model}}:embedContent"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) API key for authentication.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:56:56.000Z",
+                  "updatedAt": "2026-10-21T20:56:56.000Z",
+                  "uid": "35240-522ba32b-d1f5-4cf8-8060-70d52976e655"
+                },
+                {
+                  "id": "ee2d40f3-0ac3-4d59-8c87-ebbe71a48f51",
+                  "name": "Not found. The specified model does not exist.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"commodobaa\": 4697389\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"consectetur_58\": \"laboris Duis nostrud dolore\",\n            \"sint28a\": -28324138,\n            \"aute4\": 68362091\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"elit_66\": -82261976,\n            \"est_dc\": -51531604.53318759,\n            \"incididunt_40\": -93052776.47101934,\n            \"aliqua_8b8\": 50455829.86458874\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"ut_b\": 75463835.80404732\n          }\n        }\n      }\n    ],\n    \"role\": \"model\"\n  },\n  \"taskType\": \"CLASSIFICATION\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/{{model}}:embedContent?key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "{{model}}:embedContent"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) API key for authentication.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:56:56.000Z",
+                  "updatedAt": "2026-10-21T20:56:56.000Z",
+                  "uid": "35240-ee2d40f3-0ac3-4d59-8c87-ebbe71a48f51"
+                },
+                {
+                  "id": "89fc695b-07c3-450f-9dbc-706da3e6848e",
+                  "name": "Too many requests. Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"commodobaa\": 4697389\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"consectetur_58\": \"laboris Duis nostrud dolore\",\n            \"sint28a\": -28324138,\n            \"aute4\": 68362091\n          }\n        }\n      },\n      {\n        \"text\": \"<string>\",\n        \"inlineData\": {\n          \"mimeType\": \"<string>\",\n          \"data\": \"<string>\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"<string>\",\n          \"fileUri\": \"<string>\"\n        },\n        \"functionCall\": {\n          \"name\": \"<string>\",\n          \"args\": {\n            \"elit_66\": -82261976,\n            \"est_dc\": -51531604.53318759,\n            \"incididunt_40\": -93052776.47101934,\n            \"aliqua_8b8\": 50455829.86458874\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"<string>\",\n          \"response\": {\n            \"ut_b\": 75463835.80404732\n          }\n        }\n      }\n    ],\n    \"role\": \"model\"\n  },\n  \"taskType\": \"CLASSIFICATION\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/{{model}}:embedContent?key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "{{model}}:embedContent"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) API key for authentication.",
+                          "key": "key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:56:56.000Z",
+                  "updatedAt": "2026-10-21T20:56:56.000Z",
+                  "uid": "35240-89fc695b-07c3-450f-9dbc-706da3e6848e"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b9f1288e-1d49-4960-a16c-5a0e6b744104",
-              "name": "Unauthorized. Invalid or missing API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    "{{model}}:embedContent"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "key",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "83ec9447-61f4-46cf-8d0d-c7c228cf03a8",
-              "name": "Not found. The specified model does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    "{{model}}:embedContent"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "key",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d26caf86-0d28-4b9e-b9f6-c9613d5b7fd4",
-              "name": "Too many requests. Rate limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "models",
-                    "{{model}}:embedContent"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "key",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "key",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"content\": {\n    \"parts\": [\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 2560.588019906891,\n            \"key_1\": \"string\"\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 5154,\n            \"key_1\": \"string\",\n            \"key_2\": 4505.13159510303\n          }\n        }\n      },\n      {\n        \"text\": \"string\",\n        \"inlineData\": {\n          \"mimeType\": \"string\",\n          \"data\": \"string\"\n        },\n        \"fileData\": {\n          \"mimeType\": \"string\",\n          \"fileUri\": \"string\"\n        },\n        \"functionCall\": {\n          \"name\": \"string\",\n          \"args\": {\n            \"key_0\": 462\n          }\n        },\n        \"functionResponse\": {\n          \"name\": \"string\",\n          \"response\": {\n            \"key_0\": 3833.033358436322\n          }\n        }\n      }\n    ],\n    \"role\": \"user\"\n  },\n  \"taskType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"outputDimensionality\": \"<integer>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": 6975,\n    \"message\": \"string\",\n    \"status\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:56:56.000Z",
+              "updatedAt": "2026-10-21T20:56:56.000Z",
+              "uid": "35240-85248bde-486a-4df4-b38a-cba0d83f70a9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "58fe5705-cabc-4a0e-b96c-61d92a067a9e",
+          "createdAt": "2026-10-21T20:56:56.000Z",
+          "updatedAt": "2026-10-21T20:56:56.000Z",
+          "uid": "35240-58fe5705-cabc-4a0e-b96c-61d92a067a9e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://generativelanguage.googleapis.com/v1beta",
-      "key": "baseUrl"
-    },
-    {
-      "disabled": false,
-      "description": {
-        "content": "(Required) The model name to use for embedding. Format: models/{model}. Example: models/gemini-embedding-001.",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "<string>",
-      "key": "model"
+      "id": "50907bde-2b2f-48be-b06e-87be35964f05",
+      "createdAt": "2026-10-21T20:56:56.000Z",
+      "updatedAt": "2026-10-21T20:56:56.000Z",
+      "uid": "35240-50907bde-2b2f-48be-b06e-87be35964f05"
     }
   ],
   "auth": {
@@ -356,25 +382,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "key"
+        "value": "key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "ef13c85f-1b60-4599-b6ff-d8cc34554b91",
-    "name": "Google Gemini Content Generation Embeddings API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Google's Gemini API provides access to generative AI models for text generation, multimodal understanding, and embedding creation. The API supports text, image, audio, and video inputs with configurable safety settings, generation parameters, and tool use capabilities.\n\nContact Support:\n Name: Google AI Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://generativelanguage.googleapis.com/v1beta"
+    },
+    {
+      "key": "model",
+      "value": "<string>"
     }
-  }
+  ]
 }
