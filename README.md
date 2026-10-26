@@ -1,0 +1,422 @@
+# Google Gemini (google-gemini)
+
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **Not from the company, and here with a question?** You are welcome here — we would rather be the
+> front line and point you the right way than have a good report go nowhere. What this repository
+> can answer is narrow, though, so it is worth knowing who you are actually looking for:
+>
+> - **A question about how the API works, an account, billing, or a bug in the service** — that is
+>   the company's own support, not us. We profile this API; we do not operate it and cannot see
+>   your account.
+> - **A bug in an open-source project we only catalog** — file it on that project's own repository.
+>   This has happened with a real and correct bug report that reached us instead of the people who
+>   could fix it, which helped nobody.
+> - **Anything about this listing itself** — the description, the tags, the rating, a missing or
+>   wrong artifact — is ours. Open an issue here.
+> - **Not sure, or something general about API Evangelist or APIs.io** — open an issue on the
+>   [APIs.io Inbox](https://github.com/api-search/inbox) and we will route it.
+>
+> **This repository contains no software, and we will never ask you to download anything.** There is
+> no build, release, installer, or binary here — only text and machine-readable API descriptions, so
+> there is nothing here that can be "corrupt" or need "repairing". Any issue, comment, or email
+> claiming otherwise and offering a download link is not from us and is hostile. Do not follow the
+> link; it is a lure. Report it to GitHub and, if you like, tell us at
+> [info@apievangelist.com](mailto:info@apievangelist.com) so we can take it down.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
+Google's multimodal AI model APIs for text, image, audio, and video understanding.
+
+**APIs.json:** [https://ai.google.dev/](https://ai.google.dev/)
+
+## Scope
+
+- **Type:** Index
+
+## Tags
+
+- Agentic AI
+- Artificial Intelligence
+- Code Generation
+- Embeddings
+- Generative AI
+- Image Generation
+- LLM
+- Machine Learning
+- Multimodal
+
+## Timestamps
+
+- **Created:** 2024-01-01
+- **Modified:** 2026-05-29
+
+## APIs
+
+### Gemini API
+
+Generate content using Google's Gemini models with text, image, audio, and video inputs.
+
+- **Human URL:** [https://ai.google.dev/](https://ai.google.dev/)
+- **Base URL:** `https://generativelanguage.googleapis.com`
+
+#### Tags
+
+- Audio Understanding
+- Chat
+- Image Understanding
+- Multimodal
+- Structured Output
+- Text Generation
+- Video Understanding
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/docs)
+- [OpenAPI](openapi/google-gemini-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenAPI](https://generativelanguage.googleapis.com/$discovery/rest?version=v1beta) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [AsyncAPI](asyncapi/google-gemini-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [J S O N  Schema](json-schema/google-gemini-generate-content-schema.json)
+- [J S O N- L D  Context](json-ld/google-gemini-context.jsonld)
+- [Getting Started](https://ai.google.dev/tutorials/get_started_web)
+- [A P I  Keys](https://aistudio.google.com/app/apikey)
+- [Pricing](https://ai.google.dev/pricing)
+- [Rate Limits](https://ai.google.dev/docs/rate_limits)
+- [Models](https://ai.google.dev/models)
+- [API Reference](https://ai.google.dev/api)
+- [Quickstart](https://ai.google.dev/gemini-api/docs/quickstart)
+- [Changelog](https://ai.google.dev/gemini-api/docs/changelog)
+- [S D Ks](https://ai.google.dev/gemini-api/docs/libraries)
+- [Open A I  Compatibility](https://ai.google.dev/gemini-api/docs/openai)
+- [Safety  Settings](https://ai.google.dev/gemini-api/docs/safety-settings)
+- [Structured  Output](https://ai.google.dev/gemini-api/docs/structured-output)
+- [Token  Counting](https://ai.google.dev/gemini-api/docs/tokens)
+
+### Gemini Pro API
+
+Advanced reasoning and complex task handling.
+
+- **Base URL:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro`
+
+#### Tags
+
+- Reasoning
+- Text Generation
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/models/gemini)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Pro Vision API
+
+Multimodal understanding of text and images.
+
+- **Base URL:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision`
+
+#### Tags
+
+- Image Understanding
+- Multimodal
+- Vision
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/tutorials/prompting_with_media)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Ultra API
+
+Most capable model for highly complex tasks.
+
+- **Base URL:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-ultra`
+
+#### Tags
+
+- Advanced AI
+- Complex Tasks
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/models/gemini)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Embedding API
+
+Generate text embedding vectors for semantic search, classification, clustering, and retrieval tasks using the gemini-embedding-001 model.
+
+- **Human URL:** [https://ai.google.dev/gemini-api/docs/embeddings](https://ai.google.dev/gemini-api/docs/embeddings)
+- **Base URL:** `https://generativelanguage.googleapis.com`
+
+#### Tags
+
+- Embeddings
+- Retrieval
+- Semantic Search
+- Text Similarity
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/gemini-api/docs/embeddings)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Live API
+
+Low-latency real-time voice and video interactions with Gemini using WebSockets for streaming multimodal input and output.
+
+- **Human URL:** [https://ai.google.dev/gemini-api/docs/live](https://ai.google.dev/gemini-api/docs/live)
+- **Base URL:** `https://generativelanguage.googleapis.com`
+
+#### Tags
+
+- Multimodal
+- Real-Time
+- Streaming
+- Video
+- Voice
+- WebSockets
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/gemini-api/docs/live)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Context Caching API
+
+Cache input tokens for repeated use across multiple requests to reduce costs and improve latency for large context workloads.
+
+- **Human URL:** [https://ai.google.dev/gemini-api/docs/caching](https://ai.google.dev/gemini-api/docs/caching)
+- **Base URL:** `https://generativelanguage.googleapis.com`
+
+#### Tags
+
+- Caching
+- Cost Optimization
+- Performance
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/gemini-api/docs/caching)
+- [API Reference](https://ai.google.dev/api/caching)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Fine-Tuning API
+
+Customize Gemini model behavior for specific tasks using supervised fine-tuning with your own training data.
+
+- **Human URL:** [https://ai.google.dev/gemini-api/docs/model-tuning](https://ai.google.dev/gemini-api/docs/model-tuning)
+- **Base URL:** `https://generativelanguage.googleapis.com`
+
+#### Tags
+
+- Fine-Tuning
+- Model Customization
+- Supervised Learning
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/gemini-api/docs/model-tuning)
+- [API Reference](https://ai.google.dev/api/tuning)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Gemini Interactions API
+
+Unified interface for interacting with Gemini models and agents providing a consistent way to manage multi-turn conversations and tool use.
+
+- **Human URL:** [https://ai.google.dev/gemini-api/docs/interactions](https://ai.google.dev/gemini-api/docs/interactions)
+- **Base URL:** `https://generativelanguage.googleapis.com`
+
+#### Tags
+
+- Agents
+- Interactions
+- Multi-Turn
+- Tool Use
+
+#### Properties
+
+- [Documentation](https://ai.google.dev/gemini-api/docs/interactions)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Vertex AI Gemini API
+
+Enterprise-grade access to Gemini models through Google Cloud Vertex AI with advanced features including grounding, safety filters, and regional endpoints.
+
+- **Human URL:** [https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/inference](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/inference)
+- **Base URL:** `https://aiplatform.googleapis.com`
+
+#### Tags
+
+- Enterprise
+- Generative AI
+- Google Cloud
+- Vertex AI
+
+#### Properties
+
+- [Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/inference)
+- [API Reference](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/reference/rest)
+- [Quickstart](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart)
+- [Open A I  Compatibility](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/openai)
+- [Models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models)
+- [Release Notes](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/release-notes)
+- [Pricing](https://cloud.google.com/vertex-ai/pricing)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Vertex AI Imagen API
+
+Generate and edit images using Google Imagen models on Vertex AI for high-quality image creation from text prompts.
+
+- **Human URL:** [https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview)
+- **Base URL:** `https://aiplatform.googleapis.com`
+
+#### Tags
+
+- Google Cloud
+- Image Generation
+- Imagen
+- Text-To-Image
+
+#### Properties
+
+- [Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/overview)
+- [API Reference](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/imagen-api)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Vertex AI Gemini Live API
+
+Enterprise real-time multimodal streaming API on Vertex AI for building low-latency voice and video AI agents.
+
+- **Human URL:** [https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api)
+- **Base URL:** `https://aiplatform.googleapis.com`
+
+#### Tags
+
+- Enterprise
+- Real-Time
+- Streaming
+- Vertex AI
+- Video
+- Voice
+
+#### Properties
+
+- [Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api)
+- [API Reference](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/multimodal-live)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Vertex AI Text Embeddings API
+
+Generate text embeddings for semantic search and classification tasks using Google embedding models on Vertex AI.
+
+- **Human URL:** [https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings)
+- **Base URL:** `https://aiplatform.googleapis.com`
+
+#### Tags
+
+- Embeddings
+- Semantic Search
+- Text Similarity
+- Vertex AI
+
+#### Properties
+
+- [Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings)
+- [API Reference](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Firebase AI Logic API
+
+Access Gemini API capabilities through Firebase SDKs for mobile and web applications with built-in security and authentication.
+
+- **Human URL:** [https://firebase.google.com/docs/ai-logic](https://firebase.google.com/docs/ai-logic)
+- **Base URL:** `https://firebaseml.googleapis.com`
+
+#### Tags
+
+- Client-Side
+- Firebase
+- Mobile
+- Web
+
+#### Properties
+
+- [Documentation](https://firebase.google.com/docs/ai-logic)
+- [Getting Started](https://firebase.google.com/docs/ai-logic/get-started)
+- [Models](https://firebase.google.com/docs/ai-logic/models)
+- [Postman Collection](collections/google-gemini-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/google-gemini-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [Terms of Service](https://ai.google.dev/terms)
+- [Privacy Policy](https://policies.google.com/privacy)
+- [Status Page](https://status.cloud.google.com/)
+- [Support](https://ai.google.dev/docs/support)
+- [Blog](https://developers.googleblog.com/)
+- [GitHub Organization](https://github.com/google-gemini)
+- [Discord](https://discord.gg/google-dev)
+- [Forum](https://discuss.ai.google.dev/)
+- [Cookbook](https://github.com/google-gemini/cookbook)
+- [Google  A I  Studio](https://aistudio.google.com/)
+- [Safety  Guidance](https://ai.google.dev/gemini-api/docs/safety-guidance)
+- [Vertex  A I  Studio](https://cloud.google.com/generative-ai-studio)
+- [Google  Cloud  Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs)
+- [Agent Skill](https://github.com/google-gemini/gemini-skills)
+
+## Maintainers
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
